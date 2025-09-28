@@ -1,0 +1,76 @@
+{% extends 'restaurant/base.html' %}
+
+{% block title %}TeaBubble Corner - Home{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <h2>Welcome to TeaBubble Corner!</h2>
+    <p class="hero-subtitle">Your neighborhood's favorite bubble tea destination</p>
+</div>
+
+<div class="main-content">
+    <div class="content-section">
+        <div class="info-card">
+            <h3>About Us</h3>
+            <p>Welcome to TeaBubble Corner, your neighborhood's favorite bubble tea shop! We serve fresh, authentic bubble tea with premium ingredients and made-to-order perfection. From classic milk teas to refreshing fruit teas, we have something for everyone.</p>
+
+            <h3>Location & Contact</h3>
+            <div class="contact-info">
+                <p><strong>📍 Address:</strong> 123 College Avenue, Boston, MA 02215</p>
+                <p><strong>📞 Phone:</strong> (617) 555-BOBA</p>
+                <p><strong>✉️ Email:</strong> hello@teabubblecorner.com</p>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            {% load static %}
+            <img src="{% static 'images/bubble-tea.jpeg' %}"
+                 alt="Fresh bubble tea with tapioca pearls" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=300&h=200&fit=crop&crop=center"
+                 alt="Cozy cafe interior with comfortable seating" style="width: 100%; border-radius: 8px;">
+        </div>
+    </div>
+</div>
+
+<div class="hours-section">
+    <h3>⏰ Hours of Operation</h3>
+    <div class="hours-table">
+        <div class="hours-row header">
+            <div class="day">Day</div>
+            <div class="hours">Hours</div>
+        </div>
+        <div class="hours-row">
+            <div class="day">Monday</div>
+            <div class="hours">8:00 AM - 9:00 PM</div>
+        </div>
+        <div class="hours-row alt">
+            <div class="day">Tuesday</div>
+            <div class="hours">8:00 AM - 9:00 PM</div>
+        </div>
+        <div class="hours-row">
+            <div class="day">Wednesday</div>
+            <div class="hours">8:00 AM - 9:00 PM</div>
+        </div>
+        <div class="hours-row alt">
+            <div class="day">Thursday</div>
+            <div class="hours">8:00 AM - 9:00 PM</div>
+        </div>
+        <div class="hours-row">
+            <div class="day">Friday</div>
+            <div class="hours">8:00 AM - 10:00 PM</div>
+        </div>
+        <div class="hours-row alt">
+            <div class="day">Saturday</div>
+            <div class="hours">9:00 AM - 10:00 PM</div>
+        </div>
+        <div class="hours-row">
+            <div class="day">Sunday</div>
+            <div class="hours">10:00 AM - 8:00 PM</div>
+        </div>
+    </div>
+</div>
+
+<div class="cta-section">
+    <a href="/jacklee/cs412/restaurant/order/" class="order-button">🛒 Order Now!</a>
+</div>
+{% endblock %}

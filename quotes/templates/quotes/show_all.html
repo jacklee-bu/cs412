@@ -1,0 +1,28 @@
+{% extends 'quotes/base.html' %}
+
+{% block title %}All Einstein Quotes{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>All Einstein Quotes</h2>
+    
+    <h3>Quotes</h3>
+    <div class="quote-grid">
+        {% for quote in quotes %}
+        <div class="card">
+            <div class="quote">
+                "{{ quote }}"
+            </div>
+            <p style="text-align: center; font-style: italic;">- Albert Einstein</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <h3>Images</h3>
+    <div class="image-grid">
+        {% for image in images %}
+        <img src="{{ image }}" alt="Albert Einstein">
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

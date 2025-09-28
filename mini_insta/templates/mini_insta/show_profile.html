@@ -1,0 +1,46 @@
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}{{ profile.display_name }} - Mini Insta{% endblock %}
+
+{% block content %}
+<center>
+    <img src="{{ profile.profile_image_url }}" alt="{{ profile.display_name }}"
+         width="120" height="120" style="border: 2px solid black;">
+
+    <h1>{{ profile.display_name }}</h1>
+    <p><b>@{{ profile.username }}</b></p>
+</center>
+
+<hr>
+
+<h3 style="color: green;">About This User:</h3>
+<p>
+    {% if profile.bio_text %}
+        {{ profile.bio_text }}
+    {% else %}
+        No bio provided.
+    {% endif %}
+</p>
+
+<table border="1" style="margin-top: 20px; background-color: lightyellow;">
+    <tr>
+        <td><strong>Username:</strong></td>
+        <td>{{ profile.username }}</td>
+    </tr>
+    <tr>
+        <td><strong>Display Name:</strong></td>
+        <td>{{ profile.display_name }}</td>
+    </tr>
+    <tr>
+        <td><strong>Member Since:</strong></td>
+        <td>{{ profile.join_date|date:"F d, Y" }}</td>
+    </tr>
+</table>
+
+<br>
+<p>
+    <a href="{% url 'mini_insta:show_all_profiles' %}" style="color: blue; text-decoration: underline;">
+        &lt;-- Go Back to All Profiles
+    </a>
+</p>
+{% endblock %}

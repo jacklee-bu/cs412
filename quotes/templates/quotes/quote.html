@@ -1,0 +1,18 @@
+{% extends 'quotes/base.html' %}
+
+{% block title %}Random Einstein Quote{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Quote of the Day</h2>
+    <div class="quote">
+        "{{ quote }}"
+    </div>
+    <div class="image-container">
+        <img src="{{ image }}" alt="Albert Einstein" class="einstein-image">
+    </div>
+    <p style="text-align: center; margin-top: 20px;">
+        <em>- Albert Einstein</em>
+    </p>
+</div>
+{% endblock %}

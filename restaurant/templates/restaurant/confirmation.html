@@ -1,0 +1,60 @@
+{% extends 'restaurant/base.html' %}
+
+{% block title %}TeaBubble Corner - Order Confirmation{% endblock %}
+
+{% block content %}
+<div class="order-form">
+    <h2>✅ Order Confirmation</h2>
+
+    <div class="success-message">
+        <h3>Thank you for your order!</h3>
+        <p>Your bubble tea order has been placed successfully.</p>
+    </div>
+
+    {% if ordered_items %}
+    <div class="order-summary">
+        <h3>📋 Order Details</h3>
+        <h4>Items Ordered:</h4>
+        <ul style="list-style: none; padding: 0;">
+            {% for item in ordered_items %}
+                <li style="margin: 0.8rem 0; padding: 0.5rem; background-color: #f9f9f9; border-radius: 6px;">{{ item }}</li>
+            {% endfor %}
+        </ul>
+        <div class="order-total">Total: ${{ total_price }}</div>
+    </div>
+
+    <div class="customer-summary">
+        <h3>👤 Customer Information</h3>
+        <p><strong>Name:</strong> {{ customer_name }}</p>
+        <p><strong>Phone:</strong> {{ customer_phone }}</p>
+        <p><strong>Email:</strong> {{ customer_email }}</p>
+        {% if special_instructions %}
+            <p><strong>Special Instructions:</strong> {{ special_instructions }}</p>
+        {% endif %}
+    </div>
+
+    <div class="pickup-info">
+        <h3>⏰ Pickup Information</h3>
+        <p style="margin: 0; font-size: 1.2rem;"><strong>Estimated Ready Time:</strong> {{ pickup_time }}</p>
+        <p style="margin: 0.5rem 0 0 0;">Please arrive at our store around this time to pick up your order.</p>
+    </div>
+
+    <div class="action-buttons">
+        <a href="/jacklee/cs412/restaurant/main/">🏠 Back to Home</a>
+        <a href="/jacklee/cs412/restaurant/order/" class="primary">🛒 Order Again</a>
+    </div>
+
+    {% else %}
+    <div class="order-summary">
+        <div style="color: #721c24; background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%); padding: 1.5rem; border-radius: 12px; text-align: center;">
+            <h4>No items were selected</h4>
+            <p>Please go back and select items to order.</p>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <a href="/jacklee/cs412/restaurant/order/" class="primary">🛒 Go Back to Order</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

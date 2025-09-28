@@ -1,0 +1,90 @@
+{% extends 'restaurant/base.html' %}
+
+{% block title %}TeaBubble Corner - Order Online{% endblock %}
+
+{% block content %}
+<div class="order-form">
+    <h2>🧋 Order Your Bubble Tea</h2>
+
+    <form method="post" action="/jacklee/cs412/restaurant/confirmation/">
+        {% csrf_token %}
+
+        <div class="menu-section">
+            <h3>📋 Our Menu</h3>
+            <h4>Regular Menu Items</h4>
+
+            <div class="menu-item">
+                <input type="checkbox" id="classic_milk_tea" name="classic_milk_tea" value="1">
+                <label for="classic_milk_tea">Classic Milk Tea - $5.50</label>
+                <p class="description">Our signature milk tea with your choice of tapioca pearls or crystal boba</p>
+            </div>
+
+            <div class="menu-item">
+                <input type="checkbox" id="thai_tea" name="thai_tea" value="1">
+                <label for="thai_tea">Thai Tea - $6.00</label>
+                <p class="description">Creamy orange-colored tea with condensed milk and choice of toppings</p>
+            </div>
+
+            <div class="menu-item">
+                <input type="checkbox" id="mango_green_tea" name="mango_green_tea" value="1">
+                <label for="mango_green_tea">Mango Green Tea - $5.75</label>
+                <p class="description">Refreshing green tea with fresh mango flavor and popping mango bubbles</p>
+            </div>
+
+            <div class="menu-item">
+                <input type="checkbox" id="strawberry_smoothie" name="strawberry_smoothie" value="1">
+                <label for="strawberry_smoothie">Strawberry Smoothie - $6.25</label>
+                <p class="description">Thick and creamy strawberry smoothie with fresh fruit pieces and your choice of boba</p>
+            </div>
+
+            <div class="menu-item">
+                <input type="checkbox" id="honeydew_milk_tea" name="honeydew_milk_tea" value="1">
+                <label for="honeydew_milk_tea">Honeydew Milk Tea - $5.75</label>
+                <p class="description">Sweet and refreshing honeydew flavored milk tea with traditional tapioca pearls</p>
+            </div>
+
+            <div class="menu-item">
+                <input type="checkbox" id="oolong_tea" name="oolong_tea" value="1">
+                <label for="oolong_tea">Premium Oolong Tea - $4.50</label>
+                <p class="description">Traditional Chinese oolong tea served hot or cold with optional honey</p>
+            </div>
+        </div>
+
+        <div class="daily-special">
+            <h4>Today's Daily Special - $6.50</h4>
+            <div class="menu-item">
+                <input type="checkbox" id="daily_special" name="daily_special" value="1">
+                <input type="hidden" name="daily_special_name" value="{{ daily_special }}">
+                <label for="daily_special">{{ daily_special }}</label>
+                <p class="description">Our chef's special creation of the day - limited availability!</p>
+            </div>
+        </div>
+
+        <div class="customer-info">
+            <h3>👤 Customer Information</h3>
+
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="instructions">Special Instructions (optional):</label>
+                <textarea id="instructions" name="instructions" rows="3" placeholder="Any special requests for your order..."></textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="submit-button">🛒 Place Order</button>
+    </form>
+</div>
+{% endblock %}

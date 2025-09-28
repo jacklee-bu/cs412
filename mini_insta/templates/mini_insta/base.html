@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Mini Insta{% endblock %}</title>
+    <style>
+        body {
+            font-family: Times;
+            margin: 10px;
+            background-color: lightblue;
+        }
+        .main-container {
+            background-color: white;
+            padding: 15px;
+            margin: 5px;
+        }
+        .navigation {
+            background-color: yellow;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        .navigation a {
+            color: blue;
+            font-weight: bold;
+        }
+        h1 {
+            color: black;
+            text-align: center;
+            font-size: 24px;
+        }
+        .navigation a:hover {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="navigation">
+            <a href="{% url 'mini_insta:show_all_profiles' %}">All Profiles</a>
+        </div>
+
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
