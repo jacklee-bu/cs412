@@ -24,6 +24,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('cs412/admin/', admin.site.urls),
+    path('cs412/quotes/', include('quotes.urls')),
+    path('cs412/restaurant/', include('restaurant.urls')),
+    path('cs412/mini_insta/', include('mini_insta.urls')),
     path('quotes/', include('quotes.urls')),
     path('restaurant/', include('restaurant.urls')),
     path('mini_insta/', include('mini_insta.urls')),
