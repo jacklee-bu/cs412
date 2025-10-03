@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://cs-people.bu.edu/azs/cs412/assignments/a4.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Assignment 4: Using Multiple Models; Creating Model Data — CS412, Boston University</title>
+
+<meta name="description" content="Course website for CS412, Boston University.">
+<link rel="stylesheet" href="./A4_files/style.css">
+<!-- 
+<link rel="icon" type="image/x-icon" href="http://cs-people.bu.edu/azs/cs412/img/favicon.ico"> 
+<link rel="mask-icon" href="http://cs-people.bu.edu/azs/cs412/img/111.svg" color="#cc0000">
+-->
+<script src="./A4_files/respond.min.js"></script>
+<script src="./A4_files/html5shiv.js"></script>
+<script src="./A4_files/cs111.js"></script>
+<meta name="viewport" content="width=device-width, user-scalable=yes">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+</head>
+
+<body onload="setup();">
+
+<div id="left">
+<a id="header" href="http://cs-people.bu.edu/azs/cs412/">
+CS412
+</a>
+<div id="subheader">
+Fall 2025
+</div>
+
+<nav>
+<ul>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/index.html">Home</a></li>
+    <li><a href="https://learn.bu.edu/" target="_top">Blackboard</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/files/syllabus.pdf">Syllabus</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/staff.html">Staff</a></li>
+	<li><a href="http://cs-people.bu.edu/azs/cs412/assignments/">Assignments</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/resources.html">Resources</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/collaboration.html">Collaboration</a></li>
+</ul>
+<ul class="external">
+    <li><a href="https://piazza.com/bu/fall2025/cs412" target="_blank">Piazza Discussion</a></li>
+    <li><a href="https://www.gradescope.com/courses/1103701" target="_blank">Gradescope</a></li> 
+<!--
+    <li><a href="http://cs-people.bu.edu/azs/cs412/policies.html">Policies</a></li>
+    -->
+</ul>
+</nav>
+
+</div><!-- end #left -->
+
+<div id="middle">
+<section class="main">
+<h1 id="assignment-4-using-multiple-models-creating-model-data">Assignment 4: Using Multiple Models; Creating Model Data</h1>
+<div class="toc">
+<ul>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a4.html#assignment-4-using-multiple-models-creating-model-data">Assignment 4: Using Multiple Models; Creating Model Data</a><ul>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a4.html#learning-objectives">Learning Objectives</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a4.html#pre-requisites-assignments-3">Pre-requisites: Assignments 3</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a4.html#case-study-mini-insta">Case Study: Mini Insta</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a4.html#preliminaries">Preliminaries</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a4.html#continue-working-on-the-mini_insta-application">Continue working on the mini_insta Application</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a4.html#task-1-modeling-and-displaying-posts-and-photos">Task 1: Modeling and Displaying Posts and Photos</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a4.html#task-2-creating-a-new-post">Task 2: Creating a new Post</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a4.html#deployment-to-cs-webapps">Deployment to cs-webapps</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a4.html#submitting-your-work">Submitting Your Work</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><em>due by <font color="blue"></font></em><font color="blue"><em>9:00 p.m. EDT on Friday 10/3/2025</em></font> </p>
+<h3 id="learning-objectives">Learning Objectives</h3>
+<p>After completing this assignment, students will be able to:</p>
+<ul>
+<li>
+<p>Use generic <code>ListView</code> and <code>DetailView</code> to display records from the database. </p>
+</li>
+<li>
+<p>Implement a 1-to-many relationship among data models.</p>
+</li>
+<li>
+<p>Create custom templates to display model data, including 1-to-many relationship data.</p>
+</li>
+<li>
+<p>Handle HTTP GET and POST requests for HTML form display and submission. </p>
+</li>
+<li>
+<p>Use HTML forms to create model data records.</p>
+</li>
+<li>
+<p>Write HTML templates to display HTML forms.</p>
+</li>
+<li>
+<p>Create appropriate URL patterns to perform CRUD actions on specific object instances,
+    and to provide object information to views. </p>
+</li>
+<li>
+<p>Inherit from the Django generic <code>CreateView</code>, to process form data submissions.</p>
+</li>
+<li>
+<p>Customize the generic <code>CreateView</code> class to set foreign-keys when creating 1-to-many 
+    relationships.</p>
+</li>
+</ul>
+<hr>
+<h3 id="pre-requisites-assignments-3">Pre-requisites: Assignments 3</h3>
+<p>Assignment 4 builds upon the case study you began in Assignment 3.</p>
+<p>You must have completed Assignment 3 before you begin Assignment 4. </p>
+<h3 id="case-study-mini-insta">Case Study: Mini Insta</h3>
+<p>This assignment is part of an in-depth case study to develop a data-enabled web application.
+In the entire case-study, you will simulate the core features of the Instagram social 
+networking application. Over the course of 5 parts, you will implement:</p>
+<ul>
+<li>Viewing, creating, and updating user profiles</li>
+<li>Viewing and creating posts</li>
+<li>Uploading images</li>
+<li>Viewing and adding followers</li>
+<li>Developing a feed to show posts from Profiles one is following</li>
+<li>Incorporating user accounts, authentication (login), and registration</li>
+</ul>
+<p>This assignment is the second part of the case study.</p>
+<p>Here is a sample implementation: 
+<a href="https://cs-webapps.bu.edu/azs/cs412/mini_insta2/" target="_blank">
+MiniInsta part 2</a>.</p>
+<p>You <strong>do not</strong> need to match the data of this example, or even the way it is formatted. 
+The look and feel of the application, as well as the data you dispaly, is entirely up to you.</p>
+<h3 id="preliminaries">Preliminaries</h3>
+<p>In your work on this assignment, make sure to abide by the
+<a href="https://cs-people.bu.edu/azs/cs412/collaboration.html">collaboration policies</a> of the course.  </p>
+<p>If you have questions while working on this assignment, please post them on <a href="https://piazza.com/bu/summer2025/cs412">Piazza!</a>
+This is the best way to get a quick response from your classmates and the course staff. </p>
+<p>For each problem in this problem set, we will be writing or evaluating some Python code.
+You are encouraged to use the VS Code IDE which will be discuss/presented in class, 
+but you are welcome to use another IDE if you choose.</p>
+<div class="admonition note">
+<p class="admonition-title">Important Guidelines: Comments and Docstrings</p>
+<ul>
+<li>
+<p>Refer to the class <a href="https://cs-people.bu.edu/azs/cs412/assignments/coding_standards">Coding Standards</a> for important
+    style guidelines. The grader will be awarding/deducting points for writing
+    code that comforms to these standards. </p>
+</li>
+<li>
+<p>Every program file must begin with a descriptive header comment that includes
+    your name, username/BU email, and a brief description of the work contained in 
+    the file.</p>
+</li>
+<li>
+<p>Every function/method must include a descriptive docstring that explains what the 
+    function does and identifies/defines each of the parameters to the function.</p>
+</li>
+</ul>
+</div>
+<h3 id="continue-working-on-the-mini_insta-application">Continue working on the <code>mini_insta</code> Application</h3>
+<p>Continue to do this work within your existing Django project, within the  <code>mini_insta</code>.
+application that you worked on in Assignment 3. </p>
+<h3 id="task-1-modeling-and-displaying-posts-and-photos">Task 1: Modeling and Displaying Posts and Photos</h3>
+<ol>
+<li>
+<p>Create a new model called <code>Post</code>, which will model the data attributes of an 
+    Instagram post. 
+    This <code>Post</code> model will need to include the following data attributes: </p>
+<ul>
+<li><code>profile</code> (the foreign key to indicate the relationship to the <code>Profile</code> 
+    of the creator of this post) </li>
+<li><code>timestamp</code> (the time at which this post was created/saved)</li>
+<li><code>caption</code> (the optional text associated with this post)</li>
+</ul>
+<p>Here is a diagram of the models and their relationships:</p>
+<p><img src="./A4_files/mini-insta-models-post.png" height="125"></p>
+<p><em>The foreign key is how we model a relationship between different kinds of objects.
+In this case, we are defining the relationship such that every <code>Post</code> object
+is related to a single <code>Profile</code> object.</em></p>
+<p>Be sure to create a <code>__str__</code> method on this class to return a string representation 
+of this object.</p>
+</li>
+<li>
+<p>Create a new model called <code>Photo</code>, which will model the data attributes of an 
+    image associated with a <code>Post</code>. 
+    This <code>Photo</code> model will need to include the following data attributes: </p>
+<ul>
+<li><code>post</code> (the foreign key to indicate the relationship to the <code>Post</code> to which this
+    <code>Photo</code> is associated. </li>
+<li><code>image_url</code> (a valid URL to an image stored on the public world-wide web)</li>
+<li><code>timestamp</code> (the time at which this <code>Photo</code> was created/saved)</li>
+</ul>
+<p>Here is a diagram of the models and their relationships:</p>
+<p><img src="./A4_files/mini-insta-models-post-photo.png" height="125"></p>
+<p><em>The foreign key is how we model a relationship between different kinds of objects.
+In this case, we are defining the relationship such that every <code>Photo</code> object
+is related to a single <code>Post</code> object.</em></p>
+<p>Be sure to create a <code>__str__</code> method on this class to return a string representation 
+of this object.</p>
+</li>
+<li>
+<p>Use the Django admin to create some sample data:</p>
+<ul>
+<li>
+<p>Create 3 sample <code>Post</code>s, for at least 2 different <code>Profiles</code>, with any 
+    content/captions of your choosing.</p>
+</li>
+<li>
+<p>Create at least 3 sample <code>Photo</code>s, associated with 2 different <code>Posts</code>. 
+     That is: at least one <code>Post</code> should have more than one <code>Photo</code>. </p>
+</li>
+</ul>
+</li>
+<li>
+<p>Create accessor methods to retrieve related model data. </p>
+<ul>
+<li>
+<p>In the <code>Profile</code> class, define an accessor method <code>get_all_posts</code> to find and 
+    return all <code>Post</code>s for a given <code>Profile</code>. 
+    The return type will be a <code>QuerySet</code> containing <code>Post</code>s.</p>
+</li>
+<li>
+<p>In the <code>Post</code> class, define an accessor method <code>get_all_photos</code> to find and return
+    all <code>Photo</code>s for a given <code>Post</code>.<br>
+    The return type will be a <code>QuerySet</code> containing <code>Photo</code>s.</p>
+</li>
+</ul>
+<p><strong>Hint: Use the object manager to filter <code>Post</code> objects by their 
+<code>profile</code> (foreign key), and order them by timestamp.</strong></p>
+</li>
+<li>
+<p>Edit your <code>show_profile.html</code> template to add the display of <code>Post</code>s. </p>
+<p>For each <code>Post</code>, you should display the first <code>Photo</code> associated with that <code>Post</code>.
+If there is no <code>Photo</code> associated with the <code>Post</code>, display an alternate image 
+indicating that there is “no image.”</p>
+</li>
+<li>
+<p>Create a view, template, and URL pattern to display a single <code>Post</code>. </p>
+<p>The view should be called <code>PostDetailView</code>, and the template should be called
+<code>show_post.html</code>. 
+The URL pattern should be in the form: <code>'http://127.0.0.1:8000/mini_insta/post/&lt;int:pk&gt;'</code>,
+where <code>&lt;int:pk&gt;</code> will be replaced by the primary key for the <code>Post</code> being shown.</p>
+<p>On the page to show the post, display the post caption and timestamp, as well
+as all <code>Photo</code>s associated with this <code>Post</code>. You may choose how to arrange these on 
+the page, for example using a <code>table</code> or <code>div</code> elements within a grid layout. </p>
+<p>Finally, on the <code>show_profile_page.html</code> template, add a link from each <code>Post</code> to
+retrieve it’s detail page. </p>
+</li>
+<li>
+<p>Test your page! Try this URL pattern: <code>'http://127.0.0.1:8000/mini_insta/</code>.
+    Follow the link to any profile that has posts, and view that page.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Important: Add files to git!</p>
+<ul>
+<li>
+<p>You’ve just reached a good stopping point. </p>
+</li>
+<li>
+<p>This is an excellent time to add your files to git, commit your changes, 
+    and push your changes to GitHub before anything gets F@&amp;#ed up. </p>
+</li>
+</ul>
+</div>
+<h3 id="task-2-creating-a-new-post">Task 2: Creating a new <code>Post</code></h3>
+<p>In this Task, you will create a form to collect inputs to create a new <code>Post</code>.
+For example:</p>
+<p><img src="./A4_files/mini-insta-create-post-form.png"></p>
+<ol>
+<li>
+<p>Within the <code>mini_insta</code> application folder, create the new file <code>forms.py</code>. 
+    In this file, add the following import statements at the top:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+
+
+<p>Create a class <code>CreatePostForm</code> which inherits from <code>forms.ModelForm</code>. 
+Be sure to specify the inner-class <code>Meta</code>, which relates this form to the 
+<code>Post</code> model.</p>
+<p>Also, specify the list of <code>fields</code> that this form should set (i.e., the 
+data attributes of the <code>Post</code> class).</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note: How Django displays HTML Form Fields</p>
+<ul>
+<li>
+<p>By default, Django will choose which type of HTML form fields to use, based on 
+    the data types of the fields in your model. </p>
+<p>For example, when your form has a <code>model.TextField</code>, Django will use a <code>&lt;textarea&gt;</code> 
+(multi-line text input box). Often, this is OK. For this assignment it is fine, 
+and you can get full functionality and points using the defaults.</p>
+</li>
+<li>
+<p>If you want to customize how the HTML form displays, you can explicitly tell 
+    Django which type of form field to use. </p>
+</li>
+<li>
+<p>See the details in the <a href="https://docs.djangoproject.com/en/2.2/ref/forms/fields/#">Django Forms Documentation</a> page.</p>
+</li>
+</ul>
+</div>
+<ol start="2">
+<li>
+<p>Create the template file <code>mini_insta/create_post_form.html</code>, to render the HTML form.
+    Your form must:</p>
+<ul>
+<li>define the <code>&lt;form&gt;</code> tags, and set the form’s method to <code>POST</code></li>
+<li>include the django-created <code>csrf_token</code> as a form field (as you did in the example video)</li>
+<li>provide a submit button and a cancel button</li>
+<li>do not include the <code>Profile</code> as one of the fields in this form. 
+    It looks awkward on the screen, and anyway the <code>profile</code> will be specified by 
+    the URL which will process the creation of the <code>Post</code>.</li>
+</ul>
+<p>You may use your discretion/imagination about how this template should display the 
+form fields, but you must include labels for each field to show what input is expected.
+Upon submission, your form will be handled by the generic <code>CreateView</code> class, which
+will create a new record for this model and store it in the database. </p>
+<p><strong>Important design notes:</strong></p>
+<p>Recall that <code>Photo</code>s are stored separately from <code>Post</code>s,
+which is required to enable the “one post can have many photos” relationship. 
+As a consequence, we will need a way to include the important information for a <code>Photo</code> (i.e., its <code>image_url</code> attribute), which is <strong>not</strong> part of the <code>Post</code> object.
+To do this, add an explicit HTML form field for the <code>image_url</code> to the form.
+We will return to this in a future assignment to enable 
+(a) uploading images instead of specifying the URL and 
+(b) handling multiple images instead of just one. 
+For now, we will use an <code>image_url</code> and assume creating one single <code>Photo</code> per <code>Post</code>.</p>
+</li>
+<li>
+<p>Edit the file <code>views.py</code> to add a view called <code>CreatePostView</code> to handle 
+    the form submission. We will again use the generic <code>CreateView</code> as a base class, 
+    but it will <strong>require some additional work</strong> that was not required in the pre-class
+    example. </p>
+<p>Specifically, the <code>Post</code> requires a foreign key to relate it to a <code>Profile</code> object,
+and a <code>Photo</code> requires a foreign key to relate it to a <code>Post</code> object. 
+We will return to these below. For now, set up the <code>template_name</code> and <code>form_class</code>.</p>
+<p>Create a URL mapping to route requests from the URL pattern 
+<code>'profile/&lt;int:pk&gt;/create_post'</code>, associate it with the <code>CreatePostView</code>, 
+and name this URL <code>create_post</code>. </p>
+<p><strong><em>Note: there are several ways to go about solving the issue of attaching the foreign
+key to the Post object. 
+These instructions walk you through one approach using the generic CreateView.</em></strong></p>
+<p><strong>First Complication: Implementing <code>get_context_data</code> method</strong></p>
+<p>Try this URL: <code>http://127.0.0.1:8000/mini_insta/profile/1/create_post</code>. 
+(Use another primary key if you have no object numbered 1).</p>
+<p>You should be able to display the <code>create_post_form.html</code> template.
+When you try submitting it, it gets complicated.</p>
+<p>When you try to create the submission URL (the form <code>action</code>), you will need
+to provide the parameter <code>profile.pk</code> (i.e., identifying the <code>Profile</code> to which this
+<code>Post</code> corresponds) as part of that URL.</p>
+<p>To have access to this as a context variable, you will need to implement the
+special method <code>get_context_data</code> on the <code>CreatePostView</code> class. </p>
+<p>There is a special attribute called <code>self.kwargs</code>, which is accessible within the 
+methods on the <code>CreateView</code> and its subclasses.  <code>self.kwargs</code> is a dictionary 
+containing any URL parameters, and the value <code>self.kwargs['pk']</code> is the primary key 
+of the <code>Profile</code> corresponding to the URL pattern. </p>
+<p>In the <code>get_context_data</code> method: begin with the context dictionary from the superclass.
+Find the <code>Profile</code> object (corresponding to <code>self.pk</code>), add the <code>Profile</code> object 
+(call the context variable <code>profile</code>, for consistency with how things worked on other 
+pages). Now you will have access to the context variable <code>profile</code> within the 
+<code>create_post_form.html</code> template. Use the <code>profile.pk</code> to help generate the URL to 
+which the form should be submitted, e.g., the form action
+<code>'http://127.0.0.1:8000/mini_insta/profile/1/create_post'</code>.</p>
+<p><strong>Second complication: Implementing the <code>form_valid</code> method</strong></p>
+<p>Test out this URL again. You should now be able to display/submit the <code>create_post_form.html</code>. 
+<code>create_post_form.html</code> template. When you try to submit the form, you should see an 
+error that <code>NOT NULL constraint failed: mini_insta_post.profile_id</code>.
+Basically, you cannot create/save a <code>Post</code> without setting the <code>profile</code> attribute.</p>
+<p>To solve this problem, you will need to write some custom code within the 
+<code>CreatePostView</code> class, to attach the <code>Profile</code> to the <code>Post</code> before submission. 
+Implement the method <code>form_valid</code> on the <code>CreatePostView</code> class to: 
+(a) look up the <code>Profile</code> object by its <code>pk</code>. You can find this <code>pk</code> in <code>self.kwargs['pk']</code>.
+(b) attach this object to the <code>profile</code> attribute of the post. 
+Now you will be able to save the <code>Post</code> successfully.</p>
+<p>Also in the <code>form_valid</code> method: use the data from the <code>request.POST</code> object to
+create a new <code>Photo</code> for this <code>post</code>, and set the <code>post</code> attribute as a foreign key (on the <code>Photo</code>). </p>
+<p>After successfully creating a <code>Post</code>, Django should automagically redirect you to the
+page to show that post (i.e., the <code>DetailView</code> associated with class <code>Post</code>. )</p>
+<p><em>Finally</em>: be sure to include a “cancel” or “back” button to be able to navigate
+from the “create post” page back to the “profile” page.</p>
+</li>
+<li>
+<p>Edit the <code>base.html</code> template, and add a link to the bottom-of-screen navigation, 
+    to bring up the <code>create_post</code> page (in its own page view). </p>
+<p><strong>Note:</strong> to be able to create a <code>Post</code>, we need to know the <code>profile</code> for whom the 
+<code>Post</code> should be created. This is only possible if the <code>profile</code> is part of the 
+context data for the page. Use decision-logic to show/not show this navigation button
+as appropriate (i.e., only when you have a <code>profile</code> in the context data.)</p>
+</li>
+<li>
+<p>Testing!! Start at your main <code>/mini_insta</code> URL, and pick any existing profile. 
+    You should see the profile page, with a form to post a post.
+    Write something witty in the form, and use the submit button to submit it to the server. </p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Important: Add files to git!</p>
+<ul>
+<li>
+<p>You’ve just reached a good stopping point. </p>
+</li>
+<li>
+<p>This is an excellent time to add your files to git, commit your changes, 
+    and push your changes to GitHub  before anything gets F@&amp;#ed up. </p>
+</li>
+</ul>
+</div>
+<hr>
+<h3 id="deployment-to-cs-webapps">Deployment to <code>cs-webapps</code></h3>
+<ol>
+<li>Deploy your web application to the <code>cs-webapps.bu.edu</code>.</li>
+</ol>
+<p>Follow the <a href="https://cs-people.bu.edu/azs/cs412/deployment">deployment instructions here</a>.</p>
+<ol start="2">
+<li>
+<p>Test your web application on <code>cs-webapps.bu.edu</code> to ensure that everything works correctly.</p>
+</li>
+<li>
+<p>Resolve any deployment issues.</p>
+</li>
+</ol>
+<hr>
+<h3 id="submitting-your-work">Submitting Your Work</h3>
+<p><em>10 points;</em> will be assigned by the autograder, verifying that you have submitted the
+correct files/URL, and testing that you website exists at the specified URL.
+<em>90 points;</em> will be testing your application and code review</p>
+<p>Log in to <a href="https://www.gradescope.com/courses/1040066">GradeScope</a> to submit your work. </p>
+<p><em>Be sure to name your files correctly!</em></p>
+<ol>
+<li>
+<p>Create a text file within your main django directory called <code>mini_insta_url.txt</code>, containing 
+    the URL to your web page, and nothing else. </p>
+<p>For example: <code>https://cs-webapps.bu.edu/azs/cs412/mini_insta/</code>.</p>
+<p>This file will be used by the autograder to locate your web page, so you must get 
+the URL exactly correct, and you must not include any other text or code in the file.</p>
+</li>
+<li>
+<p>Add the teaching staff as collaborators to your GitHub repository 
+    with <code>bu-cs412</code>. Read-only access is fine.</p>
+<p>Create a text file called <code>github_url.txt</code> in the root of your project
+(e.g., <code>django</code> directory). Paste your GitHub URL in the file.</p>
+<p><em>Add these files to your git repository</em> using </p>
+<div class="codehilite"><pre><span></span>`git add -A`.
+</pre></div>
+
+
+<p><em>Commit this to your git repository</em>, using </p>
+<div class="codehilite"><pre><span></span>`git commit -m "Added mini_insta_url.txt"`
+</pre></div>
+
+
+<p><em>Push it to GitHub</em>, using </p>
+<div class="codehilite"><pre><span></span>`git push origin main`
+</pre></div>
+
+
+</li>
+<li>
+<p>Log in to <a href="https://www.gradescope.com/courses/1040066">GradeScope</a> to submit your work. </p>
+<p>In the Gradescope upload page, upload these two files:</p>
+<ul>
+<li>
+<p><code>mini_insta_url.txt</code></p>
+</li>
+<li>
+<p><code>github_url.txt</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong><em>Notes:</em></strong> </p>
+<ul>
+<li>
+<p>Upload these files to Gradescope before the deadline. </p>
+</li>
+<li>
+<p>When you upload, the autograder script will process your file(s). </p>
+</li>
+<li>
+<p>You may resubmit as many times as you like before the deadline, and only the grade 
+     from the last submission will be counted. </p>
+</li>
+</ul>
+</section>
+
+<footer>
+Last modified on October  3, 2025.
+</footer>
+
+</div>
+
+<div id="right">
+</div>
+
+
+
+
+
+</body></html>

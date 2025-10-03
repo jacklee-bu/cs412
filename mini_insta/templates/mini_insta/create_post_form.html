@@ -1,0 +1,35 @@
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}Create Post - Mini Insta{% endblock %}
+
+{% block content %}
+<h2>Create a New Post</h2>
+<p>Creating post for: <strong>{{ profile.display_name }}</strong></p>
+
+<form method="POST" action="{% url 'mini_insta:create_post' profile.pk %}">
+    {% csrf_token %}
+
+    <table border="1" style="background-color: lightyellow; padding: 10px;">
+        <tr>
+            <td><label for="id_caption">Caption:</label></td>
+            <td>{{ form.caption }}</td>
+        </tr>
+        <tr>
+            <td><label for="id_image_url">Image URL:</label></td>
+            <td>
+                <input type="url" name="image_url" id="id_image_url"
+                       style="width: 400px;" required>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+    <button type="submit" style="padding: 5px 15px; background-color: lightgreen;">
+        Submit Post
+    </button>
+    <a href="{% url 'mini_insta:show_profile' profile.pk %}"
+       style="padding: 5px 15px; background-color: lightcoral; text-decoration: none; color: black;">
+        Cancel
+    </a>
+</form>
+{% endblock %}

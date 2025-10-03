@@ -38,6 +38,42 @@
 </table>
 
 <br>
+<hr>
+<h3 style="color: green;">Posts</h3>
+
+<div style="display: flex; flex-wrap: wrap; gap: 15px;">
+    {% for post in profile.get_all_posts %}
+        <div style="border: 1px solid gray; padding: 10px; width: 200px;">
+            {% with post.get_all_photos.first as first_photo %}
+                {% if first_photo %}
+                    <a href="{% url 'mini_insta:post_detail' post.pk %}">
+                        <img src="{{ first_photo.image_url }}" alt="Post image"
+                             style="width: 100%; height: 200px; object-fit: cover;">
+                    </a>
+                {% else %}
+                    <a href="{% url 'mini_insta:post_detail' post.pk %}">
+                        <div style="width: 100%; height: 200px; background-color: lightgray;
+                                display: flex; align-items: center; justify-content: center;">
+                            <p>No Image</p>
+                        </div>
+                    </a>
+                {% endif %}
+            {% endwith %}
+            <p style="margin-top: 10px;">
+                {% if post.caption %}
+                    {{ post.caption|truncatewords:10 }}
+                {% else %}
+                    <i>No caption</i>
+                {% endif %}
+            </p>
+            <small>{{ post.timestamp|date:"M d, Y" }}</small>
+        </div>
+    {% empty %}
+        <p>No posts yet.</p>
+    {% endfor %}
+</div>
+
+<br>
 <p>
     <a href="{% url 'mini_insta:show_all_profiles' %}" style="color: blue; text-decoration: underline;">
         &lt;-- Go Back to All Profiles

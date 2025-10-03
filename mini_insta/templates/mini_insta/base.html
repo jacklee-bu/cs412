@@ -36,6 +36,9 @@
     <div class="main-container">
         <div class="navigation">
             <a href="{% url 'mini_insta:show_all_profiles' %}">All Profiles</a>
+            {% if profile %}
+                | <a href="{% url 'mini_insta:create_post' profile.pk %}">Create Post</a>
+            {% endif %}
         </div>
 
         {% block content %}

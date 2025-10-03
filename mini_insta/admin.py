@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile
+from .models import Profile, Post, Photo
 
 # Register your models here.
 
@@ -10,3 +10,6 @@ from .models import Profile
 
 admin.site.register(Profile)
 # admin.site.register(Profile, ProfileAdmin)  # commented out for now
+
+admin.site.register(Post)
+admin.site.register(Photo)
