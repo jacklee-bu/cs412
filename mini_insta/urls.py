@@ -1,3 +1,7 @@
+# Jack Lee
+# jacklee@bu.edu
+# urls.py for mini_insta app - defines URL routing patterns
+
 from django.urls import path
 from . import views
 from django.conf import settings

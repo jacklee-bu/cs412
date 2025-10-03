@@ -1,3 +1,7 @@
+# Jack Lee
+# jacklee@bu.edu
+# admin.py for mini_insta app - registers models with Django admin
+
 from django.contrib import admin
 from .models import Profile, Post, Photo
 
