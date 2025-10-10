@@ -21,6 +21,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,3 +34,7 @@ urlpatterns = [
     path('cs412/restaurant/', include('restaurant.urls')),
     path('cs412/mini_insta/', include('mini_insta.urls')),
 ]
+
+# serve media files during development only
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

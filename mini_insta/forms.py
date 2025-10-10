@@ -10,3 +10,16 @@ class CreatePostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['caption']  # dont include profile, will set it in the view
+
+class UpdateProfileForm(forms.ModelForm):
+    """Form for updating an existing profile."""
+    class Meta:
+        model = Profile
+        # dont include username or join_date - those shouldnt change
+        fields = ['bio_text', 'profile_image_url', 'display_name']
+
+class UpdatePostForm(forms.ModelForm):
+    """Form for updating an existing post."""
+    class Meta:
+        model = Post
+        fields = ['caption']

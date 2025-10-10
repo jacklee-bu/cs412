@@ -24,13 +24,24 @@
 <div style="display: flex; flex-wrap: wrap; gap: 20px;">
     {% for photo in post.get_all_photos %}
         <div style="border: 2px solid gray;">
-            <img src="{{ photo.image_url }}" alt="Photo {{ forloop.counter }}"
+            <img src="{{ photo.get_image_url }}" alt="Photo {{ forloop.counter }}"
                  style="max-width: 400px; max-height: 400px;">
         </div>
     {% empty %}
         <p>No photos for this post.</p>
     {% endfor %}
 </div>
+
+<br><br>
+<a href="{% url 'mini_insta:update_post' post.pk %}"
+   style="padding: 5px 15px; background-color: lightyellow; text-decoration: none; color: black; border: 1px solid black;">
+    Update
+</a>
+
+<a href="{% url 'mini_insta:delete_post' post.pk %}"
+   style="padding: 5px 15px; background-color: lightcoral; text-decoration: none; color: black; border: 1px solid black;">
+    Delete
+</a>
 
 <br><br>
 <p>

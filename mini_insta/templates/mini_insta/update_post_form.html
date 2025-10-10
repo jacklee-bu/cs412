@@ -1,0 +1,28 @@
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}Update Post - Mini Insta{% endblock %}
+
+{% block content %}
+<h2>Update Post</h2>
+<p>Updating post by: <strong>{{ post.profile.display_name }}</strong></p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <table border="1" style="background-color: lightyellow; padding: 10px;">
+        <tr>
+            <td><label for="id_caption">Caption:</label></td>
+            <td>{{ form.caption }}</td>
+        </tr>
+    </table>
+
+    <br>
+    <button type="submit" style="padding: 5px 15px; background-color: lightgreen;">
+        Update Post
+    </button>
+    <a href="{% url 'mini_insta:post_detail' post.pk %}"
+       style="padding: 5px 15px; background-color: lightcoral; text-decoration: none; color: black;">
+        Cancel
+    </a>
+</form>
+{% endblock %}

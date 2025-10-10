@@ -38,6 +38,12 @@
 </table>
 
 <br>
+<a href="{% url 'mini_insta:update_profile' profile.pk %}"
+   style="padding: 5px 15px; background-color: lightblue; text-decoration: none; color: black; border: 1px solid black;">
+    Update Profile
+</a>
+
+<br>
 <hr>
 <h3 style="color: green;">Posts</h3>
 
@@ -47,7 +53,7 @@
             {% with post.get_all_photos.first as first_photo %}
                 {% if first_photo %}
                     <a href="{% url 'mini_insta:post_detail' post.pk %}">
-                        <img src="{{ first_photo.image_url }}" alt="Post image"
+                        <img src="{{ first_photo.get_image_url }}" alt="Post image"
                              style="width: 100%; height: 200px; object-fit: cover;">
                     </a>
                 {% else %}

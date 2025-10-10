@@ -3,11 +3,12 @@
 # views.py for mini_insta app - handles web page rendering and form processing
 
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import (ListView, DetailView, CreateView,
+                                  UpdateView, DeleteView)
 from django.http import HttpResponse
 from django.urls import reverse
 from .models import Profile, Post, Photo
-from .forms import CreatePostForm
+from .forms import CreatePostForm, UpdateProfileForm, UpdatePostForm
 
 # Create your views here.
 
@@ -39,10 +40,10 @@ class CreatePostView(CreateView):
     template_name = 'mini_insta/create_post_form.html'
 
     def get_context_data(self, **kwargs):
-        """Add profile to context for template rendering.
-        Returns: context dictionary with profile object
+        """Add profile to context.
+        Returns: context dictionary
         """
-        # need to pass the profile to the template
+        # need to pass profile to template
         context = super().get_context_data(**kwargs)
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         context['profile'] = profile
@@ -50,27 +51,58 @@ class CreatePostView(CreateView):
 
     def form_valid(self, form):
         """Process valid form submission.
-        Sets profile foreign key and creates associated photo.
-        Returns: redirect response to post detail page
+        Returns: redirect response
         """
-        # set the profile before saving the post
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         form.instance.profile = profile
 
-        # save the post first
         response = super().form_valid(form)
 
-        # now create the photo if url was provided
-        image_url = self.request.POST.get('image_url')
-        if image_url:
-            photo = Photo(post=form.instance, image_url=image_url)
+        # handle file uploads
+        files = self.request.FILES.getlist('files')
+        # create a photo for each uploaded file
+        for file in files:
+            photo = Photo(post=form.instance, image_file=file)
             photo.save()
 
         return response
 
     def get_success_url(self):
         """Get URL to redirect to after successful post creation.
-        Returns: URL string for post detail page
+        Returns: URL string
         """
-        # redirect to the post detail page after creation
-        return reverse('mini_insta:post_detail', kwargs={'pk': self.object.pk})
+        return reverse('mini_insta:post_detail',
+                      kwargs={'pk': self.object.pk})
+
+class UpdateProfileView(UpdateView):
+    """View to handle updating an existing profile."""
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = 'mini_insta/update_profile_form.html'
+
+class DeletePostView(DeleteView):
+    """View to handle deleting a post."""
+    model = Post
+    template_name = 'mini_insta/delete_post_form.html'
+
+    def get_context_data(self, **kwargs):
+        """Add post and profile to context.
+        Returns: context dictionary
+        """
+        context = super().get_context_data(**kwargs)
+        context['post'] = self.object
+        context['profile'] = self.object.profile
+        return context
+
+    def get_success_url(self):
+        """Get URL to redirect to after delete.
+        Returns: URL string
+        """
+        return reverse('mini_insta:show_profile',
+                      kwargs={'pk': self.object.profile.pk})
+
+class UpdatePostView(UpdateView):
+    """View to handle updating a post."""
+    model = Post
+    form_class = UpdatePostForm
+    template_name = 'mini_insta/update_post_form.html'
