@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://cs-people.bu.edu/azs/cs412/assignments/a6.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Assignment 6: Using the Object Relational Manager — CS412, Boston University</title>
+
+<meta name="description" content="Course website for CS412, Boston University.">
+<link rel="stylesheet" href="./A6_files/style.css">
+<!-- 
+<link rel="icon" type="image/x-icon" href="http://cs-people.bu.edu/azs/cs412/img/favicon.ico"> 
+<link rel="mask-icon" href="http://cs-people.bu.edu/azs/cs412/img/111.svg" color="#cc0000">
+-->
+<script src="./A6_files/respond.min.js"></script>
+<script src="./A6_files/html5shiv.js"></script>
+<script src="./A6_files/cs111.js"></script>
+<meta name="viewport" content="width=device-width, user-scalable=yes">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+</head>
+
+<body onload="setup();">
+
+<div id="left">
+<a id="header" href="http://cs-people.bu.edu/azs/cs412/">
+CS412
+</a>
+<div id="subheader">
+Fall 2025
+</div>
+
+<nav>
+<ul>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/index.html">Home</a></li>
+    <li><a href="https://learn.bu.edu/" target="_top">Blackboard</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/files/syllabus.pdf">Syllabus</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/staff.html">Staff</a></li>
+	<li><a href="http://cs-people.bu.edu/azs/cs412/assignments/">Assignments</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/resources.html">Resources</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/collaboration.html">Collaboration</a></li>
+</ul>
+<ul class="external">
+    <li><a href="https://piazza.com/bu/fall2025/cs412" target="_blank">Piazza Discussion</a></li>
+    <li><a href="https://www.gradescope.com/courses/1103701" target="_blank">Gradescope</a></li> 
+<!--
+    <li><a href="http://cs-people.bu.edu/azs/cs412/policies.html">Policies</a></li>
+    -->
+</ul>
+</nav>
+
+</div><!-- end #left -->
+
+<div id="middle">
+<section class="main">
+<h1 id="assignment-6-using-the-object-relational-manager">Assignment 6: Using the Object Relational Manager</h1>
+<div class="toc">
+<ul>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a6.html#assignment-6-using-the-object-relational-manager">Assignment 6: Using the Object Relational Manager</a><ul>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a6.html#learning-objectives">Learning Objectives</a><ul>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a6.html#pre-requisites-assignments-5">Pre-requisites: Assignments 5</a></li>
+</ul>
+</li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a6.html#case-study-mini-insta">Case Study: Mini Insta</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a6.html#preliminaries">Preliminaries</a><ul>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a6.html#continue-working-on-the-mini_insta-application">Continue working on the mini_insta Application</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a6.html#task-1-additional-data-models-follow-comment-and-like">Task 1: Additional data models: Follow, Comment and Like</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a6.html#task-2-creating-a-post-feed">Task 2: Creating a Post Feed</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a6.html#task-3-search-and-results">Task 3: Search and Results</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a6.html#deployment-to-cs-webapps">Deployment to cs-webapps</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a6.html#submitting-your-work">Submitting Your Work</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p><em>due by <font color="blue"></font></em><font color="blue"><em>9:00 p.m. EDT on Friday 10/17/2025</em></font> </p>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>After completing this assignment, students will be able to:</p>
+<ul>
+<li>
+<p>Implement web application CRUD (create, read, update and delete) operations.</p>
+</li>
+<li>
+<p>Use the Django object relational manager (ORM) to execute queries against model data.</p>
+</li>
+<li>
+<p>Add additional URL routing and page views to an existing application, understanding
+    that there are multiple ways to navigate/display the model data.</p>
+</li>
+</ul>
+<hr>
+<h3 id="pre-requisites-assignments-5">Pre-requisites: Assignments 5</h3>
+<p>Assignment 6 builds upon the case study you began in Assignment 3.</p>
+<p>You must have completed Assignment 5 before you attempt Assignment 6. </p>
+<h2 id="case-study-mini-insta">Case Study: Mini Insta</h2>
+<p>This assignment is part of an in-depth case study to develop a data-enabled web application.
+In the entire case-study, you will simulate the core features of the Instagram social 
+networking application. Over the course of 5 parts, you will implement:</p>
+<ul>
+<li>Viewing, creating, and updating user profiles</li>
+<li>Viewing and creating posts</li>
+<li>Uploading images</li>
+<li>Viewing and adding followers</li>
+<li>Developing a feed to show posts from Profiles one is following</li>
+<li>Incorporating user accounts, authentication (login), and registration</li>
+</ul>
+<p>This assignment is the fourth part of the case study.</p>
+<p>Here is a sample implementation: 
+<a href="https://cs-webapps.bu.edu/azs/cs412/mini_insta4/" target="_blank">
+MiniInsta part 4</a>.</p>
+<p>You <strong>do not</strong> need to match the data of this example, or even the way it is formatted. 
+The look and feel of the application, as well as the data you dispaly, is entirely up to you.</p>
+<h2 id="preliminaries">Preliminaries</h2>
+<p>In your work on this assignment, make sure to abide by the
+<a href="https://cs-people.bu.edu/azs/cs412/collaboration.html">collaboration policies</a> of the course.  </p>
+<p>If you have questions while working on this assignment, please post them on <a href="https://piazza.com/bu/fall2025/cs412">Piazza!</a>
+This is the best way to get a quick response from your classmates and the course staff. </p>
+<p>For each problem in this problem set, we will be writing or evaluating some Python code.
+You are encouraged to use the VS Code IDE which will be discuss/presented in class, 
+but you are welcome to use another IDE if you choose.</p>
+<div class="admonition note">
+<p class="admonition-title">Important Guidelines: Comments and Docstrings</p>
+<ul>
+<li>
+<p>Refer to the class <a href="https://cs-people.bu.edu/azs/cs412/assignments/coding_standards">Coding Standards</a> for important
+    style guidelines. The grader will be awarding/deducting points for writing
+    code that conforms to these standards. </p>
+</li>
+<li>
+<p>Every program file must begin with a descriptive header comment that includes
+    your name, username/BU email, and a brief description of the work contained in 
+    the file.</p>
+</li>
+<li>
+<p>Every function/method must include a descriptive docstring that explains what the 
+    function does and identifies/defines each of the parameters to the function.</p>
+</li>
+</ul>
+</div>
+<p><br></p>
+<h3 id="continue-working-on-the-mini_insta-application">Continue working on the <code>mini_insta</code> Application</h3>
+<p>Continue to do this work within your existing Django project, within the <code>mini_insta</code>.
+application that you worked on in Assignment 5. </p>
+<h3 id="task-1-additional-data-models-follow-comment-and-like">Task 1: Additional data models: <code>Follow</code>, <code>Comment</code> and <code>Like</code></h3>
+<div class="admonition note">
+<p class="admonition-title">Read before Create</p>
+<ul>
+<li>
+<p>In this section, we will add 3 new data models for <code>Follow</code>s, <code>Comment</code>s, and <code>Like</code>s.</p>
+</li>
+<li>
+<p>In this assignment, we will use the Django Admin tool to create data for these 
+    models, but we will not implement features to create these through our
+    web application. We will return to creating these data objects in Assignment 7.</p>
+</li>
+</ul>
+</div>
+<ol>
+<li>
+<p>Define a new data model called <code>Follow</code>, which encapsulates the idea of an edge 
+    connecting two nodes within the social network (e.g., when one <code>Profile</code> follows
+    another <code>Profile</code>). </p>
+<p>A <code>Follow</code> relation will associate 2 <code>Profile</code>s. Use these data attribute names:</p>
+<ul>
+<li>
+<p><code>profile</code> (a foreign key) indicating  which <code>profile</code> is being followed 
+    (i.e., the “publisher”).</p>
+</li>
+<li>
+<p><code>follower_profile</code> (a foreign key) indicating which <code>profile</code> is doing the 
+    following (i.e., the “subscriber”)</p>
+</li>
+<li>
+<p><code>timestamp</code> (a date time field) indicating the time at which the follower
+    began following the other <code>profile</code>.</p>
+</li>
+</ul>
+<p><strong>Note: Two <code>ForeignKey</code>s to the same model</strong></p>
+<ul>
+<li>
+<p>Django will complain about a <code>reverse_accessor</code>, because you have 2 <code>ForeignKey</code>s 
+    with the same model.  </p>
+<p>To fix this, add the parameters <code>related_name="profile"</code> and 
+<code>related_name="follower_profile"</code> to each <code>ForeignKey</code>, respectively.</p>
+</li>
+</ul>
+<p>Write a <code>__str__</code> method so that you can view this <code>Follow</code> relationship as
+a string representation. It would be helpful to include the display names or 
+usernames of both <code>Profile</code>s in this string representation. For example for a 
+<code>Follow</code> relationship between Angela Merkel and Taylor Swift, we could create 
+this string representation: <code>Angela Merkel follows Taylor Swift</code>.</p>
+<p><strong>Use the admin tool</strong> to add several <code>Follow</code> relationships. 
+You don’t need a lot, but perhaps N <code>Follow</code>s for N <code>Profile</code>s to get started.
+Leave at least 2 <code>Profile</code>s without followers (for testing purposes), 
+and to be able test adding followers later (in next week’s assignment). </p>
+</li>
+<li>
+<p>Write the following accessor methods on the <code>Profile</code> class:</p>
+<ul>
+<li>
+<p>A <code>get_followers</code> method, which will return a
+    list of those <em><code>Profile</code>s</em> who are followers this profile (i.e., subscribers who will 
+    see <code>Post</code>s from this profile). 
+    Providing this method will make it possible to call the method (among other places) 
+    in the template, i.e., to display a profile’s followers.</p>
+<p>This method will need to use the Django ORM (i.e., <code>Follower.objects</code>) and its 
+methods to filter/retrieve matching <code>Follower</code> records. </p>
+<ul>
+<li>This method must return a <em><code>list</code></em> of the followers’ <em><code>Profile</code>s</em> 
+    (not a <code>QuerySet</code> or <code>list</code> of <code>Follow</code>s). Pay attention to the data types.</li>
+</ul>
+</li>
+<li>
+<p>A <code>get_num_followers</code>  method, which will return the count of followers.</p>
+</li>
+<li>
+<p>A <code>get_following</code>  method on the <code>Profile</code> class, which will return a
+    list of those <em><code>Profile</code>s</em> followed by this profile 
+    (i.e., publishers to whose <code>Post</code>s this <code>Profile</code> is subscribed).</p>
+<p>Providing this method will make it possible to call the method (among other places) 
+in the template, i.e., to display the profiles a user is following (subscribed to).</p>
+<p>This method will need to use the Django ORM (i.e., <code>Follower.objects</code>) and 
+its methods to filter/retrieve matching <code>Follower</code> records. </p>
+<ul>
+<li>This method must return a <em><code>list</code></em> of the <em><code>Profile</code>s</em> being followed
+    (not a <code>QuerySet</code> or <code>list</code> of <code>Follow</code>s). Pay attention to the data types.</li>
+</ul>
+</li>
+<li>
+<p>A <code>get_num_following</code> method, which will return the count of how many profiles 
+    are being followed.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Write the following views, templates, and URLs:</p>
+<ul>
+<li>
+<p>Create the <code>ShowFollowersDetailView</code> and <code>ShowFollowingDetailView</code> view classes,
+    each of which will inherit from the generic <code>DetailView</code>. 
+    These classes are <code>DetailView</code>s for a <code>Profile</code>, and will provide the context 
+    variable <code>profile</code> to their respective templates.</p>
+</li>
+<li>
+<p>Create the templates <code>show_followers.html</code> and <code>show_following.html</code>, which will
+    use  the context object <code>profile</code> to call the accessor methods on the <code>Profile</code> 
+    model, to retrieve the required lists of <code>Profile</code>s to display.</p>
+</li>
+<li>
+<p>Create the URL patterns 
+    <code>'profile/&lt;int:pk&gt;/followers'</code> and <code>'profile/&lt;int:pk&gt;/following'</code> to bring up the 
+    <code>ShowFollowersDetailView</code> and <code>ShowFollowingDetailView</code>, respectively.</p>
+</li>
+</ul>
+<p>Modify the <code>show_profile.html</code> template to include displaying the count of Followers
+and Following, with links that bring up the views for each. </p>
+<p>For example: </p>
+<p><img width="400" src="./A6_files/mini-insta-follower-count.png"></p>
+</li>
+<li>
+<p>Define a new data model called <code>Comment</code>, which encapsulates the idea of one <code>Profile</code>
+    providing a response or commentary on a <code>Post</code>. </p>
+<p>A <code>Comment</code> will associate the following data attributes:</p>
+<ul>
+<li>
+<p><code>post</code> (a foreign key) indicating  the <code>Post</code> to which this <code>Comment</code> is related.</p>
+</li>
+<li>
+<p><code>profile</code> (a foreign key) indicating which <code>profile</code> is doing the commenting.</p>
+</li>
+<li>
+<p><code>timestamp</code> (a date time field) indicating the time at which this <code>Comment</code> 
+    was created.</p>
+</li>
+<li>
+<p><code>text</code> (a text field) which is the substance of the <code>Comment</code></p>
+</li>
+</ul>
+<p>Write a <code>__str__</code> method so that you can view this <code>Comment</code> as a string 
+representation. </p>
+<p><strong>Use the admin tool</strong> to add several <code>Comment</code>s on at least 2 different <code>Post</code>s. 
+You don’t need a lot, just enough for testing purposes.</p>
+<p>Create an accessor method on the <code>Post</code> class called <code>get_all_comments</code> to retrive
+all comments on a <code>Post</code>. This method will need to use the Django ORM 
+(i.e., <code>Comment.objects</code>) and its methods to filter/retrieve matching
+ <code>Comment</code>s for a <code>Post</code>.</p>
+<p>Update the <code>show_post.html</code> page to add display of <code>Comment</code>s below the <code>Post</code> caption. </p>
+</li>
+<li>
+<p>Define a new data model called <code>Like</code>, which encapsulates the idea of one <code>Profile</code>
+    providing approval of a <code>Post</code>. </p>
+<p>A <code>Like</code> will associate the following data attributes:</p>
+<ul>
+<li>
+<p><code>post</code> (a foreign key) indicating  the <code>Post</code> to which this <code>Like</code> is related.</p>
+</li>
+<li>
+<p><code>profile</code> (a foreign key) indicating which <code>profile</code>is doing the 
+    liking.</p>
+</li>
+<li>
+<p><code>timestamp</code> (a date time field) indicating the time at which this <code>Like</code> 
+    was created.</p>
+</li>
+</ul>
+<p>Write a <code>__str__</code> method so that you can view this <code>Like</code> as a string 
+representation. </p>
+<p><strong>Use the admin tool</strong> to add several <code>Likes</code>s on at least 2 different <code>Post</code>s. 
+You don’t need a lot, just enough for testing purposes.</p>
+<p>Create an accessor method on the <code>Post</code> class called <code>get_likes</code> to retrive
+all likes on a <code>Post</code>. This method will need to use the Django ORM 
+(i.e., <code>Like.objects</code>) and its methods to filter/retrieve matching
+ <code>Like</code>s for a <code>Post</code>.</p>
+<p>Update the <code>show_post.html</code> page to add display of <code>Like</code> count above the <code>Post</code> 
+caption. For example:</p>
+<p><img width="400" src="./A6_files/mini-insta-likes-and-comments-count.png"></p>
+</li>
+<li>
+<p>Test everything! 
+    Start at this URL pattern: <code>'http://127.0.0.1:8000/mini_insta/</code>.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Important: Add files to git!</p>
+<ul>
+<li>
+<p>You’ve just modified your database structure, and added some data records. </p>
+</li>
+<li>
+<p>This is an excellent time to add your files to git, commit your changes, 
+    and push your changes to GitHub before anything gets F@&amp;#ed up. </p>
+</li>
+</ul>
+</div>
+<h3 id="task-2-creating-a-post-feed">Task 2: Creating a Post Feed</h3>
+<ol>
+<li>
+<p>The Instagram “post feed” is a scrollable view that includes <code>Post</code>s, <code>Photo</code>s,
+    <code>Comment</code>s, and <code>Like</code>s (and lots of ads!), customized to each user (<code>Profile</code>). </p>
+<p>Briefly, the post feed shows posts for each of the profiles being followed by a
+given user, with the most recent at the top. </p>
+<p>Write an accessor method <code>get_post_feed</code> on the <code>Profile</code> object, which will
+return a <code>list</code> (or <code>QuerySet</code>) of <code>Post</code>s, specifically for the profiles being 
+followed by the profiles on which the method was called.</p>
+<p><strong>Hint: it will be easiest to develop this by using the ORM to filter <code>Post</code>s.</strong></p>
+<p>You might experiment with using the object managers 
+(e.g., <code>Follow.objects</code>, <code>Post.objects</code>) at the Django python console to discover 
+which methods to use to generate the <code>list</code>/<code>QuerySet</code> that you want. </p>
+<p>You may also use python tools (e.g., list comprehension, <code>for</code> loop, method calls) to 
+build/refine results. </p>
+<p><strong>Hint: begin with a simple if not perfect version, and then you can refine it later.</strong></p>
+<p>Test this method at the console to prove that it returns some data, of the correct type,
+before you try to build the view/template for it.</p>
+</li>
+<li>
+<p>Create a new template called <code>show_feed.html</code> to display the post feed
+    for a single <code>Profile</code>. The post feed should show each <code>Post</code>, along with
+    the profile image and name of the person who wrote it. </p>
+<p>Create a new view class <code>PostFeedListView</code> which inherits from <code>ListView</code>,
+and associate it with the <code>show_feed.html</code> template. The <code>show_feed.html</code> template
+should display all of the <code>Post</code>s in the feed, and each <code>Post</code> should include
+the first <code>Photo</code> of the <code>Post</code>, the caption, <code>Like</code>s, and <code>Comment</code>s. </p>
+<p>Create a new URL pattern: <code>'profile/&lt;int:pk&gt;/feed'</code> and associate it 
+with the <code>PostFeedListView</code>. </p>
+</li>
+<li>
+<p><strong><em>Navigation</em></strong></p>
+<ul>
+<li>
+<p>Change the “home” navigation link (e.g., the leftmost navigation icon in the example)
+    from the bottom of the page so that it links to the post feed. </p>
+</li>
+<li>
+<p>If you do not already have one, add a navigation link to the profile page (e.g., 
+    the rightmost navigation icon in the example).</p>
+</li>
+<li>
+<p>Add a link from the post feed back to the profile page.</p>
+</li>
+</ul>
+<p>For example:</p>
+<p><img width="200" src="./A6_files/mini-insta-post-feed.png"></p>
+</li>
+<li>
+<p>Test everything! 
+    Start at this URL pattern: <code>'http://127.0.0.1:8000/mini_insta/</code>.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Important: Add files to git!</p>
+<ul>
+<li>
+<p>You’ve just reached a good stopping point, and added some data records. </p>
+</li>
+<li>
+<p>This is an excellent time to add your files to git, commit your changes, 
+    and push your changes to GitHub before anything gets F@&amp;#ed up. </p>
+</li>
+</ul>
+</div>
+<h3 id="task-3-search-and-results">Task 3: Search and Results</h3>
+<ol>
+<li>
+<p>Add a search feature to search user <code>Profile</code>s and <code>Post</code>s based on a text input.
+    Implement a view class called <code>SearchView</code> which inherits from the generic
+    <code>ListView</code>. Use 2 templates called <code>search.html</code> and <code>search_results.html</code>, and
+    a URL pattern <code>'profile/&lt;int:pk&gt;/search'</code> (i.e., the search is being done on behalf 
+    of the user with the profile specified by <code>pk</code>). </p>
+<p>In configuring the <code>ListView</code>, set the <code>template_name</code> to be <code>'search_results.html'</code>.
+This will be the default way to display results of this search. </p>
+<p>Here are some implementation notes:</p>
+<ul>
+<li>
+<p>The <code>search.html</code> page should present an HTML form with a text area search box 
+    as well as a button to submit the search. Use an HTML form (not a model form, 
+    since this is not creating or updating model data). 
+    This form should collect a <code>query</code> to search against the data models.</p>
+<p>For example: </p>
+</li>
+</ul>
+<p><img width="200" src="./A6_files/mini-insta-search-form.png"></p>
+<ul>
+<li>
+<p>The <code>search_results.html</code> page should present two different listings of results: 
+    one for <code>Profile</code>s that match the query, and one for <code>Post</code>s that match the query.
+    Consider how you would like this to appear, and use a separate loop for each.</p>
+<p>For example: </p>
+</li>
+</ul>
+<p><img width="200" src="./A6_files/mini-insta-search-results.png"></p>
+</li>
+<li>
+<p>In the <code>SearchView</code> class, you will need to implement (override the super-class 
+    version) several methods:</p>
+<ul>
+<li>
+<p><code>dispatch(self, request, *args, **kwargs)</code>: this method is called first to 
+    dispatch (handle) any request. Override this method to add an if statement,
+    testing for the name <code>query</code> in <code>self.request.GET</code>. </p>
+<p>If the <code>query</code> is absent, return the <code>search.html</code> template, i.e., to provide the
+form to collect the <code>query</code> from the user. Be sure to include the <code>profile</code> 
+context variable, since the template will need this variable to create the URLs.</p>
+<p>Otherwise, return the superclass version of <code>dispatch</code>, i.e., 
+<code>super().dispatch(request, *args, **kwargs)</code>, which will continue the work of
+the generic <code>ListView</code>.</p>
+</li>
+<li>
+<p><code>get_queryset(self)</code>: the generic <code>ListView</code> uses this method to obtain the
+    <code>QuerySet</code> of instance data (that matches the <code>model</code> attribute of a <code>ListView</code>.
+    We did not set that attribute, because we do not want <strong>all</strong> objects to be returned,
+    but rather we want to control <strong>which</strong> objects to return. </p>
+<p>In this method, write a query against the object manager (i.e., <code>Post.objects</code>) 
+to obtain <code>Post</code>s that contain the <code>query</code>. 
+Return the <code>QuerySet</code> of matching <code>Post</code>s. </p>
+</li>
+<li>
+<p><code>get_context_data(self, **kwargs)</code>: this method returns the dictionary of 
+    context data that can be accessed from the template. Add the following to the
+    context data: </p>
+<ul>
+<li>
+<p>the <code>profile</code> object (for whom we are doing this search)</p>
+</li>
+<li>
+<p>the <code>query</code> (if present)</p>
+</li>
+<li>
+<p>the <code>posts</code> that match the query, obtained from <code>get_query_set</code>. 
+    A <code>post</code> matches if the query is contained in its <code>caption</code> text.</p>
+</li>
+<li>
+<p>the <code>profiles</code> that match the query, obtained from using the object manager
+    (<code>Profile.objects</code>). A <code>profile</code> matches if they query text is found in its
+    <code>username</code>, <code>display name</code>, or <code>bio text</code>.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Edit the <code>base.html</code> template, and add a link to the bottom-of-screen navigation, 
+    to bring up the <code>search</code> page (in its own page view). </p>
+</li>
+<li>
+<p>Test everything! 
+    Start at this URL pattern: <code>'http://127.0.0.1:8000/mini_insta/</code>.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Important: Add files to git!</p>
+<ul>
+<li>
+<p>You’ve just modified your database structure, and added some data records. </p>
+</li>
+<li>
+<p>This is an excellent time to add your files to git, commit your changes, 
+    and push your changes to GitHub before anything gets F@&amp;#ed up. </p>
+</li>
+</ul>
+</div>
+<hr>
+<h3 id="deployment-to-cs-webapps">Deployment to <code>cs-webapps</code></h3>
+<ol>
+<li>Deploy your web application to the <code>cs-webapps.bu.edu</code>.</li>
+</ol>
+<p>Follow the <a href="https://cs-people.bu.edu/azs/cs412/deployment">deployment instructions here</a>.</p>
+<ol start="2">
+<li>
+<p>Test your web application on <code>cs-webapps.bu.edu</code> to ensure that everything works correctly.</p>
+</li>
+<li>
+<p>Resolve any deployment issues.</p>
+</li>
+</ol>
+<hr>
+<h3 id="submitting-your-work">Submitting Your Work</h3>
+<p><em>10 points;</em> will be assigned by the autograder, verifying that you have submitted the
+correct files/URL, and testing that you website exists at the specified URL.
+<em>90 points;</em> will be testing your application and code review</p>
+<p>Log in to <a href="https://www.gradescope.com/courses/1040066">GradeScope</a> to submit your work. </p>
+<p><em>Be sure to name your files correctly!</em></p>
+<ol>
+<li>
+<p>Create a text file within your main django directory called <code>mini_insta_url.txt</code>, containing 
+    the URL to your web page, and nothing else. </p>
+<p>For example: <code>https://cs-webapps.bu.edu/azs/cs412/mini_insta/</code>.</p>
+<p>This file will be used by the autograder to locate your web page, so you must get 
+the URL exactly correct, and you must not include any other text or code in the file.</p>
+</li>
+<li>
+<p>Add the teaching staff as collaborators to your GitHub repository 
+    with <code>bu-cs412</code>. Read-only access is fine.</p>
+<p>Create a text file called <code>github_url.txt</code> in the root of your project
+(e.g., <code>django</code> directory). Paste your GitHub URL in the file.</p>
+<p><em>Add these files to your git repository</em> using </p>
+<div class="codehilite"><pre><span></span>`git add -A`.
+</pre></div>
+
+
+<p><em>Commit this to your git repository</em>, using </p>
+<div class="codehilite"><pre><span></span>`git commit -m "Added mini_insta_url.txt"`
+</pre></div>
+
+
+<p><em>Push it to GitHub</em>, using </p>
+<div class="codehilite"><pre><span></span>`git push origin main`
+</pre></div>
+
+
+</li>
+<li>
+<p>Log in to <a href="https://www.gradescope.com/courses/1040066">GradeScope</a> to submit your work. </p>
+<p>In the Gradescope upload page, upload these two files:</p>
+<ul>
+<li>
+<p><code>mini_insta_url.txt</code></p>
+</li>
+<li>
+<p><code>github_url.txt</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong><em>Notes:</em></strong> </p>
+<ul>
+<li>
+<p>Upload these files to Gradescope before the deadline. </p>
+</li>
+<li>
+<p>When you upload, the autograder script will process your file(s). </p>
+</li>
+<li>
+<p>You may resubmit as many times as you like before the deadline, and only the grade 
+     from the last submission will be counted. </p>
+</li>
+</ul>
+</section>
+
+<footer>
+Last modified on October  7, 2025.
+</footer>
+
+</div>
+
+<div id="right">
+</div>
+
+
+
+
+
+</body></html>

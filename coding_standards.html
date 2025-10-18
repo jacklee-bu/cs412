@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)https://cs-people.bu.edu/azs/cs412/assignments/coding_standards -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Python Coding Conventions and Standards — CS412, Boston University</title>
+
+<meta name="description" content="Course website for CS412, Boston University.">
+<link rel="stylesheet" href="./coding_standards_files/style.css">
+<!-- 
+<link rel="icon" type="image/x-icon" href="http://cs-people.bu.edu/azs/cs412/img/favicon.ico"> 
+<link rel="mask-icon" href="http://cs-people.bu.edu/azs/cs412/img/111.svg" color="#cc0000">
+-->
+<script src="./coding_standards_files/respond.min.js"></script>
+<script src="./coding_standards_files/html5shiv.js"></script>
+<script src="./coding_standards_files/cs111.js"></script>
+<meta name="viewport" content="width=device-width, user-scalable=yes">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+</head>
+
+<body onload="setup();">
+
+<div id="left">
+<a id="header" href="http://cs-people.bu.edu/azs/cs412/">
+CS412
+</a>
+<div id="subheader">
+Fall 2025
+</div>
+
+<nav>
+<ul>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/index.html">Home</a></li>
+    <li><a href="https://learn.bu.edu/" target="_top">Blackboard</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/files/syllabus.pdf">Syllabus</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/staff.html">Staff</a></li>
+	<li><a href="http://cs-people.bu.edu/azs/cs412/assignments/">Assignments</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/resources.html">Resources</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/collaboration.html">Collaboration</a></li>
+</ul>
+<ul class="external">
+    <li><a href="https://piazza.com/bu/fall2025/cs412" target="_blank">Piazza Discussion</a></li>
+    <li><a href="https://www.gradescope.com/courses/1103701" target="_blank">Gradescope</a></li> 
+<!--
+    <li><a href="http://cs-people.bu.edu/azs/cs412/policies.html">Policies</a></li>
+    -->
+</ul>
+</nav>
+
+</div><!-- end #left -->
+
+<div id="middle">
+<section class="main">
+<h1 id="python-coding-conventions-and-standards">Python Coding Conventions and Standards</h1>
+<p>The following coding conventions and standards apply to all work in 412.
+You should <em>always</em> follow these standards, and adherance will be rewarded in the grading.</p>
+<p><em>Note: this is a summary of the rules found in <a href="http://legacy.python.org/dev/peps/pep-0008/">PEP 8</a>,
+the official style guide for Python code, written by the authors
+of the Python language.</em></p>
+<h2 id="header-comments">Header Comments</h2>
+<p>You must begin each file with a brief header comment, which must include the following
+elements:</p>
+<ul>
+<li>The file name</li>
+<li>Your name, BU email, and the date you created the file</li>
+<li>A brief description of the work contained in the file.</li>
+</ul>
+<p>For example:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># File: hello_world.py</span>
+<span class="c1"># Author: Aaron Stevens (azs@bu.edu), 3/24/2006</span>
+<span class="c1"># Description: Our first Python program, in which we demonstrate </span>
+<span class="c1"># writing output to the console window.</span>
+</pre></div>
+
+
+<h2 id="comments">Comments</h2>
+<p>Comments should help the reader of your code to understand it. They may help
+<em>you</em> to understand it if you need to rework your code at some later point. In
+the case of a program submitted for this course, they also serve to convince
+the grader that you grasp the <em>what</em>, <em>how</em> and <em>why</em> of your code (as opposed
+to having hacked it into working). In particular, please observe the following
+guidelines:</p>
+<ul>
+<li>
+<p>For each significant variable declaration, give a brief comment stating
+  the use of the variable, and when useful, the units (e.g., feet or inches).
+  Non-significant variables (not requiring explanation) would include temporary
+  variables, loop counters, and so on.</p>
+</li>
+<li>
+<p>When it helps to understand your code, before each major section of the
+  program, give the purpose of that section. </p>
+</li>
+<li>
+<p>Indent the comments to line up with the code.</p>
+</li>
+<li>
+<p>Before every control structure (e.g., if/else statement, loop), explain why this
+  control structure is necessary/what it is doing.</p>
+</li>
+</ul>
+<p>For example:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># pick a random number:</span>
+<span class="n">secret</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">"I'm thinking of a number between 1 and 10."</span><span class="p">)</span>
+<span class="c1"># prompt the user for an imput</span>
+<span class="n">guess</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">"Guess the secret number: "</span><span class="p">))</span>
+
+<span class="c1"># a loop allows us to repeat some controlled statements:</span>
+<span class="k">while</span> <span class="n">secret</span> <span class="o">!=</span> <span class="n">guess</span><span class="p">:</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s2">"Wrong!!"</span><span class="p">)</span>
+
+    <span class="c1"># check if the guess was too low/high, and provide feedback to user</span>
+    <span class="k">if</span> <span class="n">guess</span> <span class="o">&lt;</span> <span class="n">secret</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"Too low!"</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"Too high!"</span><span class="p">)</span>
+
+    <span class="c1"># prompt the user for another imput</span>
+    <span class="n">guess</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">"Guess the secret number: "</span><span class="p">))</span>
+
+
+<span class="c1"># check whether the user got the correct secret number:</span>
+<span class="k">if</span> <span class="n">guess</span> <span class="o">==</span> <span class="n">secret</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"Correct! Hooray!"</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"Wrong!!"</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="documentation-strings">Documentation strings</h3>
+<p>Documentation strings (or <em>docstrings</em>) can be attached to any module
+(at the top of the <code>.py</code> file), function (after the <code>def</code> line), or class
+(after the <code>class</code> line). They are simple strings that are better than
+surrounding comments, since they can be reviewed using Python’s <code>help()</code>
+function, among other uses. (More information is available in <a href="http://legacy.python.org/dev/peps/pep-0257/">PEP
+257</a>, <em>Docstring Conventions</em>.)</p>
+<p>Use the triple-double quotation marks (<code>"""</code>) to start and end a
+docstring. The docstring should begin on the line with the opening
+<code>"""</code>, as follows:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">"""Return the factorial of n."""</span>
+</pre></div>
+
+
+<p>If the docstring can’t fit on one line, move the ending <code>"""</code> to its
+own line after the string and keep writing the docstring. Do not add
+an extra newline after the opening <code>"""</code>. For example:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="n">secret_word</span><span class="p">,</span> <span class="n">display_word</span><span class="p">,</span> <span class="n">letter</span><span class="p">):</span>
+    <span class="sd">"""Return a list of characters that results from taking the</span>
+<span class="sd">    existing display word list and revealing any and all occurrences</span>
+<span class="sd">    of the specified letter, as dictated by secret_word.</span>
+<span class="sd">    """</span>
+</pre></div>
+
+
+<p>Another point to note: <a href="http://legacy.python.org/dev/peps/pep-0257/">PEP 257</a> states that function
+docstrings should be a phrase ending with a period that describes the
+effect of the function as a command, rather than describing it (see 
+the examples above).</p>
+<h2 id="variable-and-function-names">Variable and Function Names</h2>
+<p>Choose your names carefully. As part of program documentation, names must
+clearly indicate both the kind of thing being named and its role in the
+program. Whenever possible, write short, obvious names for very local contexts
+(i.e., a <code>for</code> loop counter could be called <code>i</code>) and longer names for bigger
+contexts (examples to follow). Avoid cryptic abbreviations (e.g., use
+<code>increment_event_count()</code> rather than <code>incevcnt()</code>). Avoid choosing similar
+names for different things (e.g., <code>index</code>, <code>indx</code>, <code>index2</code>), or, on the other
+hand, similar names for very different things (example: if <code>keys</code> is a list of
+strings, then don’t use <code>key</code> for an integer).</p>
+<ul>
+<li><em>attribute and local variable</em> names should be noun phrases, written in
+  lowercase, with multiple words distinguished by a single underscore (<code>_</code>)</li>
+<li><em>function</em> names (and <em>method</em> names) should be imperative verb phrases
+  (if possible), lowercase, with words separated by underscores (e.g.,
+  <code>get_student_name()</code>)</li>
+<li><em>modules</em> should have short, lowercase names, with underscores if
+  necessary</li>
+<li><em>class names</em> should have capitalized words, without underscores to
+  separate each word (e.g., <code>ClassName</code>)</li>
+<li>variables or attributes that should be considered unchanging (i.e.,
+  “constants” in other languages like Java) should be written in all capital
+  letters with underscores separating words</li>
+</ul>
+<h2 id="indentation">Indentation</h2>
+<p>Python uses indentation to manage the visiblity and scope of statements in your code.
+You <em>must</em> use the correct indentation to create code that is syntactically correct.</p>
+<p>Spyder is a software program that makes it easier to write and run Python
+code. We will use Spyder extensively in this course when we write programs, since
+it provides text editor features like code highlighting and automatic
+indentation.</p>
+<p>In an Spyder Editor window, pressing the tab key will cause Spyder to increase the
+indent level. By default, Spyder will insert the appropriate number of
+<a href="http://en.wikipedia.org/wiki/ASCII">ASCII</a> <em>space characters</em> to get the text cursor to the next level of
+indentation.</p>
+<p>In other text editors, pressing the tab key might insert a <em>tab character</em> (a
+special character indicating an indent). This is not ideal — <em>if you aren’t
+using Spyder, you should configure your editor to use spaces</em>.</p>
+<h2 id="whitespace">Whitespace</h2>
+<h3 id="using-blank-lines">Using blank lines</h3>
+<p>While the <em>horizontal</em> position of code on a line (i.e., indentation) conveys
+important information to the Python interpreter, the interpreter ignores
+the <em>vertical</em> spacing of code in a file. For example, this function definition</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">yards</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"yards: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">yards</span><span class="p">))</span>
+    <span class="n">feet</span> <span class="o">=</span> <span class="n">yards</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"feet: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">feet</span><span class="p">))</span>
+    <span class="n">inches</span> <span class="o">=</span> <span class="n">feet</span> <span class="o">*</span> <span class="mi">12</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"inches: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">inches</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">inches</span>
+</pre></div>
+
+
+<p>is equivalent to this one:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">yards</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"yards: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">yards</span><span class="p">))</span>
+
+    <span class="n">feet</span> <span class="o">=</span> <span class="n">yards</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"feet: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">feet</span><span class="p">))</span>
+
+    <span class="n">inches</span> <span class="o">=</span> <span class="n">feet</span> <span class="o">*</span> <span class="mi">12</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"inches: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">inches</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">inches</span>
+</pre></div>
+
+
+<p>However, the <em>second definition</em>* is more readable. Therefore putting blank
+lines between logical sections of code is encouraged, to increase
+readability.</p>
+<h3 id="spaces-in-between-elements-on-a-line">Spaces in between elements on a line</h3>
+<p>The Python interpreter also ignores the spaces between binary operators
+like <code>=</code> or <code>+</code>. Therefore the expressions <code>a=b</code> and <code>a = b</code> are
+equivalent. You should get into the habit of using a single space
+between the operands in these expressions. However, a couple of notable
+exceptions to this whitespace rule can be found below:</p>
+<ul>
+<li>
+<p><em>Avoid spacing inside parentheses.</em> For example, prefer
+  <code>convert(15.2, "inches", "miles")</code> over
+  <code>convert( 15.2, "inches", "miles" )</code>.</p>
+</li>
+<li>
+<p><em>Avoid spacing between a function name and the parameter
+  list.</em> For example, prefer <code>hello("Cody")</code> over
+  <code>hello ("Cody")</code>.</p>
+</li>
+<li>
+<p><em>Avoid spacing before a comma or colon.</em> For example,
+  prefer this</p>
+<div class="codehilite"><pre><span></span>if x == 4:
+    a, b = x, y; x, y = y, x
+</pre></div>
+
+
+<p>over the more confusing version:</p>
+<div class="codehilite"><pre><span></span>if x == 4 :
+    a, b = x , y ; x , y = y , x
+</pre></div>
+
+
+</li>
+<li>
+<p><em>Avoid spacing before indexing a dictionary.</em> For example, prefer
+  <code>dict['key']</code> over <code>dict ['key']</code>.</p>
+</li>
+</ul>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<ul>
+<li>
+<p><em>Keep line lengths under 80 characters.</em> On many machines and in many
+  software packages, this is a standard line length. It makes it easier for
+  others (like graders) to read and/or print your programs. If your parameter
+  list for a function or method is too long to fit within 80 characters, then
+  insert line breaks and indent the remaining lines of parameters. For example,
+  this function header</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">calculate_average_daily_return</span><span class="p">(</span><span class="n">customer</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="n">daily_interest_rate</span><span class="p">,</span> <span class="n">discount_rate</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+
+
+<p>could be rewritten as:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">calculate_average_daily_return</span><span class="p">(</span><span class="n">customer</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span>
+                                   <span class="n">daily_interest_rate</span><span class="p">,</span>
+                                   <span class="n">discount_rate</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+
+
+</li>
+</ul>
+<hr>
+<p>Updated by Aaron Stevens, 2024</p>
+</section>
+
+<footer>
+Last modified on August 27, 2025.
+</footer>
+
+</div>
+
+<div id="right">
+</div>
+
+
+
+
+
+</body></html>
