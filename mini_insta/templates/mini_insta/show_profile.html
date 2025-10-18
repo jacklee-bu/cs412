@@ -35,6 +35,22 @@
         <td><strong>Member Since:</strong></td>
         <td>{{ profile.join_date|date:"F d, Y" }}</td>
     </tr>
+    <tr>
+        <td><strong>Followers:</strong></td>
+        <td>
+            <a href="{% url 'mini_insta:show_followers' profile.pk %}" style="color: blue;">
+                {{ profile.get_num_followers }} follower{% if profile.get_num_followers != 1 %}s{% endif %}
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td><strong>Following:</strong></td>
+        <td>
+            <a href="{% url 'mini_insta:show_following' profile.pk %}" style="color: blue;">
+                {{ profile.get_num_following }} profile{% if profile.get_num_following != 1 %}s{% endif %}
+            </a>
+        </td>
+    </tr>
 </table>
 
 <br>

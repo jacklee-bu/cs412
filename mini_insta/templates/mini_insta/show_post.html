@@ -9,6 +9,10 @@
     <strong>Posted on:</strong> {{ post.timestamp|date:"F d, Y g:i A" }}
 </p>
 
+<div style="background-color: lightcyan; padding: 10px; margin: 15px 0; border: 1px solid black;">
+    <strong style="font-size: 18px;">{{ post.get_likes.count }} Like{% if post.get_likes.count != 1 %}s{% endif %}</strong>
+</div>
+
 {% if post.caption %}
     <div style="background-color: lightyellow; padding: 10px; border: 1px solid black; margin: 20px 0;">
         <strong>Caption:</strong><br>
@@ -17,6 +21,21 @@
 {% else %}
     <p><i>No caption provided</i></p>
 {% endif %}
+
+<hr>
+
+<h3 style="color: green;">Comments ({{ post.get_all_comments.count }})</h3>
+<div style="margin: 20px 0;">
+    {% for comment in post.get_all_comments %}
+        <div style="background-color: lavender; padding: 10px; margin: 10px 0; border: 1px solid gray;">
+            <strong>{{ comment.profile.display_name }}</strong> (@{{ comment.profile.username }})<br>
+            <small style="color: gray;">{{ comment.timestamp|date:"M d, Y g:i A" }}</small><br>
+            <p style="margin-top: 5px;">{{ comment.text }}</p>
+        </div>
+    {% empty %}
+        <p style="font-style: italic; color: gray;">No comments yet. Be the first to meow!</p>
+    {% endfor %}
+</div>
 
 <hr>
 

@@ -1,0 +1,57 @@
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}Following - {{ profile.display_name }} - Mini Insta{% endblock %}
+
+{% block content %}
+<center>
+    <h1>Kitties That {{ profile.display_name }} Follows</h1>
+    <p><b>@{{ profile.username }}</b> is following {{ profile.get_num_following }} profile{% if profile.get_num_following != 1 %}s{% endif %}</p>
+</center>
+
+<hr>
+
+<table border="1" cellpadding="10" style="width: 100%; margin-top: 20px; background-color: lightyellow;">
+    <tr style="background-color: lightgray;">
+        <th>Picture</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Bio</th>
+    </tr>
+    {% for following in profile.get_following %}
+    <tr>
+        <td style="text-align: center;">
+            <a href="{% url 'mini_insta:show_profile' following.pk %}">
+                <img src="{{ following.profile_image_url }}" alt="{{ following.display_name }}"
+                     width="80" height="80" style="border: 1px solid black;">
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'mini_insta:show_profile' following.pk %}" style="color: blue;">
+                {{ following.display_name }}
+            </a>
+        </td>
+        <td>@{{ following.username }}</td>
+        <td>
+            {% if following.bio_text %}
+                {{ following.bio_text|truncatechars:50 }}
+            {% else %}
+                (no bio)
+            {% endif %}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="4" style="text-align: center;">
+            <i>Not following anyone yet. Time to make some furry friends!</i>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<p>
+    <a href="{% url 'mini_insta:show_profile' profile.pk %}" style="color: blue; text-decoration: underline;">
+        &lt;-- Back to {{ profile.display_name }}'s Profile
+    </a>
+</p>
+{% endblock %}

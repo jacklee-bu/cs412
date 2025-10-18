@@ -3,7 +3,7 @@
 # admin.py for mini_insta app - registers models with Django admin
 
 from django.contrib import admin
-from .models import Profile, Post, Photo
+from .models import Profile, Post, Photo, Follow, Comment, Like
 
 # Register your models here.
 
@@ -17,3 +17,8 @@ admin.site.register(Profile)
 
 admin.site.register(Post)
 admin.site.register(Photo)
+
+# register the new models for A6
+admin.site.register(Follow)
+admin.site.register(Comment)
+admin.site.register(Like)
