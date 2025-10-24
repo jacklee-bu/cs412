@@ -36,11 +36,21 @@
     <div class="main-container">
         <div class="navigation">
             <a href="{% url 'mini_insta:show_all_profiles' %}">All Profiles</a>
-            {% if profile %}
-                | <a href="{% url 'mini_insta:show_feed' profile.pk %}">Feed</a>
-                | <a href="{% url 'mini_insta:search' profile.pk %}">Search</a>
-                | <a href="{% url 'mini_insta:show_profile' profile.pk %}">Profile</a>
-                | <a href="{% url 'mini_insta:create_post' profile.pk %}">Create Post</a>
+            {% if user.is_authenticated %}
+                <!-- show logged in user info -->
+                | Logged in as: {{ user.username }}
+                | <a href="{% url 'mini_insta:show_own_profile' %}">My Profile</a>
+                | <a href="{% url 'mini_insta:show_feed' %}">Feed</a>
+                | <a href="{% url 'mini_insta:search' %}">Search</a>
+                | <a href="{% url 'mini_insta:create_post' %}">Create Post</a>
+                |
+                <form method="POST" action="{% url 'mini_insta:logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background: none; border: none; color: blue; font-weight: bold; cursor: pointer; text-decoration: underline;">Logout</button>
+                </form>
+            {% else %}
+                | <a href="{% url 'mini_insta:login' %}">Login</a>
+                | <a href="{% url 'mini_insta:create_profile' %}">Create Profile</a>
             {% endif %}
         </div>
 

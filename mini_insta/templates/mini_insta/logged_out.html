@@ -1,0 +1,36 @@
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}Logged Out - Mini Insta{% endblock %}
+
+{% block content %}
+<center>
+    <h1>You have been logged out</h1>
+</center>
+
+<hr>
+
+<div style="max-width: 500px; margin: 50px auto; background-color: lightcyan; padding: 30px; border: 2px solid black;">
+    <center>
+        <h3>Thank you for using Mini Insta!</h3>
+
+        <p style="font-size: 18px; margin: 20px 0;">
+            You have successfully logged out of your account.
+        </p>
+
+        <br>
+
+        <a href="{% url 'mini_insta:login' %}"
+           style="padding: 10px 30px; background-color: lightgreen; border: 2px solid black;
+                  font-size: 16px; font-weight: bold; text-decoration: none; color: black;">
+            Log In Again
+        </a>
+
+        <br><br>
+
+        <a href="{% url 'mini_insta:show_all_profiles' %}"
+           style="color: blue; text-decoration: underline;">
+            View All Profiles (no login required)
+        </a>
+    </center>
+</div>
+{% endblock %}

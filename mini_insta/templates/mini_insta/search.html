@@ -10,7 +10,7 @@
 <hr>
 
 <div style="max-width: 500px; margin: 50px auto; background-color: lightyellow; padding: 30px; border: 2px solid black;">
-    <form method="GET" action="{% url 'mini_insta:search' profile.pk %}">
+    <form method="GET" action="{% url 'mini_insta:search' %}">
         <center>
             <label for="query" style="font-size: 18px; font-weight: bold;">
                 What are you looking for?
@@ -31,7 +31,7 @@
 
 <br>
 <p style="text-align: center;">
-    <a href="{% url 'mini_insta:show_profile' profile.pk %}" style="color: blue; text-decoration: underline;">
+    <a href="{% url 'mini_insta:show_own_profile' %}" style="color: blue; text-decoration: underline;">
         &lt;-- Back to Profile
     </a>
 </p>

@@ -5,11 +5,14 @@
 from django.db import models
 from django.utils import timezone
 from datetime import datetime
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Profile(models.Model):
     """Model representing a user profile in mini_insta."""
+    # link each profile to a django user for authentication
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     bio_text = models.TextField(blank=True)
     username = models.CharField(max_length=100, unique=True)
     profile_image_url = models.URLField(max_length=500)
@@ -80,6 +83,13 @@ class Profile(models.Model):
         posts = Post.objects.filter(profile__in=following_profiles).order_by('-timestamp')
         return posts
 
+    def is_following(self, other_profile):
+        """Check if this profile is following another profile.
+        Returns: boolean
+        """
+        # check if a follow relationship exists
+        return Follow.objects.filter(profile=other_profile, follower_profile=self).exists()
+
 class Post(models.Model):
     """Model representing a post by a profile."""
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -121,6 +131,13 @@ class Post(models.Model):
         # get all likes for this post
         likes = Like.objects.filter(post=self)
         return likes
+
+    def is_liked_by(self, profile):
+        """Check if this post is liked by a profile.
+        Returns: boolean
+        """
+        # check if a like exists from this profile
+        return Like.objects.filter(post=self, profile=profile).exists()
 
 class Photo(models.Model):
     """Model representing a photo attached to a post."""

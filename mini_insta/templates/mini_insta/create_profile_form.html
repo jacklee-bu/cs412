@@ -1,0 +1,93 @@
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}Create Profile - Mini Insta{% endblock %}
+
+{% block content %}
+<center>
+    <h1>Create Your Mini Insta Profile</h1>
+</center>
+
+<hr>
+
+<div style="max-width: 600px; margin: 30px auto; background-color: lightyellow; padding: 30px; border: 2px solid black;">
+    <form method="POST" action="{% url 'mini_insta:create_profile' %}">
+        {% csrf_token %}
+
+        <h3 style="color: green;">Step 1: Create Your Account</h3>
+        <table border="1" style="width: 100%; background-color: lightcyan; padding: 10px;">
+            <tr>
+                <td><label for="id_username">Username:</label></td>
+                <td>{{ user_form.username }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_password1">Password:</label></td>
+                <td>{{ user_form.password1 }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_password2">Confirm Password:</label></td>
+                <td>{{ user_form.password2 }}</td>
+            </tr>
+        </table>
+
+        {% if user_form.errors %}
+            <div style="background-color: lightcoral; padding: 10px; margin: 10px 0; border: 1px solid red;">
+                <strong>Account Errors:</strong>
+                {{ user_form.errors }}
+            </div>
+        {% endif %}
+
+        <br>
+
+        <h3 style="color: green;">Step 2: Set Up Your Profile</h3>
+        <table border="1" style="width: 100%; background-color: lavender; padding: 10px;">
+            <tr>
+                <td><label for="id_username">Profile Username:</label></td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_display_name">Display Name:</label></td>
+                <td>{{ form.display_name }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_bio_text">Bio:</label></td>
+                <td>{{ form.bio_text }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_profile_image_url">Profile Image URL:</label></td>
+                <td>{{ form.profile_image_url }}</td>
+            </tr>
+        </table>
+
+        {% if form.errors %}
+            <div style="background-color: lightcoral; padding: 10px; margin: 10px 0; border: 1px solid red;">
+                <strong>Profile Errors:</strong>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <br>
+        <center>
+            <button type="submit"
+                    style="padding: 10px 30px; background-color: lightgreen; border: 2px solid black;
+                           font-size: 16px; font-weight: bold; cursor: pointer;">
+                Create Profile
+            </button>
+
+            <a href="{% url 'mini_insta:show_all_profiles' %}"
+               style="padding: 10px 30px; background-color: lightcoral; border: 2px solid black;
+                      font-size: 16px; font-weight: bold; text-decoration: none; color: black;
+                      display: inline-block; margin-left: 10px;">
+                Cancel
+            </a>
+        </center>
+    </form>
+</div>
+
+<br>
+<p style="text-align: center;">
+    Already have an account?
+    <a href="{% url 'mini_insta:login' %}" style="color: blue; text-decoration: underline;">
+        Login Here
+    </a>
+</p>
+{% endblock %}

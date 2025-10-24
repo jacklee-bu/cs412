@@ -54,10 +54,34 @@
 </table>
 
 <br>
-<a href="{% url 'mini_insta:update_profile' profile.pk %}"
-   style="padding: 5px 15px; background-color: lightblue; text-decoration: none; color: black; border: 1px solid black;">
-    Update Profile
-</a>
+{% if user.is_authenticated %}
+    {% if profile.user == user %}
+        <!-- user viewing their own profile -->
+        <a href="{% url 'mini_insta:update_profile' %}"
+           style="padding: 5px 15px; background-color: lightblue; text-decoration: none; color: black; border: 1px solid black;">
+            Update Profile
+        </a>
+    {% elif logged_in_profile %}
+        <!-- user viewing someone else's profile -->
+        {% if logged_in_profile.is_following profile %}
+            <form method="POST" action="{% url 'mini_insta:delete_follow' profile.pk %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit"
+                        style="padding: 5px 15px; background-color: lightcoral; border: 1px solid black; cursor: pointer;">
+                    Unfollow
+                </button>
+            </form>
+        {% else %}
+            <form method="POST" action="{% url 'mini_insta:follow' profile.pk %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit"
+                        style="padding: 5px 15px; background-color: lightgreen; border: 1px solid black; cursor: pointer;">
+                    Follow
+                </button>
+            </form>
+        {% endif %}
+    {% endif %}
+{% endif %}
 
 <br>
 <hr>

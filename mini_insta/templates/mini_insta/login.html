@@ -1,0 +1,57 @@
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}Login - Mini Insta{% endblock %}
+
+{% block content %}
+<center>
+    <h1>Login to Mini Insta</h1>
+</center>
+
+<hr>
+
+<div style="max-width: 400px; margin: 50px auto; background-color: lightyellow; padding: 30px; border: 2px solid black;">
+    <form method="POST" action="{% url 'mini_insta:login' %}">
+        {% csrf_token %}
+
+        <center>
+            <h3>Please enter your credentials</h3>
+        </center>
+
+        <table style="width: 100%;">
+            <tr>
+                <td><label for="id_username">Username:</label></td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_password">Password:</label></td>
+                <td>{{ form.password }}</td>
+            </tr>
+        </table>
+
+        {% if form.errors %}
+            <div style="background-color: lightcoral; padding: 10px; margin: 10px 0; border: 1px solid red;">
+                <strong>Error:</strong> Invalid username or password.
+            </div>
+        {% endif %}
+
+        <input type="hidden" name="next" value="{% url 'mini_insta:show_all_profiles' %}">
+
+        <br>
+        <center>
+            <button type="submit"
+                    style="padding: 10px 30px; background-color: lightgreen; border: 2px solid black;
+                           font-size: 16px; font-weight: bold; cursor: pointer;">
+                Login
+            </button>
+        </center>
+    </form>
+</div>
+
+<br>
+<p style="text-align: center;">
+    Don't have an account?
+    <a href="{% url 'mini_insta:create_profile' %}" style="color: blue; text-decoration: underline;">
+        Create a Profile
+    </a>
+</p>
+{% endblock %}

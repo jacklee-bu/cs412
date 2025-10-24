@@ -23,3 +23,10 @@ class UpdatePostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['caption']
+
+class CreateProfileForm(forms.ModelForm):
+    """Form for creating a new profile."""
+    class Meta:
+        model = Profile
+        # exclude user and join_date - user will be set from UserCreationForm
+        fields = ['username', 'display_name', 'bio_text', 'profile_image_url']

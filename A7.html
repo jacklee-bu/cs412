@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://cs-people.bu.edu/azs/cs412/assignments/a7.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Assignment 7: User Accounts, Authentication and Registration — CS412, Boston University</title>
+
+<meta name="description" content="Course website for CS412, Boston University.">
+<link rel="stylesheet" href="./A7_files/style.css">
+<!-- 
+<link rel="icon" type="image/x-icon" href="http://cs-people.bu.edu/azs/cs412/img/favicon.ico"> 
+<link rel="mask-icon" href="http://cs-people.bu.edu/azs/cs412/img/111.svg" color="#cc0000">
+-->
+<script src="./A7_files/respond.min.js"></script>
+<script src="./A7_files/html5shiv.js"></script>
+<script src="./A7_files/cs111.js"></script>
+<meta name="viewport" content="width=device-width, user-scalable=yes">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+</head>
+
+<body onload="setup();">
+
+<div id="left">
+<a id="header" href="http://cs-people.bu.edu/azs/cs412/">
+CS412
+</a>
+<div id="subheader">
+Fall 2025
+</div>
+
+<nav>
+<ul>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/index.html">Home</a></li>
+    <li><a href="https://learn.bu.edu/" target="_top">Blackboard</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/files/syllabus.pdf">Syllabus</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/staff.html">Staff</a></li>
+	<li><a href="http://cs-people.bu.edu/azs/cs412/assignments/">Assignments</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/resources.html">Resources</a></li>
+    <li><a href="http://cs-people.bu.edu/azs/cs412/collaboration.html">Collaboration</a></li>
+</ul>
+<ul class="external">
+    <li><a href="https://piazza.com/bu/fall2025/cs412" target="_blank">Piazza Discussion</a></li>
+    <li><a href="https://www.gradescope.com/courses/1103701" target="_blank">Gradescope</a></li> 
+<!--
+    <li><a href="http://cs-people.bu.edu/azs/cs412/policies.html">Policies</a></li>
+    -->
+</ul>
+</nav>
+
+</div><!-- end #left -->
+
+<div id="middle">
+<section class="main">
+<h1 id="assignment-7-user-accounts-authentication-and-registration">Assignment 7: User Accounts, Authentication and Registration</h1>
+<div class="toc">
+<ul>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#assignment-7-user-accounts-authentication-and-registration">Assignment 7: User Accounts, Authentication and Registration</a><ul>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#learning-objectives">Learning Objectives</a><ul>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#pre-requisites-assignments-6">Pre-requisites: Assignments 6</a></li>
+</ul>
+</li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#case-study-mini-insta">Case Study: Mini Insta</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#preliminaries">Preliminaries</a><ul>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#continue-working-on-the-mini_insta-application">Continue working on the mini_insta Application</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#overview">Overview</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#task-1-authentication-with-user-accounts-and-constraints-on-crud-operations">Task 1: Authentication with User accounts and constraints on CRUD operations.</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#task-2-authentication-login-and-logout">Task 2: Authentication: Login and logout</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#task-3-user-registration-and-creating-profiles">Task 3: User registration and creating Profiles</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#task-4-implementing-likes-and-follows">Task 4: Implementing Likes and Follows</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#optional-challenge">Optional Challenge</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#deployment-to-cs-webapps">Deployment to cs-webapps</a></li>
+<li><a href="https://cs-people.bu.edu/azs/cs412/assignments/a7.html#submitting-your-work">Submitting Your Work</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p><em>due by <font color="blue"></font></em><font color="blue"><em>9:00 p.m. EDT on Friday 10/24/2025</em></font> </p>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>After completing this assignment, students will be able to:</p>
+<ul>
+<li>
+<p>Implement authentication and permissions within a web application.</p>
+</li>
+<li>
+<p>Incorporating user accounts into application data models and work flows.</p>
+</li>
+<li>
+<p>Revise/refactor URL routing and page views to create a user-based experience.</p>
+</li>
+</ul>
+<hr>
+<h3 id="pre-requisites-assignments-6">Pre-requisites: Assignments 6</h3>
+<p>Assignment 6 builds upon the case study you began in Assignment 3.</p>
+<p>You must have completed Assignment 6 before you attempt Assignment 7. </p>
+<h2 id="case-study-mini-insta">Case Study: Mini Insta</h2>
+<p>This assignment is part of an in-depth case study to develop a data-enabled web application.
+In the entire case-study, you will simulate the core features of the Instagram social 
+networking application. Over the course of 5 parts, you will implement:</p>
+<ul>
+<li>Viewing, creating, and updating user profiles</li>
+<li>Viewing and creating posts</li>
+<li>Uploading images</li>
+<li>Viewing and adding followers</li>
+<li>Developing a feed to show posts from Profiles one is following</li>
+<li>Incorporating user accounts, authentication (login), and registration</li>
+</ul>
+<p>This assignment is the fifth part of the case study.</p>
+<p>Here is a sample implementation: 
+<a href="https://cs-webapps.bu.edu/azs/cs412/mini_insta5/" target="_blank">
+MiniInsta part 5</a>.</p>
+<p>You <strong>do not</strong> need to match the data of this example, or even the way it is formatted. 
+The look and feel of the application, as well as the data you dispaly, is entirely up to you.</p>
+<h2 id="preliminaries">Preliminaries</h2>
+<p>In your work on this assignment, make sure to abide by the
+<a href="https://cs-people.bu.edu/azs/cs412/collaboration.html">collaboration policies</a> of the course.  </p>
+<p>If you have questions while working on this assignment, please post them on <a href="https://piazza.com/bu/summer2025/cs412">Piazza!</a>
+This is the best way to get a quick response from your classmates and the course staff. </p>
+<p>For each problem in this problem set, we will be writing or evaluating some Python code.
+You are encouraged to use the VS Code IDE which will be discuss/presented in class, 
+but you are welcome to use another IDE if you choose.</p>
+<div class="admonition note">
+<p class="admonition-title">Important Guidelines: Comments and Docstrings</p>
+<ul>
+<li>
+<p>Refer to the class <a href="https://cs-people.bu.edu/azs/cs412/assignments/coding_standards">Coding Standards</a> for important
+    style guidelines. The grader will be awarding/deducting points for writing
+    code that conforms to these standards. </p>
+</li>
+<li>
+<p>Every program file must begin with a descriptive header comment that includes
+    your name, username/BU email, and a brief description of the work contained in 
+    the file.</p>
+</li>
+<li>
+<p>Every function/method must include a descriptive docstring that explains what the 
+    function does and identifies/defines each of the parameters to the function.</p>
+</li>
+</ul>
+</div>
+<p><br></p>
+<h3 id="continue-working-on-the-mini_insta-application">Continue working on the <code>mini_insta</code> Application</h3>
+<p>Continue to do this work within your existing Django project, within the <code>mini_insta</code>.
+application that you worked on in Assignment 8. </p>
+<h3 id="overview">Overview</h3>
+<p>Django provides many features “out of the box” and ready to use, along with the ability 
+to customize almost everything. One of the great “out of the box” features is the
+Django <code>User</code> model and authentication framework. The framework comes built-in, ready to
+use, with generic view classes, templates, and helper functions. </p>
+<p>In task 1, we begin by using the authentication framework with an existing user that is
+already authenticated (logged in). Once this is working, we can refactor (revise) several
+of the URLs take advantage of knowing who is logged in.</p>
+<p>In task 2, we add login and logout features. </p>
+<p>In Task 3, we add registration (creating a <code>User</code> account) to the create <code>Profile</code> process. </p>
+<h3 id="task-1-authentication-with-user-accounts-and-constraints-on-crud-operations">Task 1: Authentication with <code>User</code> accounts and constraints on CRUD operations.</h3>
+<ol>
+<li>
+<p>Modify the existing <code>Profile</code> model to add a <code>ForeignKey</code> to the standard Django 
+    <code>User</code> model (from <code>django.contrib.auth.models</code>). This will associate each 
+    <code>Profile</code> with a <code>User</code> for authentication and identification purposes.</p>
+<p>When you make migrations, remember that you will need to set a default value for 
+all existing <code>Profiles</code> – for example, the <strong>admin</strong> <code>User</code>.</p>
+<p><strong>Note:</strong> this is a good use-case for having a <em>one-to-one</em> relationship between
+<code>Profile</code>s and <code>User</code>s. However, we need a way to migrate <strong>existing</strong> <code>Profile</code>s 
+that were created without a <code>User</code>. By making this attribute a <code>ForeignKey</code> 
+instead of a <code>OneToOne</code>, we can set a default value for all existing <code>Profile</code>s. </p>
+<p>You will be able to change this later from the Django Admin pages.</p>
+<p>Use the Django admin to create <strong>one non-admin user</strong>, and associate it with one 
+of the existing <code>Profile</code>s. This will be your “test” <code>User</code>.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Testing Hint: use Incognito Mode</p>
+<ul>
+<li>
+<p>It is helpful to test login/logout within a new tab in <strong>“Incognito Mode”</strong> in the 
+    Chrome Browser. Every new Incognito window is by default not authenticated, and 
+    does not remember your previous login. </p>
+</li>
+<li>
+<p>It also makes it possible to be logged in as “Admin” in one window and 
+    another user in a different window.</p>
+</li>
+</ul>
+</div>
+<ol start="2">
+<li>
+<p>Revise the <code>base.html</code> template to account for having an authenticated user. </p>
+<p>It will be helpful to print out (in the web page) which user (if any) is logged 
+in while debugging/building the authentication into the application.
+You can choose whether to keep it in the final version or not.</p>
+</li>
+<li>
+<p>Revise the views to require that a user be logged in before they can do anything
+    that would modify the database, i.e., Create, Update, or Delete operations. 
+    Also: showing the post feed and doing a search should be constrained only 
+    to logged-in users.</p>
+<p>The only operations available to a non-logged-in user should be showing all profiles,
+showing a profile page, showing a post, showing followers, showing following, 
+and (later) creating a new profile. </p>
+<p>The <code>LoginRequiredMixin</code> base class will handle the authentication for you. 
+Inherit from this class in any view that will require authentication. </p>
+<p><strong>Hint:</strong> It might be helpful to create your own subclass of <code>LoginRequiredMixin</code> 
+with any additional features that you find you need, for instance: a method to 
+find/return the <code>Profile</code> logged in user, which will be needed in many subclass views.</p>
+<p>Test each view one by one (by typing the URL), to ensure that the authentication 
+requirement works as expected. That is to say, try doing an update profile without 
+being logged in. It should fail, and require you to authenticate. Make sure that after 
+authenticating, the user is redirected to the appropriate “next” page view, i.e., 
+if the user was trying to create a <code>Post</code>, redirect them to the create post after login. </p>
+</li>
+<li>
+<p>Review <strong>all of the links</strong> available from the profile page and navigation links 
+    (e.g., at the top or bottom of your page). </p>
+<p>Use decision logic to only display links that should be available to an authenticated 
+<code>User</code>, or when the authenticated <code>User</code> is the one associated with that <code>Profile</code>. </p>
+<p>In particular: only the user associated with a <code>Profile</code> should be allowed to update 
+that <code>Profile</code>, create a <code>Post</code>, delete a <code>Post</code>, update a <code>Post</code>, or view the feed.
+Hide such links from unauthenticated users. </p>
+<p>That is, the only <code>User</code> who should be allowed to update a <code>Profile</code>, create a <code>Post</code>, 
+update a <code>Post</code> or view the feed is the <code>User</code> associated with the <code>Profile</code>. 
+Other <code>User</code>s, even if they are authenticated, should have “read only” access to the 
+profile page.</p>
+</li>
+<li>
+<p>Now that we know which <code>User</code> (and <code>Profile</code>) is logged in, we will refactor several 
+    of the application’s URL patterns. These patterns:</p>
+<ul>
+<li><code>'profile/&lt;int:pk&gt;/feed'</code></li>
+<li><code>'profile/&lt;int:pk&gt;/search'</code></li>
+<li><code>'profile/&lt;int:pk&gt;/update'</code></li>
+<li><code>'profile/&lt;int:pk&gt;/create_post'</code></li>
+</ul>
+<p>all required a parameter named <code>pk</code> (the primary key) to identify the <code>Profile</code> 
+for which we wanted to do each respective operation. Now that we require a logged in 
+user, we want to change these URLs to remove the <code>&lt;int:pk&gt;</code>:</p>
+<ul>
+<li><code>'profile/feed'</code></li>
+<li><code>'profile/search'</code></li>
+<li><code>'profile/update'</code></li>
+<li><code>'profile/create_post'</code></li>
+</ul>
+<p>That is, to remove the primary key from the URL. You will need to update any templates
+that used the previous URLs to remove the (no longer needed) URL parameter.</p>
+<p>Add another URL pattern, which will be used to show the logged-in user their own
+profile page:</p>
+<ul>
+<li><code>'profile'</code></li>
+</ul>
+<p>In the generic view classes, the default way to find the <code>Profile</code> (or any model) 
+object is to use the URL parameter <code>pk</code> to do an object lookup (this is done in the 
+<code>get_object</code> method). Now that we have removed the URL parameter <code>pk</code>, we will 
+need a different way to get the object.</p>
+<p>Revise the view classes that need to find the <code>Profile</code> object (of the logged in user) 
+by implementing their <code>get_object(self)</code> method (to replace the default behavior). </p>
+<p>This method implementation will use the logged in user (<code>self.request.user</code>) and the 
+object manager (<code>Profile.objects</code>) to find and return the <code>Profile</code> corresponding 
+to this <code>User</code>.</p>
+<p>Hint: it will NOT work for <code>Profile</code>s that are still associated with the default 
+<code>User</code> (<em>admin user</em>), i.e., there will be multiple matching <code>Profile</code>s for the 
+default/admin user. There are some simple and some clever work-arounds, 
+and you are welcome to try any reasonable solution. Just be aware that for testing 
+purposes, you should test with a <code>User</code> that is not the <em>admin user</em>. </p>
+</li>
+<li>
+<p>Test everything! 
+    Start at this URL pattern: <code>http://127.0.0.1:8000/mini_insta/</code>.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Important: Add files to git!</p>
+<ul>
+<li>
+<p>You’ve just modified your database structure, and added some data records. </p>
+</li>
+<li>
+<p>This is an excellent time to add your files to git, commit your changes, 
+    and push your changes to GitHub before anything gets F@&amp;#ed up. </p>
+</li>
+</ul>
+</div>
+<h3 id="task-2-authentication-login-and-logout">Task 2: Authentication: Login and logout</h3>
+<p>Django provides a lot of flexibility for authentication. To begin, we will use the 
+built-in authentication framework which can be used directly in your app’s URLs, 
+and is imported from <code>django.contrib.auth.auth_views</code></p>
+<ol>
+<li>
+<p>Add two new URLs to your application: </p>
+<p>a. <code>'login/'</code>, which will be implemented by the generic view class 
+    <code>auth_views.LoginView</code>.</p>
+<p>b. <code>'logout/'</code>, which will be implemented by the generic view class 
+    <code>auth_views.LogoutView</code> </p>
+<p>Create a URL pattern for each one, with a pseudonym to use within your application.</p>
+</li>
+<li>
+<p>Building the <strong>login</strong> feature: a tale of three errors and a success.</p>
+<p><strong>a. Specify the login template</strong> </p>
+<p>Test out the URL: <code>http://127.0.0.1:8000/mini_insta/login/</code>. </p>
+<p>It should bring an error message, because it cannot find the default template
+<code>registration/login.html</code>. </p>
+<p>No worries! Create your own login template at <code>mini_insta/templates/mini_insta/login.html</code>. 
+This template will display a pre-made form, provided by <code>auth_views.LoginView</code>. 
+All you need to do is to create the HTML form tags and a submit button, and 
+display the context variable <code>form</code>. </p>
+<p>In your URL pattern, pass a parameter to the <code>.as_view</code> method, to specify the 
+template name to display, </p>
+<p>e.g., <code>auth_views.LoginView.as_view(template_name='mini_insta/login.html')</code></p>
+<p><strong>b. Specify what to do after login</strong> </p>
+<p>Test out the URL: <code>http://127.0.0.1:8000/mini_insta/login/</code> again.
+Fill out the form with a valid username/password for your non-admin user, and submit. </p>
+<p>This time, the login should be successful, but after logging in the default
+behavior is to direct you to the URL: <code>http://localhost:8000/accounts/profile/</code>.
+You can verify that the login was successful by trying this URL:
+<code>http://localhost:8000/mini_insta/</code>, which should show that you are in fact logged in.
+The  problem is that we did not specify what to do after the login was
+successful. You will correct this by adding a hidden form field in the login form,
+with the name <code>next</code>, and specify the <code>value</code> to contain a valid URL within your 
+application, for example to show all profiles. </p>
+<p>Test out the URL: <code>http://127.0.0.1:8000/mini_insta/login/</code> again.
+Fill out the form with username/password and submit. </p>
+<p><em>This time</em>, you should be logged in <em>AND</em> be redirected after login the page
+identified by the URL in <code>next</code>. Good job.</p>
+<p><strong>d. Specify the <code>login_url</code></strong> </p>
+<p>Test out the URL: <code>http://127.0.0.1:8000/mini_insta/profile/update</code>.
+The <code>UpdateProfileView</code> should identify that you need to log in before accessing 
+the view. </p>
+<p>This time, expect a <code>page not found</code> error because the URL 
+<code>http://localhost:8000/accounts/login/</code>, which is the default URL within a Django 
+project for the login feature. </p>
+<p>To provide a specialized login URL, you must implement the <code>get_login_url</code> method 
+on the view class (either on each view class that needs it, or in your subclass 
+of <code>LoginRequiredMixin</code>). This method must return the URL to the application’s 
+login (i.e., described in your <code>urlpatterns</code>). Implement this <code>get_login_url</code> method, 
+and ... you guessed it: test it again! </p>
+</li>
+<li>
+<p>The <strong>logout</strong> feature is much simpler!</p>
+<p>Test out the URL: <code>http://localhost:8000/mini_insta/logout/</code>. </p>
+<p><strong>Note</strong>: in the newest version of Django, the  <code>auth_views.LogoutView</code> will not
+allow a <code>GET</code> request. A link created with the <code>&lt;a&gt;</code> tag always sends a <code>GET</code> request.
+To send a <code>POST</code> request, you will need to create a small <code>&lt;form&gt;</code> with the <code>method</code> 
+set to <code>POST</code>.</p>
+<p>It should log you out on the first try!</p>
+<p>However, after log out, you are directed to a default “Logged out” page, which
+is not part of your <code>mini_insta</code> app, does not follow your styling scheme, and contains
+a link to “Log in again” – to the admin app.</p>
+<p>To customize this behavior, you could create a template 
+<code>mini_insta/templates/mini_insta/logged_out.html</code>
+which will provide a “log out confirmation” page. Include on this page a link
+to log in again (to the mini_insta app). To show this template, you will need
+a simple view (try: <code>TemplateView</code>), and then a URL (e.g., <code>logout_confirmation</code>)
+to bring up that view. </p>
+<p>In your URL pattern, pass a parameter to the <code>.as_view</code> method, to specify the 
+template name to display, e.g., <code>auth_views.LogoutView.as_view(next_page='logout_confirmation')</code></p>
+<p>Try logging in again, and logging out again, until you are satisfied that it works.</p>
+</li>
+<li>
+<p>In the <code>base.html</code> template, add navigation links for <em>login</em> and <em>logout</em>.</p>
+<p>Use decision logic to show/hide the navigation URLs depending on which <code>User</code>
+is logged in. </p>
+<p>That is to say:</p>
+<ul>
+<li>
+<p>A user who is not logged in should be able to see all profiles and 
+    login. </p>
+</li>
+<li>
+<p>A user who is logged in should have a link to see their own profile page, 
+    as well as a link to log out.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Test everything again!</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Important: Add files to git!</p>
+<ul>
+<li>
+<p>You’ve reached a good stopping point! </p>
+</li>
+<li>
+<p>This is an excellent time to add your files to git, commit your changes, 
+    and push your changes to GitHub before anything gets F@&amp;#ed up. </p>
+</li>
+</ul>
+</div>
+<h3 id="task-3-user-registration-and-creating-profiles">Task 3: <code>User</code> registration and creating <code>Profile</code>s</h3>
+<p>Registration is the process of creating a <code>User</code> account. 
+We need to set the <code>User</code> as a foreign key on the <code>Profile</code> instance, so the <code>User</code> is
+a pre-requisite for creating a <code>Profile</code>.</p>
+<p>There are several valid ways to accomplish this and no canonical “correct” solution.</p>
+<p>When a user wants to create a <code>Profile</code>, some options include:</p>
+<ul>
+<li>
+<p>Have them register first (create a Django <code>User</code>), 
+     ask them to login, 
+     and then send them to the create profile page.</p>
+</li>
+<li>
+<p>Have them register first (create Django <code>User</code>), 
+     log them in automatically, 
+     and then send them back to the create profile page.</p>
+</li>
+<li>
+<p>Have them fill out two forms at once: the <code>UserCreationForm</code> (to create the Django <code>User</code>) 
+     as well as the <code>CreateProfileForm</code>, and <strong>submit both forms at once</strong>.</p>
+</li>
+</ul>
+<p><strong>For simplicity, we will chose the last option: showing the user 2 forms
+at once, and having them submit both forms together.</strong></p>
+<p><strong>Note as well</strong> that we do not want to include the <code>User</code> in the <code>CreateProfileForm</code>,
+as this would create a situation in which the client would pick a <code>User</code> from a 
+drop-down list. Instead, we will assign the <code>User</code> to the profile programmatically.</p>
+<ol>
+<li>
+<p>In the <code>forms.py</code> file, define a class <code>CreateProfileForm</code> which inherits from 
+    <code>forms.ModelForm</code>. 
+    Use this form to create the attributes for <code>username</code>, <code>display_name</code>, <code>bio_text</code>, 
+    and <code>image_url</code>.</p>
+</li>
+<li>
+<p>Create a template <code>create_profile_form.html</code> to define an HTML form, 
+    display the <code>CreateProfileForm</code>. </p>
+<p><strong>Hint</strong> it might be helpful to use your <code>update_profile_form.html</code> as a starting point.</p>
+</li>
+<li>
+<p>Define a <code>CreateProfileView</code> class, which inherits from the generic <code>CreateView</code>.</p>
+<p>Override the <code>get_context_data(self, **kwargs)</code> method as follows:</p>
+<ul>
+<li>
+<p>Begin by calling the superclass version of this method,
+    and saving the context dictionary to a local variable.</p>
+</li>
+<li>
+<p>Create an instance of the <code>UserCreationForm</code> (from <code>django.contrib.auth.forms</code>),
+    and store this instance in the context data. Call it whatever you like, but remember
+    the name so you can find it in the template.</p>
+</li>
+</ul>
+<p>Define a URL <code>http://127.0.0.1:8000/mini_insta/create_profile</code>, and associate it 
+with the  <code>CreateProfileView</code>. Add a link to this URL into the navigation links,
+to be displayed when there is no logged-in user.</p>
+</li>
+<li>
+<p>Modify your <code>create_profile_form.html</code> template, to display the additional form
+    (<code>UserCreationForm</code>) within <strong>the same</strong> HTML form as your <code>CreateProfileForm</code>.</p>
+<p>Example: <a href="http://cs-webapps.bu.edu/cs412/mini_insta5/create_profile" target="_blank">
+http://cs-webapps.bu.edu/azs/cs412/mini_insta5/create_profile</a>.</p>
+<p>Test this out in your browser, to see that it displays the fields from the
+<code>UserCreationForm</code>:  <code>Username</code>, <code>Password</code> and <code>Password confirmation</code>, 
+along with the fields from the <code>CreateProfileForm</code>.</p>
+</li>
+<li>
+<p>In the <code>CreateProfileView</code> class’ <code>form_valid</code> method, you will need to:</p>
+<ul>
+<li>
+<p>Reconstruct the <code>UserCreationForm</code> instance from the <code>self.request.POST</code> data</p>
+</li>
+<li>
+<p>Call the <code>save()</code> method on the <code>UserCreationForm</code> instance. 
+    This method call will <em>return</em> the newly created <code>User</code> object. 
+    Save it to a variable <code>user</code>.</p>
+</li>
+<li>
+<p>Log the <code>User</code> in (hint: use the built-in function <code>django.contrib.auth.login</code>).
+    You will need to specify as parameters the HTTP request, the user to log in, 
+    and the authentication back-end (database) to use. For example:</p>
+<div class="codehilite"><pre><span></span>login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+</pre></div>
+
+
+</li>
+<li>
+<p>Attach the Django <code>User</code> to the <code>Profile</code> instance object (<code>form.instance</code>) 
+    so that it can be saved to the database.</p>
+</li>
+<li>
+<p>Delegate the rest to the super class’ <code>form_valid</code> method.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Test it out! 
+    Start at this URL pattern: <code>http://127.0.0.1:8000/mini_insta/create_profile</code>.</p>
+<p>It will probably fail several times. This is a normal part of the process! </p>
+<p>It will be helpful to have an Incognito Window open with the admin logged in, 
+so you can check if/when Django <code>User</code>(s) are created, and delete the <code>User</code> 
+between tests.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Important: Add files to git!</p>
+<ul>
+<li>
+<p>You’ve reached a good stopping point! </p>
+</li>
+<li>
+<p>This is an excellent time to add your files to git, commit your changes, 
+    and push your changes to GitHub before anything gets F@&amp;#ed up. </p>
+</li>
+</ul>
+</div>
+<h3 id="task-4-implementing-likes-and-follows">Task 4: Implementing <code>Like</code>s and <code>Follow</code>s</h3>
+<p>OK! Now that we have authenticated users, we can distinguish between the 
+<strong>Profile of the logged-in-user</strong> and the <strong>Profile being displayed</strong>. 
+This distinction makes it possible to do some operations that use both <code>Profile</code>s 
+together. </p>
+<p>For example: </p>
+<ul>
+<li>
+<p>The “logged in user” can like a <code>Post</code> by another <code>Profile</code>. </p>
+</li>
+<li>
+<p>The “logged in user” can search for other <code>Post</code>s or <code>Profile</code>s, and view the
+    profile of another user. The “logged in user” can chose to follow the other <code>Profile</code>.</p>
+</li>
+</ul>
+<p>In this section, you have a lot of discretion about how to implement these operations to
+create <code>Like</code>s and <code>Follow</code>s. Your application must support the following URL patterns:</p>
+<ul>
+<li><code>profile/&lt;int:pk&gt;/follow</code></li>
+<li><code>profile/&lt;int:pk&gt;/delete_follow</code></li>
+<li><code>post/&lt;int:pk&gt;/like</code></li>
+<li><code>post/&lt;int:pk&gt;/delete_like</code></li>
+</ul>
+<p>In each case the “logged in user” will be the one taking actions, and will either follow
+or unfollow the “other” <code>Profile</code> or <code>Post</code>.</p>
+<p>You must create view classes (or functions) to implement each of these operations. 
+A suggestion (that you are not required to follow) is to use the <code>TemplateView</code> class,
+and override the <code>dispatch</code> method to implement each operation. In these views,
+you will need to find both the “logged in user” <code>Profile</code> and the other <code>Profile</code>, 
+and then use the appropriate ORM operations to create (or delete)<code>Like</code> or <code>Follow</code> objects. </p>
+<p>You may choose what user interface to use, for example a “Follow” button on the profile 
+or a <code>Like</code> button or icon next to a <code>Post</code>. The only firm constraint is to not allow a 
+<code>Profile</code> to follow itself (i.e., hide this user interface), and do not allow a <code>Profile</code> 
+to like it’s own <code>Post</code>.</p>
+<h3 id="optional-challenge">Optional Challenge</h3>
+<p>For some additional work, add a feature to be able to create <code>Comment</code>s on a <code>Post</code>. 
+This feature is similar to adding a <code>Like</code> on a <code>Post</code>, except that it will require 
+some additional form processing.</p>
+<p>The feature should require a logged-in user, and have a simple user interface to create
+a <code>Comment</code> on an existing <code>Post</code> (e.g., in the feed). After adding a <code>Comment</code>, the
+user should be redirected to view the <code>Post</code> on which they have commented.</p>
+<hr>
+<h3 id="deployment-to-cs-webapps">Deployment to <code>cs-webapps</code></h3>
+<ol>
+<li>Deploy your web application to the <code>cs-webapps.bu.edu</code>.</li>
+</ol>
+<p>Follow the <a href="https://cs-people.bu.edu/azs/cs412/deployment">deployment instructions here</a>.</p>
+<ol start="2">
+<li>
+<p>Test your web application on <code>cs-webapps.bu.edu</code> to ensure that everything works correctly.</p>
+</li>
+<li>
+<p>Resolve any deployment issues.</p>
+</li>
+</ol>
+<hr>
+<h3 id="submitting-your-work">Submitting Your Work</h3>
+<p><em>10 points;</em> will be assigned by the autograder, verifying that you have submitted the
+correct files/URL, and testing that you website exists at the specified URL.
+<em>90 points;</em> will be testing your application and code review</p>
+<p>Log in to <a href="https://www.gradescope.com/courses/1040066">GradeScope</a> to submit your work. </p>
+<p><em>Be sure to name your files correctly!</em></p>
+<ol>
+<li>
+<p>Create a text file within your main django directory called <code>mini_url.txt</code>, containing 
+    the URL to your web page, and nothing else. </p>
+<p>For example: <code>https://cs-webapps.bu.edu/azs/cs412/mini_insta/</code>.</p>
+<p>This file will be used by the autograder to locate your web page, so you must get 
+the URL exactly correct, and you must not include any other text or code in the file.</p>
+</li>
+<li>
+<p>Create a text file called <code>sample_user.txt</code>, containing 
+    a valid username and password with which we can test your app.</p>
+</li>
+<li>
+<p>Add the teaching staff as collaborators to your GitHub repository 
+    with <code>bu-cs412</code>. Read-only access is fine.</p>
+<p>Create a text file called <code>github_url.txt</code> in the root of your project
+(e.g., <code>django</code> directory). Paste your GitHub URL in the file.</p>
+<p><em>Add these files to your git repository</em> using </p>
+<div class="codehilite"><pre><span></span>`git add -A`.
+</pre></div>
+
+
+<p><em>Commit this to your git repository</em>, using </p>
+<div class="codehilite"><pre><span></span>`git commit -m "Added mini_url.txt"`
+</pre></div>
+
+
+<p><em>Push it to GitHub</em>, using </p>
+<div class="codehilite"><pre><span></span>`git push origin main`
+</pre></div>
+
+
+</li>
+<li>
+<p>Log in to <a href="https://www.gradescope.com/courses/1040066">GradeScope</a> to submit your work. </p>
+<p>In the Gradescope upload page, upload these two files:</p>
+<ul>
+<li>
+<p><code>mini_url.txt</code></p>
+</li>
+<li>
+<p><code>github_url.txt</code></p>
+</li>
+<li>
+<p><code>sample_user.txt</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong><em>Notes:</em></strong> </p>
+<ul>
+<li>
+<p>Upload these files to Gradescope before the deadline. </p>
+</li>
+<li>
+<p>When you upload, the autograder script will process your file(s). </p>
+</li>
+<li>
+<p>You may resubmit as many times as you like before the deadline, and only the grade 
+     from the last submission will be counted. </p>
+</li>
+</ul>
+</section>
+
+<footer>
+Last modified on October 23, 2025.
+</footer>
+
+</div>
+
+<div id="right">
+</div>
+
+
+
+
+
+</body></html>

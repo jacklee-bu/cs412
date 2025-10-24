@@ -11,6 +11,29 @@
 
 <div style="background-color: lightcyan; padding: 10px; margin: 15px 0; border: 1px solid black;">
     <strong style="font-size: 18px;">{{ post.get_likes.count }} Like{% if post.get_likes.count != 1 %}s{% endif %}</strong>
+
+    {% if user.is_authenticated and logged_in_profile %}
+        {% if post.profile != logged_in_profile %}
+            <!-- user can like/unlike if not their own post -->
+            {% if post.is_liked_by logged_in_profile %}
+                <form method="POST" action="{% url 'mini_insta:delete_like' post.pk %}" style="display: inline; margin-left: 20px;">
+                    {% csrf_token %}
+                    <button type="submit"
+                            style="padding: 3px 10px; background-color: lightcoral; border: 1px solid black; cursor: pointer;">
+                        Unlike
+                    </button>
+                </form>
+            {% else %}
+                <form method="POST" action="{% url 'mini_insta:like' post.pk %}" style="display: inline; margin-left: 20px;">
+                    {% csrf_token %}
+                    <button type="submit"
+                            style="padding: 3px 10px; background-color: lightgreen; border: 1px solid black; cursor: pointer;">
+                        Like
+                    </button>
+                </form>
+            {% endif %}
+        {% endif %}
+    {% endif %}
 </div>
 
 {% if post.caption %}
@@ -52,6 +75,7 @@
 </div>
 
 <br><br>
+{% if user.is_authenticated and post.profile.user == user %}
 <a href="{% url 'mini_insta:update_post' post.pk %}"
    style="padding: 5px 15px; background-color: lightyellow; text-decoration: none; color: black; border: 1px solid black;">
     Update
@@ -61,6 +85,7 @@
    style="padding: 5px 15px; background-color: lightcoral; text-decoration: none; color: black; border: 1px solid black;">
     Delete
 </a>
+{% endif %}
 
 <br><br>
 <p>
