@@ -278,6 +278,12 @@ class CreateProfileView(CreateView):
     form_class = CreateProfileForm
     template_name = 'mini_insta/create_profile_form.html'
 
+    def get_form_kwargs(self):
+        """Provide kwargs for the profile form with a prefix to avoid field collisions."""
+        kwargs = super().get_form_kwargs()
+        kwargs['prefix'] = 'profile'
+        return kwargs
+
     def get_context_data(self, **kwargs):
         """Add UserCreationForm to context.
         Returns: context dictionary
@@ -288,9 +294,9 @@ class CreateProfileView(CreateView):
         user_form = context.get('user_form')
         if user_form is None:
             if self.request.method == 'POST':
-                user_form = UserCreationForm(self.request.POST)
+                user_form = UserCreationForm(self.request.POST, prefix='user')
             else:
-                user_form = UserCreationForm()
+                user_form = UserCreationForm(prefix='user')
         context['user_form'] = user_form
         return context
 
@@ -299,7 +305,7 @@ class CreateProfileView(CreateView):
         Returns: redirect response
         """
         # reconstruct the UserCreationForm from POST data
-        user_form = UserCreationForm(self.request.POST)
+        user_form = UserCreationForm(self.request.POST, prefix='user')
 
         if user_form.is_valid():
             # save the new user
@@ -320,7 +326,7 @@ class CreateProfileView(CreateView):
     def form_invalid(self, form, user_form=None):
         """Render the form with errors for either profile or account form."""
         if user_form is None:
-            user_form = UserCreationForm(self.request.POST or None)
+            user_form = UserCreationForm(self.request.POST or None, prefix='user')
         context = self.get_context_data(form=form, user_form=user_form)
         return self.render_to_response(context)
 

@@ -16,15 +16,15 @@
         <h3 style="color: green;">Step 1: Create Your Account</h3>
         <table border="1" style="width: 100%; background-color: lightcyan; padding: 10px;">
             <tr>
-                <td><label for="id_username">Username:</label></td>
+                <td><label for="{{ user_form.username.id_for_label }}">Username:</label></td>
                 <td>{{ user_form.username }}</td>
             </tr>
             <tr>
-                <td><label for="id_password1">Password:</label></td>
+                <td><label for="{{ user_form.password1.id_for_label }}">Password:</label></td>
                 <td>{{ user_form.password1 }}</td>
             </tr>
             <tr>
-                <td><label for="id_password2">Confirm Password:</label></td>
+                <td><label for="{{ user_form.password2.id_for_label }}">Confirm Password:</label></td>
                 <td>{{ user_form.password2 }}</td>
             </tr>
         </table>
@@ -41,19 +41,19 @@
         <h3 style="color: green;">Step 2: Set Up Your Profile</h3>
         <table border="1" style="width: 100%; background-color: lavender; padding: 10px;">
             <tr>
-                <td><label for="id_username">Profile Username:</label></td>
+                <td><label for="{{ form.username.id_for_label }}">Profile Username:</label></td>
                 <td>{{ form.username }}</td>
             </tr>
             <tr>
-                <td><label for="id_display_name">Display Name:</label></td>
+                <td><label for="{{ form.display_name.id_for_label }}">Display Name:</label></td>
                 <td>{{ form.display_name }}</td>
             </tr>
             <tr>
-                <td><label for="id_bio_text">Bio:</label></td>
+                <td><label for="{{ form.bio_text.id_for_label }}">Bio:</label></td>
                 <td>{{ form.bio_text }}</td>
             </tr>
             <tr>
-                <td><label for="id_profile_image_url">Profile Image URL:</label></td>
+                <td><label for="{{ form.profile_image_url.id_for_label }}">Profile Image URL:</label></td>
                 <td>{{ form.profile_image_url }}</td>
             </tr>
         </table>
