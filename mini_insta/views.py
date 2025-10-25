@@ -284,8 +284,14 @@ class CreateProfileView(CreateView):
         """
         # get the base context
         context = super().get_context_data(**kwargs)
-        # add the user creation form
-        context['user_form'] = UserCreationForm()
+        # reuse user_form passed in kwargs or rebuild based on request method
+        user_form = context.get('user_form')
+        if user_form is None:
+            if self.request.method == 'POST':
+                user_form = UserCreationForm(self.request.POST)
+            else:
+                user_form = UserCreationForm()
+        context['user_form'] = user_form
         return context
 
     def form_valid(self, form):
@@ -309,7 +315,14 @@ class CreateProfileView(CreateView):
             return super().form_valid(form)
         else:
             # user form had errors - return to form with errors
-            return self.form_invalid(form)
+            return self.form_invalid(form, user_form=user_form)
+
+    def form_invalid(self, form, user_form=None):
+        """Render the form with errors for either profile or account form."""
+        if user_form is None:
+            user_form = UserCreationForm(self.request.POST or None)
+        context = self.get_context_data(form=form, user_form=user_form)
+        return self.render_to_response(context)
 
     def get_success_url(self):
         """Get URL to redirect to after successful creation.
