@@ -53,13 +53,15 @@ def show_profile(request, pk):
     """
     # print("Debug: showing profile", pk)  # left this here for debugging
     profile_obj = get_object_or_404(Profile, pk=pk)
-    context = {'profile': profile_obj}
+    context = {'profile': profile_obj, 'is_following_profile': False}
 
     # add the logged in user's profile if authenticated
     if request.user.is_authenticated:
         try:
             logged_in_profile = Profile.objects.get(user=request.user)
             context['logged_in_profile'] = logged_in_profile
+            if logged_in_profile != profile_obj:
+                context['is_following_profile'] = logged_in_profile.is_following(profile_obj)
         except Profile.DoesNotExist:
             pass
 
@@ -273,24 +275,25 @@ class LogoutConfirmationView(TemplateView):
     """View to display logout confirmation page."""
     template_name = 'mini_insta/logged_out.html'
 
-class CreateProfileView(CreateView):
+class CreateProfileView(TemplateView):
     """View to handle creating a new profile with user registration."""
-    form_class = CreateProfileForm
     template_name = 'mini_insta/create_profile_form.html'
-
-    def get_form_kwargs(self):
-        """Provide kwargs for the profile form with a prefix to avoid field collisions."""
-        kwargs = super().get_form_kwargs()
-        kwargs['prefix'] = 'profile'
-        return kwargs
 
     def get_context_data(self, **kwargs):
         """Add UserCreationForm to context.
         Returns: context dictionary
         """
-        # get the base context
         context = super().get_context_data(**kwargs)
-        # reuse user_form passed in kwargs or rebuild based on request method
+        # include the profile form with a prefix to avoid collisions with the User form
+        form = context.get('form')
+        if form is None:
+            if self.request.method == 'POST':
+                form = CreateProfileForm(self.request.POST, prefix='profile')
+            else:
+                form = CreateProfileForm(prefix='profile')
+        context['form'] = form
+
+        # include the user creation form, reusing any bound form passed via kwargs
         user_form = context.get('user_form')
         if user_form is None:
             if self.request.method == 'POST':
@@ -300,42 +303,25 @@ class CreateProfileView(CreateView):
         context['user_form'] = user_form
         return context
 
-    def form_valid(self, form):
-        """Process valid form submission.
-        Returns: redirect response
-        """
-        # reconstruct the UserCreationForm from POST data
-        user_form = UserCreationForm(self.request.POST, prefix='user')
+    def post(self, request, *args, **kwargs):
+        """Handle form submission for account creation + profile setup."""
+        profile_form = CreateProfileForm(request.POST, prefix='profile')
+        user_form = UserCreationForm(request.POST, prefix='user')
 
-        if user_form.is_valid():
-            # save the new user
+        if profile_form.is_valid() and user_form.is_valid():
             user = user_form.save()
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
-            # log the user in
-            login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
 
-            # attach the user to the profile
-            form.instance.user = user
+            return HttpResponseRedirect(
+                reverse('mini_insta:show_profile', kwargs={'pk': profile.pk})
+            )
 
-            # let the superclass handle the rest
-            return super().form_valid(form)
-        else:
-            # user form had errors - return to form with errors
-            return self.form_invalid(form, user_form=user_form)
-
-    def form_invalid(self, form, user_form=None):
-        """Render the form with errors for either profile or account form."""
-        if user_form is None:
-            user_form = UserCreationForm(self.request.POST or None, prefix='user')
-        context = self.get_context_data(form=form, user_form=user_form)
+        context = self.get_context_data(form=profile_form, user_form=user_form)
         return self.render_to_response(context)
-
-    def get_success_url(self):
-        """Get URL to redirect to after successful creation.
-        Returns: URL string
-        """
-        # redirect to the new profile page
-        return reverse('mini_insta:show_profile', kwargs={'pk': self.object.pk})
 
 class FollowProfileView(AuthenticatedView, TemplateView):
     """View to handle following a profile."""

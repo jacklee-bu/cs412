@@ -63,7 +63,7 @@
         </a>
     {% elif logged_in_profile %}
         <!-- user viewing someone else's profile -->
-        {% if logged_in_profile.is_following profile %}
+        {% if is_following_profile %}
             <form method="POST" action="{% url 'mini_insta:delete_follow' profile.pk %}" style="display: inline;">
                 {% csrf_token %}
                 <button type="submit"
