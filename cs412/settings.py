@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-01f^xsq0ef5qr7&y)y)gmpzv1-2_a%(%7_2*4n1190309c&b7k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cs-webapps.bu.edu', '127.0.0.1', 'localhost', 'testserver']
+ALLOWED_HOSTS = ['cs-webapps.bu.edu', 'cs-people.bu.edu', '127.0.0.1', 'localhost', 'testserver']
 
 
 # Application definition
