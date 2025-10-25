@@ -13,9 +13,9 @@
     <strong style="font-size: 18px;">{{ post.get_likes.count }} Like{% if post.get_likes.count != 1 %}s{% endif %}</strong>
 
     {% if user.is_authenticated and logged_in_profile %}
-        {% if post.profile != logged_in_profile %}
+        {% if can_like_post %}
             <!-- user can like/unlike if not their own post -->
-            {% if post.is_liked_by logged_in_profile %}
+            {% if has_liked_post %}
                 <form method="POST" action="{% url 'mini_insta:delete_like' post.pk %}" style="display: inline; margin-left: 20px;">
                     {% csrf_token %}
                     <button type="submit"

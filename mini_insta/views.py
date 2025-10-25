@@ -78,12 +78,22 @@ class PostDetailView(DetailView):
         Returns: context dictionary
         """
         context = super().get_context_data(**kwargs)
+        context.setdefault('logged_in_profile', None)
+        context.setdefault('can_like_post', False)
+        context.setdefault('has_liked_post', False)
 
         # add the logged in user's profile if authenticated
         if self.request.user.is_authenticated:
             try:
                 logged_in_profile = Profile.objects.get(user=self.request.user)
                 context['logged_in_profile'] = logged_in_profile
+                # user can like if viewing someone else's post
+                context['can_like_post'] = (
+                    logged_in_profile is not None and
+                    self.object.profile != logged_in_profile
+                )
+                if context['can_like_post']:
+                    context['has_liked_post'] = self.object.is_liked_by(logged_in_profile)
             except Profile.DoesNotExist:
                 pass
 
