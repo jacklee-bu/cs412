@@ -1,0 +1,82 @@
+<!-- File: voter_detail.html -->
+<!-- Author: Jack Lee (jacklee@bu.edu) -->
+<!-- Date: October 2025 -->
+<!-- Description: Template for displaying individual voter details -->
+
+{% extends 'voter_analytics/base.html' %}
+
+{% block title %}{{ voter.first_name }} {{ voter.last_name }} - Voter Analytics{% endblock %}
+
+{% block content %}
+    <div class="voter-detail">
+        <h2>Voter Details</h2>
+
+        <div class="detail-row">
+            <label>Name:</label>
+            {{ voter.first_name }} {{ voter.last_name }}
+        </div>
+
+        <div class="detail-row">
+            <label>Address:</label>
+            {{ voter.full_address }}
+        </div>
+
+        <div class="detail-row">
+            <label>Date of Birth:</label>
+            {{ voter.date_of_birth|date:"F d, Y" }}
+        </div>
+
+        <div class="detail-row">
+            <label>Registration Date:</label>
+            {{ voter.date_of_registration|date:"F d, Y" }}
+        </div>
+
+        <div class="detail-row">
+            <label>Party Affiliation:</label>
+            {{ voter.party_affiliation }}
+        </div>
+
+        <div class="detail-row">
+            <label>Precinct Number:</label>
+            {{ voter.precinct_number }}
+        </div>
+
+        <div class="detail-row">
+            <label>Voter Score:</label>
+            {{ voter.voter_score }} out of 5
+        </div>
+
+        <h3>Voting History</h3>
+
+        <div class="detail-row">
+            <label>2020 State Election:</label>
+            {% if voter.v20state %}Yes{% else %}No{% endif %}
+        </div>
+
+        <div class="detail-row">
+            <label>2021 Town Election:</label>
+            {% if voter.v21town %}Yes{% else %}No{% endif %}
+        </div>
+
+        <div class="detail-row">
+            <label>2021 Primary Election:</label>
+            {% if voter.v21primary %}Yes{% else %}No{% endif %}
+        </div>
+
+        <div class="detail-row">
+            <label>2022 General Election:</label>
+            {% if voter.v22general %}Yes{% else %}No{% endif %}
+        </div>
+
+        <div class="detail-row">
+            <label>2023 Town Election:</label>
+            {% if voter.v23town %}Yes{% else %}No{% endif %}
+        </div>
+
+        <a href="{{ google_maps_url }}" target="_blank" class="map-link">View on Google Maps</a>
+
+        <div style="margin-top: 20px;">
+            <a href="{% url 'voter_analytics:voters' %}" class="btn">Back to Voter List</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,228 @@
+<!-- File: base.html -->
+<!-- Author: Jack Lee (jacklee@bu.edu) -->
+<!-- Date: October 2025 -->
+<!-- Description: Base template for voter_analytics app -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Voter Analytics{% endblock %}</title>
+    <link rel="icon" href="data:,">
+
+    <style>
+        /* simple styling for the voter analytics app */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .nav {
+            background-color: #34495e;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            display: inline-block;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav a:hover {
+            background-color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        /* form styling */
+        .filter-form {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .filter-form h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+
+        .form-group select, .form-group input {
+            padding: 5px;
+            border: 1px solid #bdc3c7;
+            border-radius: 3px;
+        }
+
+        .form-group.checkbox-group {
+            margin-left: 150px;
+        }
+
+        .form-group.checkbox-group label {
+            width: auto;
+            font-weight: normal;
+            margin-right: 15px;
+        }
+
+        .btn {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: #95a5a6;
+        }
+
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+
+        /* table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        table th {
+            background-color: #34495e;
+            color: white;
+        }
+
+        table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        table a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        table a:hover {
+            text-decoration: underline;
+        }
+
+        /* pagination styling */
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pagination a, .pagination span {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 0 3px;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        .pagination .current {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .pagination a:hover {
+            background-color: #bdc3c7;
+        }
+
+        /* detail page styling */
+        .voter-detail {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .detail-row {
+            padding: 10px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .detail-row label {
+            font-weight: bold;
+            display: inline-block;
+            width: 200px;
+        }
+
+        .map-link {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .map-link:hover {
+            background-color: #229954;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Newton Voter Analytics</h1>
+    </div>
+
+    <div class="nav">
+        <a href="{% url 'voter_analytics:voters' %}">Voter List</a>
+        <a href="{% url 'voter_analytics:graphs' %}">Graphs</a>
+    </div>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
