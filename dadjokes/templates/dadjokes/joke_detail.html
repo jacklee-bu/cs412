@@ -1,0 +1,14 @@
+{% extends 'dadjokes/base.html' %}
+
+{% block title %}Dad Joke #{{ joke.pk }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Dad Joke #{{ joke.pk }}</h2>
+    <div class="joke-text">
+        {{ joke.text }}
+    </div>
+    <p><em>- {{ joke.name }}</em></p>
+    <p style="color: #999; font-size: 0.9em;">Posted: {{ joke.timestamp }}</p>
+</div>
+{% endblock %}

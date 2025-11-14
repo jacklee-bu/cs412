@@ -1,0 +1,23 @@
+{% extends 'dadjokes/base.html' %}
+
+{% block title %}All Pictures{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>All Pictures</h2>
+    {% if pictures %}
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+            {% for picture in pictures %}
+                <div>
+                    <div class="image-container">
+                        <img src="{{ picture.image_url }}" alt="Picture by {{ picture.name }}">
+                    </div>
+                    <p style="text-align: center;"><em>{{ picture.name }}</em></p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No pictures available yet!</p>
+    {% endif %}
+</div>
+{% endblock %}

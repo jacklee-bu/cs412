@@ -1,0 +1,27 @@
+# Testing Commands for Assignment 8
+
+# 1. Start the development server
+python3 manage.py runserver
+
+# 2. Access the application in browser:
+# http://127.0.0.1:8000/voter_analytics/
+# http://127.0.0.1:8000/voter_analytics/graphs
+# http://127.0.0.1:8000/voter_analytics/voter/1
+
+# 3. Test filtering on the voter list page
+# - Try different party affiliations
+# - Set birth year ranges (e.g., 1990-2000)
+# - Filter by voter scores
+# - Check election participation boxes
+
+# 4. Test pagination
+# - Navigate through pages with filters applied
+# - Verify filters persist across pages
+
+# 5. Test individual voter details
+# - Click "View Details" for any voter
+# - Check Google Maps link works
+
+# 6. Test graphs page
+# - Apply same filters as list view
+# - Verify graphs update with filtered data

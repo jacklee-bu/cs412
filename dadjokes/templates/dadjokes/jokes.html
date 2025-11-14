@@ -1,0 +1,21 @@
+{% extends 'dadjokes/base.html' %}
+
+{% block title %}All Dad Jokes{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>All Dad Jokes</h2>
+    {% if jokes %}
+        {% for joke in jokes %}
+            <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+                <div class="joke-text">
+                    {{ joke.text }}
+                </div>
+                <p><em>- {{ joke.name }}</em></p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No jokes available yet!</p>
+    {% endif %}
+</div>
+{% endblock %}

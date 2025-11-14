@@ -1,0 +1,62 @@
+DEPLOYMENT CHECKLIST FOR ASSIGNMENT 8
+=====================================
+
+## LOCAL TESTING (Already Done ✓)
+[✓] python3 manage.py makemigrations voter_analytics
+[✓] python3 manage.py migrate
+[✓] python3 manage.py shell -c "from voter_analytics.models import load_data; load_data()"
+[✓] python3 manage.py collectstatic --noinput
+[✓] python3 manage.py runserver (test locally)
+
+## BEFORE DEPLOYMENT
+1. Ensure all files are saved
+2. Make sure db.sqlite3 is in your repository (needed for deployment)
+3. Ensure voter_analytics/newton_voters.csv is included
+
+## FILES TO VERIFY EXIST:
+- voter_analytics/__init__.py
+- voter_analytics/apps.py
+- voter_analytics/admin.py
+- voter_analytics/models.py
+- voter_analytics/views.py
+- voter_analytics/urls.py
+- voter_analytics/migrations/0001_initial.py
+- voter_analytics/migrations/__init__.py
+- voter_analytics/templates/voter_analytics/base.html
+- voter_analytics/templates/voter_analytics/voter_list.html
+- voter_analytics/templates/voter_analytics/voter_detail.html
+- voter_analytics/templates/voter_analytics/graphs.html
+- voter_analytics/newton_voters.csv
+- voters_url.txt
+- github_url.txt
+
+## ON CS-WEBAPPS SERVER (after deployment):
+If data doesn't appear on the deployed site, SSH into cs-webapps and run:
+
+1. cd to your project directory
+2. python3 manage.py migrate
+3. python3 manage.py shell -c "from voter_analytics.models import load_data; load_data()"
+4. python3 manage.py collectstatic --noinput
+
+## SUBMISSION FILES:
+[✓] voters_url.txt contains: https://cs-webapps.bu.edu/jacklee/cs412/voter_analytics/
+[✓] github_url.txt contains: https://github.com/jacklee-bu/cs412
+
+## FINAL TEST URLs:
+Local:
+- http://127.0.0.1:8000/voter_analytics/
+- http://127.0.0.1:8000/voter_analytics/graphs
+- http://127.0.0.1:8000/voter_analytics/voter/1
+
+Deployed:
+- https://cs-webapps.bu.edu/jacklee/cs412/voter_analytics/
+- https://cs-webapps.bu.edu/jacklee/cs412/voter_analytics/graphs
+- https://cs-webapps.bu.edu/jacklee/cs412/voter_analytics/voter/1
+
+## FEATURES TO TEST:
+1. Voter list displays with pagination (100 per page)
+2. Filtering works (party, birth year range, voter score, elections)
+3. Voter detail page shows all info with Google Maps link
+4. Graphs page shows all 3 graphs
+5. Filters work on graphs page
+6. Navigation between pages works
