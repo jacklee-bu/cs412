@@ -60,27 +60,27 @@ def load_data():
 
     pictures_data = [
         {
-            'image_url': 'https://cs-webapps.bu.edu/jacklee/cs412/static/dadjokes/images/image_1.png',
+            'image_url': 'https://cs-webapps.bu.edu/jacklee/static/dadjokes/images/image_1.png',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://cs-webapps.bu.edu/jacklee/cs412/static/dadjokes/images/image_2.png',
+            'image_url': 'https://cs-webapps.bu.edu/jacklee/static/dadjokes/images/image_2.png',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://cs-webapps.bu.edu/jacklee/cs412/static/dadjokes/images/image_3.png',
+            'image_url': 'https://cs-webapps.bu.edu/jacklee/static/dadjokes/images/image_3.png',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://cs-webapps.bu.edu/jacklee/cs412/static/dadjokes/images/image_4.png',
+            'image_url': 'https://cs-webapps.bu.edu/jacklee/static/dadjokes/images/image_4.png',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://cs-webapps.bu.edu/jacklee/cs412/static/dadjokes/images/image_5.png',
+            'image_url': 'https://cs-webapps.bu.edu/jacklee/static/dadjokes/images/image_5.png',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://cs-webapps.bu.edu/jacklee/cs412/static/dadjokes/images/image_6.png',
+            'image_url': 'https://cs-webapps.bu.edu/jacklee/static/dadjokes/images/image_6.png',
             'name': 'Jack'
         },
     ]
