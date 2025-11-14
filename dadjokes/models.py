@@ -60,27 +60,27 @@ def load_data():
 
     pictures_data = [
         {
-            'image_url': 'https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif',
+            'image_url': 'https://cs-webapps.bu.edu/jacklee/cs412/static/dadjokes/images/image_1.png',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif',
+            'image_url': 'https://cs-webapps.bu.edu/jacklee/cs412/static/dadjokes/images/image_2.png',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif',
+            'image_url': 'https://cs-webapps.bu.edu/jacklee/cs412/static/dadjokes/images/image_3.png',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif',
+            'image_url': 'https://cs-webapps.bu.edu/jacklee/cs412/static/dadjokes/images/image_4.png',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif',
+            'image_url': 'https://cs-webapps.bu.edu/jacklee/cs412/static/dadjokes/images/image_5.png',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://media.giphy.com/media/IcGkqdUmYLFGE/giphy.gif',
+            'image_url': 'https://cs-webapps.bu.edu/jacklee/cs412/static/dadjokes/images/image_6.png',
             'name': 'Jack'
         },
     ]
