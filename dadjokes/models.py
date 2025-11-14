@@ -60,27 +60,23 @@ def load_data():
 
     pictures_data = [
         {
-            'image_url': 'https://cs-webapps.bu.edu/jacklee/static/dadjokes/images/image_1.png',
+            'image_url': 'https://dl-asset.cyberlink.com/web/prog/learning-center/html/39109/PDR19-YouTube-953_Funny_Cat_Video/img/ai_cat_trend.jpg',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://cs-webapps.bu.edu/jacklee/static/dadjokes/images/image_2.png',
+            'image_url': 'https://static.vecteezy.com/system/resources/previews/029/552/826/large_2x/portraits-of-cats-funny-faces-generative-ai-photo.jpg',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://cs-webapps.bu.edu/jacklee/static/dadjokes/images/image_3.png',
+            'image_url': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_uWusOjEY9AeK2aIubHYCWA2RZ3zSl39LmA&s',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://cs-webapps.bu.edu/jacklee/static/dadjokes/images/image_4.png',
+            'image_url': 'https://cdn.pixabay.com/photo/2025/06/11/13/19/ai-generated-9654480_1280.png',
             'name': 'Jack'
         },
         {
-            'image_url': 'https://cs-webapps.bu.edu/jacklee/static/dadjokes/images/image_5.png',
-            'name': 'Jack'
-        },
-        {
-            'image_url': 'https://cs-webapps.bu.edu/jacklee/static/dadjokes/images/image_6.png',
+            'image_url': 'https://previews.123rf.com/images/9process/9process2312/9process231200293/220306638-funny-ginger-cat-with-orange-glasses-and-collar-on-blue-background-ai-generated.jpg',
             'name': 'Jack'
         },
     ]
