@@ -1,0 +1,183 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- chord_diagram.html - SVG chord diagram partial -->
+{% comment %}usage: include 'project/chord_diagram.html' with fingering=chord.fingering name=chord.name{% endcomment %}
+
+<div class="chord-diagram" data-fingering="{{ fingering }}">
+    <svg viewBox="0 0 90 105" class="chord-svg" preserveAspectRatio="xMidYMid meet">
+        <defs>
+            <filter id="soft-blur" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="0.3"/>
+            </filter>
+        </defs>
+        <!-- fret number indicator (for higher positions) -->
+        <text x="6" y="44" text-anchor="middle" class="fret-number"></text>
+
+        <!-- nut bar (thick line at open position) -->
+        <rect x="20" y="28" width="56" height="5" fill="var(--text)" class="nut-bar"/>
+
+        <!-- fret lines -->
+        <line x1="20" y1="33" x2="76" y2="33" stroke="var(--text-muted)" stroke-width="1"/>
+        <line x1="20" y1="48" x2="76" y2="48" stroke="var(--text-muted)" stroke-width="1"/>
+        <line x1="20" y1="63" x2="76" y2="63" stroke="var(--text-muted)" stroke-width="1"/>
+        <line x1="20" y1="78" x2="76" y2="78" stroke="var(--text-muted)" stroke-width="1"/>
+        <line x1="20" y1="93" x2="76" y2="93" stroke="var(--text-muted)" stroke-width="1"/>
+
+        <!-- string lines -->
+        <line x1="20" y1="33" x2="20" y2="93" stroke="var(--text-secondary)" stroke-width="1.8"/>
+        <line x1="31.2" y1="33" x2="31.2" y2="93" stroke="var(--text-secondary)" stroke-width="1.5"/>
+        <line x1="42.4" y1="33" x2="42.4" y2="93" stroke="var(--text-secondary)" stroke-width="1.3"/>
+        <line x1="53.6" y1="33" x2="53.6" y2="93" stroke="var(--text-secondary)" stroke-width="1.1"/>
+        <line x1="64.8" y1="33" x2="64.8" y2="93" stroke="var(--text-secondary)" stroke-width="0.9"/>
+        <line x1="76" y1="33" x2="76" y2="93" stroke="var(--text-secondary)" stroke-width="0.7"/>
+
+        <!-- barre bar (drawn AFTER strings so it's on top) -->
+        <line x1="20" y1="40.5" x2="76" y2="40.5" stroke="#c2410c" stroke-width="9" stroke-linecap="round" class="barre-bar" style="display:none;"/>
+
+        <!-- string labels -->
+        <text x="20" y="102" text-anchor="middle" class="string-label">E</text>
+        <text x="31.2" y="102" text-anchor="middle" class="string-label">A</text>
+        <text x="42.4" y="102" text-anchor="middle" class="string-label">D</text>
+        <text x="53.6" y="102" text-anchor="middle" class="string-label">G</text>
+        <text x="64.8" y="102" text-anchor="middle" class="string-label">B</text>
+        <text x="76" y="102" text-anchor="middle" class="string-label">e</text>
+
+        <!-- finger positions rendered by JS -->
+        <g class="finger-positions"></g>
+    </svg>
+    {% if name %}<div class="chord-name">{{ name }}</div>{% endif %}
+</div>
+
+<style>
+    .chord-diagram {
+        display: inline-block;
+        text-align: center;
+    }
+    .chord-svg {
+        width: 110px;
+        height: 135px;
+    }
+    .string-label {
+        font-size: 7px;
+        fill: var(--text-muted);
+        font-family: var(--font-mono, monospace);
+    }
+    .fret-number {
+        font-size: 16px;
+        fill: var(--accent);
+        font-weight: 900;
+        font-family: 'Fredoka', 'Inter', sans-serif;
+    }
+    .chord-name {
+        font-weight: 600;
+        font-size: 1.1em;
+        margin-top: 6px;
+        color: var(--accent);
+    }
+    .finger-dot {
+        fill: #c2410c;
+        filter: url(#soft-blur);
+    }
+    .open-string {
+        fill: none;
+        stroke: #a8a29e;
+        stroke-width: 2;
+        opacity: 0.9;
+    }
+    .muted-string-line {
+        stroke: #78716c;
+        stroke-width: 2;
+        stroke-linecap: round;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.chord-diagram').forEach(renderChordDiagram);
+});
+
+function renderChordDiagram(container) {
+    const fingering = container.dataset.fingering;
+    if (!fingering) return;
+
+    const svg = container.querySelector('.finger-positions');
+    const nutBar = container.querySelector('.nut-bar');
+    const barreBar = container.querySelector('.barre-bar');
+    const fretNumber = container.querySelector('.fret-number');
+    const stringX = [20, 31.2, 42.4, 53.6, 64.8, 76];
+    const fretY = [40.5, 55.5, 70.5, 85.5]; // center of each fret space
+
+    const positions = fingering.split('');
+
+    // find the minimum fret (excluding 0 and x) to determine starting position
+    let minFret = 99;
+    positions.forEach(pos => {
+        if (pos !== 'x' && pos !== 'X' && pos !== '0') {
+            const fret = parseInt(pos);
+            if (fret > 0 && fret < minFret) {
+                minFret = fret;
+            }
+        }
+    });
+
+    // determine if this is a high position chord (starts above fret 3)
+    // only offset the diagram for chords that don't fit in first 4 frets
+    let startFret = 1;
+    let showBarre = false;
+    if (minFret > 3 && minFret !== 99) {
+        startFret = minFret;
+        // hide nut, show fret number
+        if (nutBar) nutBar.style.display = 'none';
+        if (fretNumber) fretNumber.textContent = startFret.toString();
+        // show barre bar
+        showBarre = true;
+        if (barreBar) barreBar.style.display = 'block';
+    }
+
+    positions.forEach((pos, i) => {
+        const x = stringX[i];
+
+        if (pos === 'x' || pos === 'X') {
+            // muted string - draw as crossed lines for hand-drawn look
+            const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line1.setAttribute('x1', x - 4);
+            line1.setAttribute('y1', 10);
+            line1.setAttribute('x2', x + 4);
+            line1.setAttribute('y2', 18);
+            line1.setAttribute('class', 'muted-string-line');
+            svg.appendChild(line1);
+            const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line2.setAttribute('x1', x + 4);
+            line2.setAttribute('y1', 10);
+            line2.setAttribute('x2', x - 4);
+            line2.setAttribute('y2', 18);
+            line2.setAttribute('class', 'muted-string-line');
+            svg.appendChild(line2);
+        } else if (pos === '0') {
+            // open string
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', x);
+            circle.setAttribute('cy', 14);
+            circle.setAttribute('r', 5);
+            circle.setAttribute('class', 'open-string');
+            svg.appendChild(circle);
+        } else {
+            const fret = parseInt(pos);
+            const displayFret = fret - startFret + 1;
+
+            // skip drawing dot if it's on the barre fret (only for high position chords)
+            if (displayFret === 1 && showBarre) {
+                return; // barre bar handles this
+            }
+
+            if (displayFret >= 1 && displayFret <= 4) {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', x);
+                circle.setAttribute('cy', fretY[displayFret - 1]);
+                circle.setAttribute('r', 5);
+                circle.setAttribute('class', 'finger-dot');
+                svg.appendChild(circle);
+            }
+        }
+    });
+}
+</script>

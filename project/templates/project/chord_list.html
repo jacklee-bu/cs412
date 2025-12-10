@@ -1,0 +1,115 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- chord_list.html - chord library with visual diagrams -->
+{% extends 'project/base.html' %}
+{% block title %}Chords - tabby{% endblock %}
+
+{% block content %}
+<h1>Chord Library</h1>
+<p class="card-subtitle">Click any chord to see details and learn how to play it.</p>
+
+<!-- search -->
+<div class="search-box">
+    <input type="text" id="chord-search" class="form-control" placeholder="Search chords (e.g. Am, G7, Dm)...">
+</div>
+
+<!-- filters -->
+<div style="margin: 20px 0;">
+    <form method="get" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+        <select name="difficulty" class="form-control" style="width: auto;" onchange="this.form.submit()">
+            <option value="">All Difficulties</option>
+            {% for d in difficulties %}
+                <option value="{{ d }}" {% if selected_difficulty == d %}selected{% endif %}>{{ d|title }}</option>
+            {% endfor %}
+        </select>
+        <select name="category" class="form-control" style="width: auto;" onchange="this.form.submit()">
+            <option value="">All Categories</option>
+            {% for c in categories %}
+                <option value="{{ c }}" {% if selected_category == c %}selected{% endif %}>{{ c|title }}</option>
+            {% endfor %}
+        </select>
+        {% if selected_difficulty or selected_category %}
+            <a href="{% url 'project:chord_list' %}" class="btn btn-secondary">Clear Filters</a>
+        {% endif %}
+        <span class="meta" id="chord-count">{{ chords|length }} chord{{ chords|length|pluralize }}</span>
+    </form>
+</div>
+
+<div class="actions">
+    <a href="{% url 'project:chord_create' %}" class="btn">Add Chord</a>
+</div>
+
+{% if chords %}
+    <div class="chord-grid" id="chord-grid">
+    {% for chord in chords %}
+        <a href="{% url 'project:chord_detail' chord.pk %}" class="chord-card" data-name="{{ chord.name|lower }}">
+            {% include 'project/chord_diagram.html' with fingering=chord.fingering name=chord.name %}
+            <div class="chord-info">
+                <span class="badge">{{ chord.difficulty }}</span>
+            </div>
+        </a>
+    {% endfor %}
+    </div>
+{% else %}
+    <div class="empty">No chords found for these filters.</div>
+{% endif %}
+
+<style>
+    .search-box {
+        margin-bottom: 15px;
+    }
+    .chord-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+    }
+    .chord-card {
+        background: #161412;
+        border-radius: 14px;
+        padding: 14px;
+        text-align: center;
+        text-decoration: none;
+        transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 4px 12px rgba(0,0,0,0.4);
+        border: 1px solid #252220;
+    }
+    .chord-card:hover {
+        transform: translateY(-3px);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 8px 20px rgba(0,0,0,0.5), 0 0 0 1px var(--accent);
+        border-color: var(--accent);
+    }
+    .chord-card.hidden {
+        display: none;
+    }
+    .chord-card .chord-svg {
+        width: 100px;
+        height: 125px;
+    }
+    .chord-card .chord-name {
+        color: var(--accent);
+    }
+    .chord-info {
+        margin-top: 8px;
+    }
+</style>
+
+<script>
+document.getElementById('chord-search').addEventListener('input', function(e) {
+    const query = e.target.value.toLowerCase();
+    const cards = document.querySelectorAll('.chord-card');
+    let visible = 0;
+
+    cards.forEach(card => {
+        const name = card.dataset.name;
+        if (name.includes(query)) {
+            card.classList.remove('hidden');
+            visible++;
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+
+    document.getElementById('chord-count').textContent = visible + ' chord' + (visible !== 1 ? 's' : '');
+});
+</script>
+{% endblock %}

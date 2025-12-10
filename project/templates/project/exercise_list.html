@@ -1,0 +1,133 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- exercise_list.html - list all warm-up exercises -->
+{% extends 'project/base.html' %}
+{% block title %}Warm-Up Exercises - tabby{% endblock %}
+
+{% block content %}
+<h1>Warm-Up Exercises</h1>
+<p class="card-subtitle">Build strength, dexterity, and muscle memory with these practice routines.</p>
+
+<!-- filters -->
+<div class="filter-row">
+    <div class="filter-group">
+        <label>Category:</label>
+        <select id="category-filter" onchange="applyFilters()">
+            <option value="">All Categories</option>
+            {% for value, label in categories %}
+            <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="filter-group">
+        <label>Difficulty:</label>
+        <select id="difficulty-filter" onchange="applyFilters()">
+            <option value="">All Levels</option>
+            {% for value, label in difficulties %}
+            <option value="{{ value }}" {% if selected_difficulty == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div style="margin-bottom: 20px;">
+    <a href="{% url 'project:exercise_create' %}" class="btn">Add Exercise</a>
+</div>
+
+{% if exercises %}
+<p class="meta">{{ exercises|length }} exercise{{ exercises|length|pluralize }} found</p>
+
+{% regroup exercises by get_category_display as exercises_by_category %}
+{% for category in exercises_by_category %}
+<h2>{{ category.grouper }}</h2>
+{% for exercise in category.list %}
+<a href="{% url 'project:exercise_detail' exercise.pk %}" class="card exercise-card">
+    <div class="exercise-header">
+        <span class="exercise-name">{{ exercise.name }}</span>
+        <span class="badge badge-{{ exercise.difficulty }}">{{ exercise.get_difficulty_display }}</span>
+    </div>
+    <p class="exercise-desc">{{ exercise.description|truncatewords:25 }}</p>
+    <div class="exercise-meta">
+        <span class="meta-item">{{ exercise.duration_minutes }} min</span>
+        {% if exercise.chords.exists %}
+        <span class="meta-item">{{ exercise.chords.count }} chord{{ exercise.chords.count|pluralize }}</span>
+        {% endif %}
+    </div>
+</a>
+{% endfor %}
+{% endfor %}
+
+{% else %}
+<div class="empty">
+    <p>No exercises found. Try adjusting your filters.</p>
+</div>
+{% endif %}
+
+<style>
+    .filter-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+    .filter-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .filter-group label {
+        margin: 0;
+        font-weight: 500;
+        color: var(--text-secondary);
+    }
+    .filter-group select {
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface);
+        color: var(--text);
+        font-size: 0.95em;
+    }
+    .exercise-card {
+        display: block;
+        text-decoration: none;
+    }
+    .exercise-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    .exercise-name {
+        font-size: 1.1em;
+        font-weight: 600;
+        color: var(--text);
+    }
+    .exercise-desc {
+        color: var(--text-secondary);
+        font-size: 0.95em;
+        margin-bottom: 12px;
+    }
+    .exercise-meta {
+        display: flex;
+        gap: 16px;
+    }
+    .meta-item {
+        font-size: 0.85em;
+        color: var(--text-muted);
+    }
+    .badge-beginner { background: #dcfce7; color: #166534; }
+    .badge-intermediate { background: #fef3c7; color: #92400e; }
+    .badge-advanced { background: #fee2e2; color: #991b1b; }
+</style>
+
+<script>
+function applyFilters() {
+    const category = document.getElementById('category-filter').value;
+    const difficulty = document.getElementById('difficulty-filter').value;
+    const params = new URLSearchParams();
+    if (category) params.set('category', category);
+    if (difficulty) params.set('difficulty', difficulty);
+    window.location.href = '?' + params.toString();
+}
+</script>
+{% endblock %}

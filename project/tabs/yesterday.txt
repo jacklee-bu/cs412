@@ -1,0 +1,74 @@
+title: Yesterday
+artist: The Beatles
+album: Help!
+year: 1965
+chords: F, Em7, A7, Dm, Dm/C, Bb, C7, G, Gm, C
+tuning: standard
+capo: 0
+tempo: 96
+difficulty: intermediate
+source: Ultimate Guitar
+
+
+[Intro]
+F
+
+
+[Verse 1]
+F           Em7    A7        Dm    Dm/C
+Yesterday, all my troubles seemed so far away
+Bb           C7             F
+Now it looks as though they're here to stay
+   Dm    G     Bb   F
+Oh I believe in yesterday
+
+
+[Verse 2]
+F        Em7   A7       Dm       Dm/C
+Suddenly, I'm not half the man I used to be
+Bb                 C7            F
+There's a shadow hanging over me
+   Dm    G     Bb   F
+Oh yesterday came suddenly
+
+
+[Chorus]
+Em7  A7      Dm   Dm/C  Bb   Gm
+Why she had to go I don't know
+            C              F
+She wouldn't say
+Em7  A7       Dm   Dm/C   Bb   Gm
+I said something wrong now I long
+         C           F
+For yesterday
+
+
+[Verse 3]
+F           Em7    A7        Dm    Dm/C
+Yesterday, love was such an easy game to play
+Bb           C7             F
+Now I need a place to hide away
+   Dm    G     Bb   F
+Oh I believe in yesterday
+
+
+[Chorus]
+Em7  A7      Dm   Dm/C  Bb   Gm
+Why she had to go I don't know
+            C              F
+She wouldn't say
+Em7  A7       Dm   Dm/C   Bb   Gm
+I said something wrong now I long
+         C           F
+For yesterday
+
+
+[Outro]
+F           Em7    A7        Dm    Dm/C
+Yesterday, love was such an easy game to play
+Bb           C7             F
+Now I need a place to hide away
+   Dm    G     Bb   F
+Oh I believe in yesterday
+Dm    G     Bb   F
+Mm mm mm mm mm mm mm

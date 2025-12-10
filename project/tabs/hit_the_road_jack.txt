@@ -1,0 +1,31 @@
+title: Hit The Road Jack
+artist: Ray Charles
+album: Single
+year: 1961
+chords: Am, G, F, E7
+tuning: standard
+capo: 0
+tempo: 173
+source: Ultimate Guitar
+
+Written by Percy Mayfield (1960), recorded by Ray Charles and Margie Hendrix in 1961.
+Tuning half step down, barre chords
+
+[Intro]
+Am   G     F    E7
+Am   G     F    E7
+
+
+[Chorus]
+Am  G  F  E7
+(descending bass line pattern repeats)
+
+
+[Verse]
+Am  G  F  E7
+(same progression throughout)
+
+
+[Outro]
+Am  G  F  E7
+(fade with call and response)

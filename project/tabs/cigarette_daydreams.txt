@@ -1,0 +1,83 @@
+title: Cigarette Daydreams
+artist: Cage The Elephant
+album: Melophobia
+year: 2013
+chords: D, Dmaj7, Em, G, A, Bm, F#m
+tuning: standard
+capo: 0
+tempo: 80
+difficulty: intermediate
+source: Ultimate Guitar
+
+
+[Intro]
+D   Dmaj7   Em   G   A
+
+
+[Verse 1]
+D          Dmaj7           Em
+Did you stand there all alone?
+G                      A              D
+Oh I can not tell if you were ever known
+D           Dmaj7          Bm
+Cigarette daydream
+G                     A        D
+You were only seventeen
+
+
+[Verse 2]
+D           Dmaj7          Em
+So sweet with a mean streak
+G                      A            D
+Nearly brought me to my knees
+D           Dmaj7            Bm
+While you were kneeling there
+G                         A         D
+Scraping pennies from concrete
+
+
+[Interlude]
+D   Dmaj7   Bm   Em
+
+
+[Chorus]
+           Bm                D
+Funny how it seems like yesterday
+      G             F#m         Bm
+As I recall you were looking out of place
+           Bm               D
+Gathered up your things and slipped away
+  G                  F#m
+No time at all I followed you into the hall
+
+
+[Instrumental]
+Em   A   Em   D   A
+Em   A   Em   Bm   G   A
+
+
+[Verse 3]
+D          Dmaj7           Em
+Did you stand there all alone?
+G                      A              D
+Oh I can not tell if you were ever known
+D           Dmaj7          Bm
+Cigarette daydream
+G                     A        D
+You were only seventeen
+
+
+[Chorus]
+           Bm                D
+Funny how it seems like yesterday
+      G             F#m         Bm
+As I recall you were looking out of place
+           Bm               D
+Gathered up your things and slipped away
+  G                  F#m
+No time at all I followed you into the hall
+
+
+[Outro]
+Bm   D   G   F#m
+(repeat and fade)

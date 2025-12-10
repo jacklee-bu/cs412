@@ -1,0 +1,30 @@
+title: Free Fallin'
+artist: Tom Petty
+album: Full Moon Fever
+year: 1989
+chords: A, D, E
+tuning: standard
+capo: 3
+tempo: 84
+source: Ultimate Guitar
+
+Capo 3rd fret to play in key of F with easy D chord shapes.
+
+
+[Intro]
+A   D     D A  E     x2
+
+
+[Verse]
+A  D  D  A  E
+(repeat pattern)
+
+
+[Chorus]
+A  D  D  A  E
+(same progression, let it ring)
+
+
+[Outro]
+A  D  D  A  E
+(fade out)

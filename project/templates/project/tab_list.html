@@ -1,0 +1,152 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- tab_list.html - list all tabs with inline expansion -->
+{% extends 'project/base.html' %}
+{% block title %}Tabs - tabby{% endblock %}
+
+{% block content %}
+<h1>All Tabs</h1>
+
+<div class="search-box">
+    <input type="text" id="tab-search" class="form-control" placeholder="Filter by song or artist...">
+</div>
+
+<!-- difficulty filter -->
+<div class="filter-bar">
+    <a href="{% url 'project:tab_list' %}" class="btn {% if not selected_difficulty %}btn-active{% else %}btn-secondary{% endif %}">All</a>
+    <a href="{% url 'project:tab_list' %}?difficulty=beginner" class="btn {% if selected_difficulty == 'beginner' %}btn-active{% else %}btn-secondary{% endif %}">Beginner</a>
+    <a href="{% url 'project:tab_list' %}?difficulty=intermediate" class="btn {% if selected_difficulty == 'intermediate' %}btn-active{% else %}btn-secondary{% endif %}">Intermediate</a>
+    <a href="{% url 'project:tab_list' %}?difficulty=advanced" class="btn {% if selected_difficulty == 'advanced' %}btn-active{% else %}btn-secondary{% endif %}">Advanced</a>
+</div>
+
+<div class="actions">
+    <a href="{% url 'project:tab_create' %}" class="btn">Add Tab</a>
+    <button class="btn btn-secondary" onclick="expandAll()">Expand All</button>
+    <button class="btn btn-secondary" onclick="collapseAll()">Collapse All</button>
+</div>
+
+{% if tabs %}
+    <div id="tab-container">
+    {% for tab in tabs %}
+    <div class="card tab-card" data-song="{{ tab.song.title|lower }}" data-artist="{{ tab.song.artist|lower }}" data-difficulty="{{ tab.difficulty }}">
+        <div class="tab-header" onclick="toggleTab({{ tab.pk }})">
+            <div style="flex: 1;">
+                <div class="card-title">{{ tab.song.title }}</div>
+                <div class="card-subtitle">{{ tab.song.artist }}</div>
+                <span class="badge badge-{{ tab.difficulty }}">{{ tab.get_difficulty_display }}</span>
+                <span class="badge">{{ tab.get_tuning_display }}</span>
+                {% if tab.capo > 0 %}<span class="badge">Capo {{ tab.capo }}</span>{% endif %}
+                {% if tab.chords_used %}<span class="badge">{{ tab.chords_used }}</span>{% endif %}
+            </div>
+            <span class="expand-icon" id="icon-{{ tab.pk }}">+</span>
+        </div>
+        <div class="tab-body" id="tab-{{ tab.pk }}" style="display: none;">
+            <div class="tab-meta">
+                {% if tab.tempo %}<span>Tempo: {{ tab.tempo }} BPM</span>{% endif %}
+                {% if tab.strumming_pattern %}<span>Pattern: {{ tab.strumming_pattern }}</span>{% endif %}
+            </div>
+            <div class="tab-content">{{ tab.content }}</div>
+            <div class="actions">
+                <a href="{% url 'project:tab_detail' tab.pk %}" class="btn">View Full</a>
+                <a href="{% url 'project:favorite_create' %}?tab={{ tab.pk }}" class="btn btn-secondary">Save</a>
+                <a href="{% url 'project:tab_update' tab.pk %}" class="btn btn-secondary">Edit</a>
+                <a href="{% url 'project:tab_delete' tab.pk %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+
+    {% if page_obj.has_other_pages %}
+    <div style="margin-top: 20px; text-align: center;">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary">Previous</a>
+        {% endif %}
+        <span class="meta" style="margin: 0 15px;">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">Next</a>
+        {% endif %}
+    </div>
+    {% endif %}
+{% else %}
+    <div class="empty">No tabs yet.</div>
+{% endif %}
+
+<style>
+    .filter-bar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+    .btn-active {
+        background: var(--accent) !important;
+        color: var(--text-inverse) !important;
+        border-color: var(--accent) !important;
+    }
+    .tab-header {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+    }
+    .tab-header:hover { opacity: 0.8; }
+    .expand-icon {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: var(--primary);
+        width: 30px;
+        text-align: center;
+    }
+    .tab-body {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid var(--border);
+    }
+    .tab-meta {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 10px;
+        color: var(--text-secondary);
+        font-size: 0.9em;
+    }
+    .tab-card.hidden { display: none; }
+</style>
+
+<script>
+function toggleTab(id) {
+    const body = document.getElementById('tab-' + id);
+    const icon = document.getElementById('icon-' + id);
+    if (body.style.display === 'none') {
+        body.style.display = 'block';
+        icon.textContent = '-';
+    } else {
+        body.style.display = 'none';
+        icon.textContent = '+';
+    }
+}
+
+function expandAll() {
+    document.querySelectorAll('.tab-body').forEach(el => el.style.display = 'block');
+    document.querySelectorAll('.expand-icon').forEach(el => el.textContent = '-');
+}
+
+function collapseAll() {
+    document.querySelectorAll('.tab-body').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.expand-icon').forEach(el => el.textContent = '+');
+}
+
+// live search filter
+document.getElementById('tab-search').addEventListener('input', function(e) {
+    const query = e.target.value.toLowerCase();
+    document.querySelectorAll('.tab-card').forEach(card => {
+        const song = card.dataset.song;
+        const artist = card.dataset.artist;
+        if (song.includes(query) || artist.includes(query)) {
+            card.classList.remove('hidden');
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+});
+</script>
+{% endblock %}

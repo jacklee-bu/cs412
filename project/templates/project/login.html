@@ -1,0 +1,29 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- login.html - user login form -->
+{% extends 'project/base.html' %}
+{% block title %}Login - tabby{% endblock %}
+
+{% block content %}
+<h1>Login</h1>
+
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" class="form-control" required>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control" required>
+
+        {% if form.errors %}
+            <p style="color: var(--error); font-size: 0.85rem;">Invalid username or password.</p>
+        {% endif %}
+
+        <div class="actions">
+            <button type="submit" class="btn">Login</button>
+            <a href="{% url 'project:register' %}" class="btn btn-secondary">Create Account</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

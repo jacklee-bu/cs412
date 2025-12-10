@@ -1,0 +1,26 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- tab_form.html - create/edit tab form -->
+{% extends 'project/base.html' %}
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Tab - tabby{% endblock %}
+
+{% block content %}
+<h1>{% if object %}Edit{% else %}Add{% endif %} Tab</h1>
+
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <label>{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}<p class="meta">{{ field.help_text }}</p>{% endif %}
+            {% if field.errors %}
+                <p style="color: #dc2626; font-size: 0.9em;">{{ field.errors.0 }}</p>
+            {% endif %}
+        {% endfor %}
+        <div class="actions">
+            <button type="submit" class="btn">Save</button>
+            <a href="{% url 'project:tab_list' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

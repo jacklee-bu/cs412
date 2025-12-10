@@ -1,0 +1,185 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- song_list.html - list all songs with search and filtering -->
+{% extends 'project/base.html' %}
+{% block title %}Songs - tabby{% endblock %}
+
+{% block content %}
+<h1>Songs</h1>
+
+<!-- search form -->
+<form method="get" class="search-box">
+    <input type="text" name="q" class="form-control" placeholder="Search songs or artists..." value="{{ search_query }}">
+    {% if current_sort != 'title' %}<input type="hidden" name="sort" value="{{ current_sort }}">{% endif %}
+    <button type="submit" class="btn">Search</button>
+    {% if search_query %}<a href="{% url 'project:song_list' %}" class="btn btn-secondary">Clear</a>{% endif %}
+</form>
+
+<!-- results count and sort -->
+<div class="search-controls">
+    <div class="results-info">
+        {% if search_query %}
+            {{ total_count }} result{{ total_count|pluralize }} for "{{ search_query }}"
+        {% else %}
+            {{ total_count }} song{{ total_count|pluralize }}
+        {% endif %}
+    </div>
+    <form method="get" class="sort-controls">
+        {% if search_query %}<input type="hidden" name="q" value="{{ search_query }}">{% endif %}
+        <label class="sort-label">Sort:</label>
+        <select name="sort" class="form-control sort-select" onchange="this.form.submit()">
+            <option value="title" {% if current_sort == 'title' %}selected{% endif %}>Title A-Z</option>
+            <option value="artist" {% if current_sort == 'artist' %}selected{% endif %}>Artist A-Z</option>
+            <option value="recent" {% if current_sort == 'recent' %}selected{% endif %}>Recently Added</option>
+        </select>
+    </form>
+</div>
+
+<div class="actions">
+    <a href="{% url 'project:song_create' %}" class="btn">Add Song</a>
+</div>
+
+<!-- song list -->
+<div class="song-list">
+{% if songs %}
+    {% for song in songs %}
+    <a href="{% url 'project:song_detail' song.pk %}" class="song-card">
+        <div class="song-card-main">
+            <div class="song-info">
+                <div class="song-title">{{ song.title }}</div>
+                <div class="song-artist">{{ song.artist }}</div>
+            </div>
+        </div>
+        {% if song.album or song.year %}
+        <div class="song-meta">
+            {% if song.album %}<span>{{ song.album }}</span>{% endif %}
+            {% if song.album and song.year %}<span class="meta-sep"></span>{% endif %}
+            {% if song.year %}<span>{{ song.year }}</span>{% endif %}
+        </div>
+        {% endif %}
+    </a>
+    {% endfor %}
+{% endif %}
+</div>
+
+<!-- empty state -->
+{% if not songs %}
+<div class="empty-state">
+    {% if search_query %}
+    <div class="empty-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </div>
+    <div class="empty-title">No results for "{{ search_query }}"</div>
+    <div class="empty-desc">Try a different search term or check your spelling.</div>
+    {% else %}
+    <div class="empty-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+    </div>
+    <div class="empty-title">No songs yet</div>
+    <div class="empty-desc">Add your first song to get started.</div>
+    <a href="{% url 'project:song_create' %}" class="btn" style="margin-top: var(--space-4);">Add Song</a>
+    {% endif %}
+</div>
+{% endif %}
+
+<!-- pagination -->
+{% if page_obj.has_other_pages %}
+<div class="pagination" id="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort != 'title' %}&sort={{ current_sort }}{% endif %}" class="btn btn-secondary">Previous</a>
+    {% endif %}
+    <span class="meta page-info">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort != 'title' %}&sort={{ current_sort }}{% endif %}" class="btn btn-secondary">Next</a>
+    {% endif %}
+</div>
+{% endif %}
+
+<style>
+    .search-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-4);
+        flex-wrap: wrap;
+        gap: var(--space-3);
+    }
+    .results-info {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+    }
+    .sort-controls {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+    }
+    .sort-label {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 0;
+    }
+    .sort-select {
+        width: auto;
+        min-width: 140px;
+        padding: var(--space-2) var(--space-3);
+        font-size: 0.9rem;
+        margin-bottom: 0;
+    }
+    .song-card {
+        display: block;
+        background: var(--surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: var(--space-4) var(--space-5);
+        margin-bottom: var(--space-3);
+        text-decoration: none;
+        transition: all var(--transition-base);
+    }
+    .song-card:hover {
+        border-color: var(--accent);
+        transform: translateX(4px);
+    }
+    .song-card-main {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: var(--space-3);
+    }
+    .song-info { flex: 1; min-width: 0; }
+    .song-title {
+        font-weight: 600;
+        font-size: 1.05rem;
+        color: var(--text);
+        margin-bottom: var(--space-1);
+    }
+    .song-artist { color: var(--text-secondary); font-size: 0.95rem; }
+    .song-badges { display: flex; gap: var(--space-2); flex-shrink: 0; }
+    .song-meta {
+        margin-top: var(--space-2);
+        padding-top: var(--space-2);
+        border-top: 1px solid var(--border-subtle);
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        display: flex;
+        gap: var(--space-3);
+    }
+    .empty-state {
+        text-align: center;
+        padding: var(--space-12) var(--space-6);
+        background: var(--surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        margin-top: var(--space-4);
+    }
+    .empty-icon { margin-bottom: var(--space-4); }
+    .empty-icon svg { width: 48px; height: 48px; color: var(--text-muted); opacity: 0.5; }
+    .empty-title { font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: var(--space-2); }
+    .empty-desc { color: var(--text-muted); font-size: 0.9rem; }
+    .pagination {
+        margin-top: var(--space-6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-4);
+    }
+</style>
+{% endblock %}

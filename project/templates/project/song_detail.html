@@ -1,0 +1,102 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- song_detail.html - show a song with its tabs -->
+{% extends 'project/base.html' %}
+{% block title %}{{ song.title }} - tabby{% endblock %}
+
+{% block content %}
+<h1>{{ song.title }}</h1>
+<p class="card-subtitle">{{ song.artist }}</p>
+
+<div class="card">
+    <table>
+        {% if song.album %}<tr><th>Album</th><td>{{ song.album }}</td></tr>{% endif %}
+        {% if song.year %}<tr><th>Year</th><td>{{ song.year }}</td></tr>{% endif %}
+        <tr><th>Added</th><td>{{ song.date_added|date:"M d, Y" }}</td></tr>
+    </table>
+    <div class="actions">
+        <a href="{% url 'project:song_update' song.pk %}" class="btn btn-secondary">Edit</a>
+        <a href="{% url 'project:song_delete' song.pk %}" class="btn btn-danger">Delete</a>
+    </div>
+</div>
+
+<h2>Tabs for this song</h2>
+<div class="actions">
+    <a href="{% url 'project:tab_create' %}?song={{ song.pk }}" class="btn">Add Tab</a>
+</div>
+
+{% if song.tabs.all %}
+    <div class="tab-grid">
+    {% for tab in song.tabs.all %}
+        <a href="{% url 'project:tab_detail' tab.pk %}" class="tab-card">
+            <div class="tab-card-header">
+                <span class="tab-tuning">{{ tab.get_tuning_display }}</span>
+                <span class="badge badge-{{ tab.difficulty }}">{{ tab.get_difficulty_display }}</span>
+            </div>
+            <div class="tab-card-meta">
+                {% if tab.capo > 0 %}<span class="meta-item">Capo {{ tab.capo }}</span>{% endif %}
+                {% if tab.tempo %}<span class="meta-item">{{ tab.tempo }} BPM</span>{% endif %}
+            </div>
+            {% if tab.chords_used %}
+            <div class="tab-chords">{{ tab.chords_used }}</div>
+            {% endif %}
+        </a>
+    {% endfor %}
+    </div>
+{% else %}
+    <div class="empty">No tabs yet for this song.</div>
+{% endif %}
+
+<style>
+    .tab-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: var(--space-4);
+        margin-top: var(--space-4);
+    }
+    .tab-card {
+        background: var(--surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: var(--space-5);
+        text-decoration: none;
+        transition: all var(--transition-base);
+        display: block;
+    }
+    .tab-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-card-hover);
+    }
+    .tab-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-2);
+    }
+    .tab-tuning {
+        font-weight: 600;
+        color: var(--text);
+        font-size: 1.05rem;
+    }
+    .tab-card-meta {
+        display: flex;
+        gap: var(--space-3);
+        margin-bottom: var(--space-2);
+    }
+    .meta-item {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+    .tab-chords {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        padding: var(--space-2) var(--space-3);
+        background: var(--surface-alt);
+        border-radius: var(--radius-md);
+        margin-top: var(--space-2);
+    }
+</style>
+
+<p style="margin-top: 20px;"><a href="{% url 'project:song_list' %}">&larr; Back to songs</a></p>
+{% endblock %}

@@ -1,0 +1,20 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- song_confirm_delete.html - confirm song deletion -->
+{% extends 'project/base.html' %}
+{% block title %}Delete Song - tabby{% endblock %}
+
+{% block content %}
+<h1>Delete Song</h1>
+
+<div class="card">
+    <p>Are you sure you want to delete <strong>{{ object.title }}</strong> by {{ object.artist }}?</p>
+    <p class="meta">This will also delete all tabs for this song.</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="actions">
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="{% url 'project:song_detail' object.pk %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

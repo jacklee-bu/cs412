@@ -1,0 +1,43 @@
+title: Use Me
+artist: Bill Withers
+album: Still Bill
+year: 1972
+chords: Em7, A7
+tuning: standard
+capo: 0
+tempo: 104
+source: Ultimate Guitar
+
+[Intro riff] 4x
+E|----------------------------------------------|
+B|----------------------------------------------|
+G|----------------------------------------------|
+D|-----5-----5---5----------x-x-x-x-x-x-x-x-x-x-|
+A|-5-7---7-5---7----7-5-4-7-x-x-x-x-x-x-x-x-x-x-|
+E|--------------------------x-x-x-x-x-x-x-x-x-x-|
+
+Then get your groove on... Repeat throughout...
+The N.C. pre-chorus is strumming muted strings percussively.
+
+     Em7                  A7
+E|---x-x-x-x--x-x-x-x-----x-x-x-x--x-x-x-x--x-x-|
+B|---8-8-8-8--8-8-8-8-----x-x-x-x--x-x-x-x--x-x-|
+G|---7-7-7-7--7-7-7-7-----6-6-6-6--6-6-6-6--6-6-|
+D|---x-x-x-x--x-x-x-x-----5-5-5-5--5-5-5-5--5-5-|
+A|---7-7-7-7--7-7-7-7-5-4-x-x-x-x--x-x-x-x--x-x-|
+E|-0----------------------5-5-5-5--5-5-5-5--5-5-|
+
+
+[Verse]
+Em7  A7
+(groove pattern continues)
+
+
+[Chorus]
+N.C. (muted string strumming)
+Em7  A7
+
+
+[Outro]
+Em7  A7
+(fade with groove)

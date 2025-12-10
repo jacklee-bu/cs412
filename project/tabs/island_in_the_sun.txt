@@ -1,0 +1,36 @@
+title: Island In The Sun
+artist: Weezer
+album: Weezer (Green Album)
+year: 2001
+chords: Em, Am, D, G, C
+tuning: standard
+capo: 0
+tempo: 118
+source: Ultimate Guitar
+
+Em:  x79987
+Am:  xxx555
+D:   xx0232
+G:   xx5433
+
+
+[Intro]
+Em  Am  D  G  (x4 with "Hip hip")
+
+
+[Verse]
+Em  Am  D  G
+(4-chord loop throughout)
+
+
+[Chorus]
+Em  Am  D  G
+
+
+[Bridge]
+D  G  D  G  C  Am  D
+
+
+[Outro]
+Em  Am  D  G
+(fade with "Hip hip")

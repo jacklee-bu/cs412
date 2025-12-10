@@ -1,0 +1,19 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- chord_confirm_delete.html - confirm chord deletion -->
+{% extends 'project/base.html' %}
+{% block title %}Delete Chord - tabby{% endblock %}
+
+{% block content %}
+<h1>Delete Chord</h1>
+
+<div class="card">
+    <p>Are you sure you want to delete <strong>{{ object.name }}</strong> ({{ object.full_name }})?</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="actions">
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="{% url 'project:chord_detail' object.pk %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

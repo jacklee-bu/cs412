@@ -1,0 +1,21 @@
+title: Dust In The Wind
+artist: Kansas
+album: Point of Know Return
+year: 1977
+chords: C, Cmaj7, Cadd9, Am, Asus2, Asus4, G/B, Dm7, D/F#, G
+tuning: standard
+capo: 0
+tempo: 94
+source: Ultimate Guitar
+
+[Intro]
+C  Cmaj7  Cadd9  C  Asus2  Asus4  Am  Asus2
+
+[Verse]
+C  G/B  Am  G  Dm7  Am  G/B
+
+[Chorus]
+D/F#  G  Am
+
+[Outro]
+Am  Asus2  Asus4  Am

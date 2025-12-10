@@ -1,0 +1,111 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- exercise_detail.html - show a single exercise -->
+{% extends 'project/base.html' %}
+{% block title %}{{ exercise.name }} - tabby{% endblock %}
+
+{% block content %}
+<h1>{{ exercise.name }}</h1>
+<p class="card-subtitle">{{ exercise.get_category_display }}</p>
+
+<div class="card">
+    <div class="exercise-badges">
+        <span class="badge badge-{{ exercise.difficulty }}">{{ exercise.get_difficulty_display }}</span>
+        <span class="badge">{{ exercise.duration_minutes }} minutes</span>
+    </div>
+
+    <p class="description">{{ exercise.description }}</p>
+</div>
+
+<h2>Instructions</h2>
+<div class="card instructions">
+    {{ exercise.instructions|linebreaks }}
+</div>
+
+{% if exercise.tab_notation %}
+<h2>Tablature</h2>
+<div class="tab-content">{{ exercise.tab_notation }}</div>
+{% endif %}
+
+{% if exercise.tips %}
+<h2>Tips</h2>
+<div class="card tips">
+    {{ exercise.tips|linebreaks }}
+</div>
+{% endif %}
+
+{% if exercise.chords.exists %}
+<h2>Chords Used</h2>
+<div class="chords-grid">
+    {% for chord in exercise.chords.all %}
+    <a href="{% url 'project:chord_detail' chord.pk %}" class="chord-card">
+        <span class="chord-name">{{ chord.name }}</span>
+        <span class="chord-full">{{ chord.full_name }}</span>
+    </a>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="card" style="margin-top: 20px;">
+    <div class="actions">
+        <a href="{% url 'project:exercise_update' exercise.pk %}" class="btn btn-secondary">Edit</a>
+        <a href="{% url 'project:exercise_delete' exercise.pk %}" class="btn btn-danger">Delete</a>
+    </div>
+</div>
+
+<p style="margin-top: 20px;"><a href="{% url 'project:exercise_list' %}">&larr; Back to Exercises</a></p>
+
+<style>
+    .exercise-badges {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+    .badge-beginner { background: #dcfce7; color: #166534; }
+    .badge-intermediate { background: #fef3c7; color: #92400e; }
+    .badge-advanced { background: #fee2e2; color: #991b1b; }
+    .description {
+        font-size: 1.1em;
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+    .instructions {
+        line-height: 1.8;
+    }
+    .instructions ol, .instructions ul {
+        margin-left: 20px;
+    }
+    .tips {
+        background: var(--surface-alt);
+        border-left: 4px solid var(--primary);
+    }
+    .chords-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 12px;
+    }
+    .chord-card {
+        background: var(--surface);
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+        text-decoration: none;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: box-shadow 0.2s;
+    }
+    .chord-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .chord-name {
+        display: block;
+        font-size: 1.5em;
+        font-weight: 700;
+        color: var(--text);
+    }
+    .chord-full {
+        display: block;
+        font-size: 0.85em;
+        color: var(--text-muted);
+        margin-top: 4px;
+    }
+</style>
+{% endblock %}

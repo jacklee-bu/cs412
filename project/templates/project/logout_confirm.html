@@ -1,0 +1,17 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- logout_confirm.html - confirm logout action -->
+{% extends 'project/base.html' %}
+{% block title %}Logout - tabby{% endblock %}
+
+{% block content %}
+<h1>Logout</h1>
+
+<div class="card">
+    <p>Are you sure you want to log out?</p>
+    <form method="post" class="actions">
+        {% csrf_token %}
+        <button type="submit" class="btn">Yes, log me out</button>
+        <a href="{% url 'project:home' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

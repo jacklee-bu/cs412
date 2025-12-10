@@ -1,0 +1,29 @@
+title: Vienna
+artist: Billy Joel
+album: The Stranger
+year: 1977
+chords: Bbaug, D7, Eb, Ebm/Gb, F7, Bb, Gm, F, Ab, C, D9sus4, D, Am, Am7, Dm/A, Bb/F, Gb7
+tuning: standard
+capo: 0
+tempo: 98
+source: Ultimate Guitar
+
+[Intro]
+| Bbaug | D7 Eb | Ebm/Gb F7 | Bb |
+
+
+[Verse]
+Gm  Bb  F  Ab  Eb  Bb  C  D9sus4  D
+
+
+[Chorus]
+Eb  F  Bb  Dm/A  Gm  Bb/F
+Eb  Am7  D7  Gm7  C7  Gb7  F  Bb
+
+
+[Tag]
+G7  Gb7  F  Bbaug
+
+
+[Outro]
+Bbaug  D7  Eb  Ebm/Gb  F7  Bb

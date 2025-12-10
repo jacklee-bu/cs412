@@ -1,0 +1,31 @@
+title: Nutshell
+artist: Alice In Chains
+album: Jar of Flies
+year: 1994
+chords: Em7, G, D, Cadd9
+tuning: Eb standard
+capo: 0
+tempo: 56
+source: Ultimate Guitar
+
+Tuning: Eb Ab Db Gb Bb Eb (half step down)
+
+
+[Intro]
+Em7 G D
+Cadd9  Em7  G D  x5
+
+
+[Verse]
+Cadd9  Em7  G  D
+(melancholic progression repeats)
+
+
+[Solo]
+Cadd9  Em7  G  D  x4
+
+
+[Outro]
+Cadd9  Em7  G  D
+Cadd9
+(fade out)

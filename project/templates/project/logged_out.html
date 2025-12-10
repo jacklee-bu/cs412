@@ -1,0 +1,16 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- logged_out.html - logout confirmation -->
+{% extends 'project/base.html' %}
+{% block title %}Logged Out - tabby{% endblock %}
+
+{% block content %}
+<h1>Logged Out</h1>
+
+<div class="card">
+    <p>You have been logged out successfully.</p>
+    <div class="actions">
+        <a href="{% url 'project:login' %}" class="btn">Login Again</a>
+        <a href="{% url 'project:home' %}" class="btn btn-secondary">Home</a>
+    </div>
+</div>
+{% endblock %}

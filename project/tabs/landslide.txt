@@ -1,0 +1,42 @@
+title: Landslide
+artist: Fleetwood Mac
+album: Fleetwood Mac
+year: 1975
+chords: C, G/B, Am7, G, D7/F#, D/F#, Em, Am
+tuning: standard
+capo: 3
+tempo: 80
+source: Ultimate Guitar
+
+Travis picking or strum pattern
+G     320003
+C     x32010
+G/B   x2003x
+Am7   x02010
+D7/F# 2x0212
+D/F#  2x0232
+
+
+[Intro]
+| C G/B | Am7 G/B |
+| C G/B | Am7 G/B |
+
+
+[Verse]
+C  G/B  Am7  G/B
+(fingerpicking pattern throughout)
+
+
+[Chorus]
+G  D7/F#  Em
+C  G/B  Am  D/F#
+
+
+[Solo]
+| C G/B | Am7 G/B |
+(repeat pattern)
+
+
+[Outro]
+C  G/B  Am7
+(fade)

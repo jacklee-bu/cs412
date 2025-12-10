@@ -1,0 +1,31 @@
+title: Under The Bridge
+artist: Red Hot Chili Peppers
+album: Blood Sugar Sex Magik
+year: 1991
+chords: D, F#, E, B, C#m, G#m, A, Emaj7, F#m, B/F#, Am, Am7, G6, Fmaj7, E7, Gmaj7
+tuning: standard
+capo: 0
+tempo: 68
+source: Ultimate Guitar
+
+[Intro]
+D   F#   x4
+
+
+[Verse]
+E  B  C#m  G#m  A
+E  B  C#m  A  Emaj7
+
+
+[Chorus]
+F#m  E  B/F#  F#m
+(repeat pattern)
+
+
+[Interlude]
+A  Am7  G6  Fmaj7
+
+
+[Coda]
+A  Am  G6  Fmaj7
+(descending pattern to fade)

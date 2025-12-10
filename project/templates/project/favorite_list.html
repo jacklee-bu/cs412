@@ -1,0 +1,34 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- favorite_list.html - user's saved tabs -->
+{% extends 'project/base.html' %}
+{% block title %}My Favorites - tabby{% endblock %}
+
+{% block content %}
+<h1>My Favorites</h1>
+
+{% if favorites %}
+    {% for fav in favorites %}
+    <div class="card">
+        <a href="{% url 'project:tab_detail' fav.tab.pk %}">
+            <div class="card-title">{{ fav.tab.song.title }}</div>
+            <div class="card-subtitle">{{ fav.tab.song.artist }}</div>
+        </a>
+        <div style="margin-top: 10px;">
+            {% if fav.is_mastered %}<span class="badge" style="background: #dcfce7;">Mastered</span>{% endif %}
+            {% if fav.practice_time > 0 %}<span class="badge">{{ fav.practice_time }} min practiced</span>{% endif %}
+            <span class="badge">Saved {{ fav.date_saved|date:"M d" }}</span>
+        </div>
+        {% if fav.notes %}<p class="meta" style="margin-top: 8px;">{{ fav.notes|truncatewords:20 }}</p>{% endif %}
+        <div class="actions">
+            <a href="{% url 'project:favorite_update' fav.pk %}" class="btn btn-secondary">Edit Notes</a>
+            <a href="{% url 'project:favorite_delete' fav.pk %}" class="btn btn-danger">Remove</a>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="empty">
+        <p>No favorites yet.</p>
+        <p><a href="{% url 'project:tab_list' %}">Browse tabs</a> and save some!</p>
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- chord_detail.html - show a chord with diagram -->
+{% extends 'project/base.html' %}
+{% block title %}{{ chord.name }} - tabby{% endblock %}
+
+{% block content %}
+<h1>{{ chord.name }}</h1>
+<p class="card-subtitle">{{ chord.full_name }}</p>
+
+<div class="card" style="display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap;">
+    <div style="flex: 0 0 auto;">
+        {% include 'project/chord_diagram.html' with fingering=chord.fingering %}
+    </div>
+    <div style="flex: 1; min-width: 200px;">
+        <table>
+            <tr><th>Difficulty</th><td>{{ chord.get_difficulty_display }}</td></tr>
+            <tr><th>Category</th><td>{{ chord.get_category_display }}</td></tr>
+            <tr><th>Fingering</th><td><code>{{ chord.fingering }}</code></td></tr>
+        </table>
+
+        <div style="margin-top: 20px;">
+            <h2>How to Play</h2>
+            <p class="meta">
+                Reading the diagram: Each vertical line is a string (E A D G B e from left to right).
+                Dots show where to place your fingers. 'x' means dont play that string, 'o' means play it open.
+            </p>
+        </div>
+
+        <div class="actions">
+            <a href="{% url 'project:chord_update' chord.pk %}" class="btn btn-secondary">Edit</a>
+            <a href="{% url 'project:chord_delete' chord.pk %}" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+</div>
+
+<p style="margin-top: 20px;"><a href="{% url 'project:chord_list' %}">&larr; Back to chords</a></p>
+{% endblock %}

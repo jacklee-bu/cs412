@@ -1,0 +1,436 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- home.html - discovery hub for tabby -->
+{% extends 'project/base.html' %}
+{% block title %}tabby{% endblock %}
+
+{% load static %}
+{% block content %}
+<div class="hero">
+    <img src="{% static 'project/title-tabby.png' %}" alt="tabby" class="hero-cat">
+</div>
+
+<!-- quick search -->
+<div class="search-wrapper">
+    <form method="get" action="{% url 'project:song_list' %}" class="search-form">
+        <input type="text" name="q" class="form-control search-input" placeholder="Search for a song or artist...">
+        <button type="submit" class="btn">Search</button>
+    </form>
+</div>
+
+<!-- how to read tabs -->
+<section class="section">
+    <h2>How to Read Tabs</h2>
+    <div class="card">
+        <p>Guitar tablature shows 6 lines representing the strings (low E at bottom, high e at top). Numbers indicate which fret to press. 0 means open string, x means don't play that string.</p>
+        <div class="tab-content">e|---0---1---3---
+B|---1---1---0---
+G|---0---2---0---
+D|---2---3---0---
+A|---3---3---2---
+E|---x---1---3---</div>
+        <p class="meta">Example: C, F, and G chords</p>
+    </div>
+</section>
+
+<!-- essential chords -->
+<section class="section">
+    <h2>Essential Chords</h2>
+    <p class="section-intro">Master these chords and you can play thousands of songs.</p>
+    <div class="chord-grid">
+        {% for chord in beginner_chords %}
+        <a href="{% url 'project:chord_detail' chord.pk %}" class="chord-card">
+            {% include 'project/chord_diagram.html' with fingering=chord.fingering name=chord.name %}
+        </a>
+        {% endfor %}
+    </div>
+    <div class="section-footer">
+        <a href="{% url 'project:chord_list' %}" class="btn btn-secondary">View All Chords</a>
+    </div>
+</section>
+
+<!-- daily warm-up -->
+{% if random_exercise %}
+<section class="section">
+    <h2>Daily Warm-Up <button class="shuffle-btn" onclick="shuffleExercise()" title="Shuffle"><svg class="shuffle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg></button></h2>
+    <div class="feature-card" id="warmup-card">
+        <div class="feature-header">
+            <span class="feature-label">{{ random_exercise.get_category_display }}</span>
+            <span class="badge badge-{{ random_exercise.difficulty }}">{{ random_exercise.get_difficulty_display }}</span>
+        </div>
+        <h3 class="feature-title">{{ random_exercise.name }}</h3>
+        <p class="feature-desc">{{ random_exercise.description|truncatewords:30 }}</p>
+        <div class="feature-meta">
+            <span>{{ random_exercise.duration_minutes }} min</span>
+        </div>
+        <div class="feature-actions">
+            <a href="{% url 'project:exercise_detail' random_exercise.pk %}" class="btn">Start Exercise</a>
+            <a href="{% url 'project:exercise_list' %}" class="btn btn-secondary">Browse All</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- skill level shortcuts -->
+<div class="level-cards">
+    <a href="{% url 'project:tab_list' %}?difficulty=beginner" class="level-card">
+        <div class="level-accent beginner"></div>
+        <div class="level-content">
+            <div class="level-number">1</div>
+            <div class="level-info">
+                <div class="level-title">Beginner</div>
+                <div class="level-desc">Easy songs with basic chords</div>
+            </div>
+        </div>
+    </a>
+    <a href="{% url 'project:tab_list' %}?difficulty=intermediate" class="level-card">
+        <div class="level-accent intermediate"></div>
+        <div class="level-content">
+            <div class="level-number">2</div>
+            <div class="level-info">
+                <div class="level-title">Intermediate</div>
+                <div class="level-desc">More complex patterns</div>
+            </div>
+        </div>
+    </a>
+    <a href="{% url 'project:tab_list' %}?difficulty=advanced" class="level-card">
+        <div class="level-accent advanced"></div>
+        <div class="level-content">
+            <div class="level-number">3</div>
+            <div class="level-info">
+                <div class="level-title">Advanced</div>
+                <div class="level-desc">Challenging techniques</div>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- recent tabs -->
+{% if recent_tabs %}
+<section class="section">
+    <h2>Recently Added</h2>
+    <div class="card-grid">
+        {% for tab in recent_tabs %}
+        <a href="{% url 'project:tab_detail' tab.pk %}" class="card card-link">
+            <div class="card-title">{{ tab.song.title }}</div>
+            <div class="card-subtitle">{{ tab.song.artist }}</div>
+            <div class="card-badges">
+                <span class="badge badge-{{ tab.difficulty }}">{{ tab.get_difficulty_display }}</span>
+                <span class="badge">{{ tab.get_tuning_display }}</span>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    <div class="section-footer">
+        <a href="{% url 'project:tab_list' %}" class="btn btn-secondary">Browse All Tabs</a>
+    </div>
+</section>
+{% endif %}
+
+<style>
+    /* Hero Section */
+    .hero {
+        text-align: center;
+        padding: var(--space-10) 0 var(--space-12);
+    }
+
+    .hero-cat {
+        width: 280px;
+        height: auto;
+        object-fit: contain;
+        margin-bottom: var(--space-4);
+    }
+
+    .hero-tagline {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        letter-spacing: 0.12em;
+        text-transform: lowercase;
+    }
+
+    /* Search */
+    .search-wrapper {
+        max-width: 480px;
+        margin: 0 auto var(--space-10);
+    }
+
+    .search-form {
+        display: flex;
+        gap: var(--space-3);
+    }
+
+    .search-input {
+        flex: 1;
+        margin-bottom: 0;
+    }
+
+    /* Level Cards */
+    .level-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: var(--space-4);
+        margin-bottom: var(--space-10);
+    }
+
+    .level-card {
+        background: var(--surface);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        text-decoration: none;
+        box-shadow: var(--shadow-card);
+        border: 1px solid var(--border-subtle);
+        transition: all var(--transition-base);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .level-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-card-hover);
+        border-color: var(--border);
+    }
+
+    .level-accent {
+        height: 3px;
+    }
+
+    .level-accent.beginner { background: var(--success); }
+    .level-accent.intermediate { background: var(--warning); }
+    .level-accent.advanced { background: var(--error); }
+
+    .level-content {
+        padding: var(--space-5);
+        display: flex;
+        align-items: center;
+        gap: var(--space-4);
+    }
+
+    .level-number {
+        width: 40px;
+        height: 40px;
+        border-radius: var(--radius-md);
+        background: var(--surface-alt);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        flex-shrink: 0;
+    }
+
+    .level-info {
+        flex: 1;
+    }
+
+    .level-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: var(--space-1);
+    }
+
+    .level-desc {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+
+    /* Sections */
+    .section {
+        margin-bottom: var(--space-12);
+    }
+
+    .section-intro {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: var(--space-4);
+    }
+
+    .section-footer {
+        margin-top: var(--space-5);
+        text-align: center;
+    }
+
+    /* Feature Card (warm-up, featured tab) */
+    .feature-card {
+        background: var(--surface);
+        border-radius: var(--radius-lg);
+        padding: var(--space-6);
+        box-shadow: var(--shadow-card);
+        border: 1px solid var(--border-subtle);
+        border-left: 3px solid var(--accent);
+    }
+
+    .feature-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-3);
+    }
+
+    .feature-label {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .feature-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: var(--space-2);
+    }
+
+    .feature-artist {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin-bottom: var(--space-3);
+    }
+
+    .feature-desc {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: var(--space-3);
+    }
+
+    .feature-meta {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: var(--space-5);
+    }
+
+    .feature-badges {
+        margin-bottom: var(--space-5);
+    }
+
+    .feature-actions {
+        display: flex;
+        gap: var(--space-3);
+    }
+
+    /* Card Grid */
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: var(--space-4);
+    }
+
+    .card-link {
+        display: block;
+    }
+
+    .card-link:hover .card-title {
+        color: var(--accent-light);
+    }
+
+    .card-badges {
+        display: flex;
+        gap: var(--space-2);
+        flex-wrap: wrap;
+        margin-top: var(--space-2);
+    }
+
+    /* Chord Grid - horizontal row, no wrap */
+    .chord-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: var(--space-4);
+        justify-content: center;
+        padding: var(--space-4) var(--space-2);
+    }
+
+    .chord-card {
+        background: #161412;
+        border-radius: var(--radius-lg);
+        padding: var(--space-3) var(--space-4);
+        text-align: center;
+        text-decoration: none;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 4px 12px rgba(0,0,0,0.4);
+        border: 1px solid #252220;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .chord-card:hover {
+        transform: translateY(-3px);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 8px 20px rgba(0,0,0,0.5), 0 0 0 1px var(--accent);
+        border-color: var(--accent);
+    }
+
+    .chord-card .chord-svg {
+        width: 100px;
+        height: 125px;
+    }
+
+    .chord-card .chord-name {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-top: var(--space-2);
+        color: var(--accent);
+    }
+
+    /* Shuffle Button */
+    .shuffle-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        margin-left: 8px;
+        border-radius: var(--radius-md);
+        vertical-align: middle;
+        transition: all 0.2s;
+    }
+
+    .shuffle-btn:hover {
+        background: var(--surface-alt);
+    }
+
+    .shuffle-btn:active .shuffle-icon {
+        animation: spin 0.5s ease-in-out;
+    }
+
+    .shuffle-icon {
+        width: 20px;
+        height: 20px;
+        color: var(--accent);
+    }
+
+    .shuffle-icon.spinning {
+        animation: spin 0.5s ease-in-out;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg) scale(1); }
+        50% { transform: rotate(180deg) scale(1.2); }
+        100% { transform: rotate(360deg) scale(1); }
+    }
+
+    #warmup-card.shuffling {
+        animation: pulse 0.3s ease-out;
+    }
+
+    @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
+</style>
+
+<script>
+function shuffleExercise() {
+    const btn = document.querySelector('.shuffle-btn');
+    const icon = document.querySelector('.shuffle-icon');
+    const card = document.getElementById('warmup-card');
+
+    icon.classList.add('spinning');
+    card.classList.add('shuffling');
+
+    setTimeout(() => {
+        icon.classList.remove('spinning');
+        card.classList.remove('shuffling');
+        window.location.reload();
+    }, 500);
+}
+</script>
+{% endblock %}

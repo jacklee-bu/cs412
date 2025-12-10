@@ -1,0 +1,24 @@
+title: Here Comes The Sun
+artist: The Beatles
+album: Abbey Road
+year: 1969
+chords: D, G, A7, E7
+tuning: standard
+capo: 7
+tempo: 126
+source: Ultimate Guitar
+
+[Intro]
+D  G  A7
+
+[Verse]
+D  G  A7
+
+[Chorus]
+D  G  E7
+
+[Bridge]
+(Sun sun sun here it comes)
+
+[Coda]
+D  G  E7  D

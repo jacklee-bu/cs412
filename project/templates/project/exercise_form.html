@@ -1,0 +1,85 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- exercise_form.html - create/edit exercise -->
+{% extends 'project/base.html' %}
+{% block title %}{% if exercise %}Edit{% else %}New{% endif %} Exercise - tabby{% endblock %}
+
+{% block content %}
+<h1>{% if exercise %}Edit Exercise{% else %}New Exercise{% endif %}</h1>
+
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {% if field.field.widget.input_type == 'checkbox' %}
+                {{ field }}
+            {% else %}
+                {{ field }}
+            {% endif %}
+            {% if field.help_text %}
+            <small class="help-text">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+            <div class="error">{{ field.errors }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="actions">
+            <button type="submit" class="btn">{% if exercise %}Save Changes{% else %}Create Exercise{% endif %}</button>
+            <a href="{% url 'project:exercise_list' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .form-group {
+        margin-bottom: 16px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+        color: var(--text-secondary);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface);
+        color: var(--text);
+        font-size: 1em;
+    }
+    .form-group textarea {
+        min-height: 120px;
+        font-family: inherit;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+    }
+    .help-text {
+        display: block;
+        margin-top: 4px;
+        font-size: 0.85em;
+        color: var(--text-muted);
+    }
+    .error {
+        color: var(--error);
+        font-size: 0.9em;
+        margin-top: 4px;
+    }
+    .actions {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+    }
+</style>
+{% endblock %}

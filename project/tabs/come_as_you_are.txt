@@ -1,0 +1,104 @@
+title: Come As You Are
+artist: Nirvana
+album: Nevermind
+year: 1991
+chords: Em, D, A, G, C
+tuning: standard
+capo: 0
+tempo: 120
+difficulty: intermediate
+source: Ultimate Guitar
+
+
+[Intro Riff]
+e|----------------------------------|
+B|----------------------------------|
+G|----------------------------------|
+D|----------------------------------|
+A|------0---0---------2-------2-----|
+E|-0-0-1-2---2-2-2-1-0---0-0----0-1-|
+(repeat x4)
+
+
+[Verse 1]
+Em                              D
+Come as you are, as you were
+Em                         D
+As I want you to be
+Em                              D
+As a friend, as a friend
+Em                      D
+As an old enemy
+
+
+[Pre-Chorus]
+A                    C
+Take your time, hurry up
+A                          C
+The choice is yours, don't be late
+A                    C
+Take a rest, as a friend
+A                    C
+As an old memoria
+
+
+[Chorus]
+Em              D
+Memoria, memoria
+Em              D
+Memoria, memoria
+
+
+[Verse 2]
+Em                              D
+Come doused in mud, soaked in bleach
+Em                         D
+As I want you to be
+Em                              D
+As a trend, as a friend
+Em                      D
+As an old memoria
+
+
+[Pre-Chorus]
+A                    C
+Take your time, hurry up
+A                          C
+The choice is yours, don't be late
+A                    C
+Take a rest, as a friend
+A                    C
+As an old memoria
+
+
+[Chorus]
+Em              D
+Memoria, memoria
+Em              D
+Memoria, memoria
+
+
+[Bridge]
+G
+And I swear that I don't have a gun
+G
+No I don't have a gun
+G
+No I don't have a gun
+
+
+[Solo]
+(over verse chords)
+Em   D   Em   D
+
+
+[Chorus]
+Em              D
+Memoria, memoria
+Em              D
+Memoria, memoria
+
+
+[Outro]
+(Intro riff repeating)
+Em

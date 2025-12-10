@@ -1,0 +1,19 @@
+<!-- Jack Lee - jacklee@bu.edu -->
+<!-- favorite_confirm_delete.html - confirm removing favorite -->
+{% extends 'project/base.html' %}
+{% block title %}Remove Favorite - tabby{% endblock %}
+
+{% block content %}
+<h1>Remove Favorite</h1>
+
+<div class="card">
+    <p>Remove <strong>{{ object.tab.song.title }}</strong> from your favorites?</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="actions">
+            <button type="submit" class="btn btn-danger">Yes, Remove</button>
+            <a href="{% url 'project:favorite_list' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
