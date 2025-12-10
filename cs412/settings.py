@@ -139,9 +139,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL= "media/"  # note: no leading slash!
 
 import socket
-CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
+CS_DEPLOYMENT_HOSTNAMES = ['cs-webapps.bu.edu', 'csa2.bu.edu', 'csa2']
 
-if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
+if socket.gethostname() in CS_DEPLOYMENT_HOSTNAMES:
     STATIC_URL = '/jacklee/static/'
     MEDIA_URL = '/jacklee/media/'
 
