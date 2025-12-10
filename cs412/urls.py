@@ -31,12 +31,14 @@ urlpatterns = [
     path('mini_insta/', include('mini_insta.urls')),
     path('voter_analytics/', include('voter_analytics.urls')),
     path('dadjokes/', include('dadjokes.urls')),
+    path('project/', include('project.urls')),
     # Also handle cs412/ prefix if Apache doesn't strip it
     path('cs412/quotes/', include('quotes.urls')),
     path('cs412/restaurant/', include('restaurant.urls')),
     path('cs412/mini_insta/', include('mini_insta.urls')),
     path('cs412/voter_analytics/', include('voter_analytics.urls')),
     path('cs412/dadjokes/', include('dadjokes.urls')),
+    path('cs412/project/', include('project.urls')),
 ]
 
 # serve media files during development only
